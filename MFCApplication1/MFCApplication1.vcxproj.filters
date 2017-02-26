@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="资源文件\login">
+      <UniqueIdentifier>{a3253aa7-520b-4e63-9672-ced3677d6058}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资源文件\FileType">
+      <UniqueIdentifier>{eee50fcd-a068-4f8f-b8a6-666aaeac18c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\hh">
+      <UniqueIdentifier>{009a58a3-e6a1-4493-980f-2e59a80f4bb7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MFCApplication1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MFCApplication1Dlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Main_Tab.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="mytab.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Laodpng.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="reg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="reg_info.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="do_ref.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="city.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlite.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FriendShared.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigSet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="datadefine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Main_UI.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FileDownLog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AllFiles.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MFCApplication1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MFCApplication1Dlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Main_Tab.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="mytab.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="reg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="reg_info.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="do_ref.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FriendShared.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigSet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Main_UI.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FileDownLog.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AllFiles.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MFCApplication1.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\MFCApplication1.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\MFCApplication1.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\baidu_logo.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\btn_delete_account.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\btn_reg.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\Combo_down.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\Combo_normal.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\icon_error_tip.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\img_btn_login.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\list_item_bg.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\login_banner.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\login_logo.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\login_morning.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\login_night.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\login_water.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\logincontent_bg.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\loginpanel_bg.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\logintitle_bg.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\logo_qq.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\logo_renren.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\logo_sinaweibo.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\passwd.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\person.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\toolbar_border_down.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\toolbar_border_hover.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\toolbar_border_normal.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\LoginDlg\verify_code.png">
+      <Filter>资源文件\login</Filter>
+    </Image>
+    <Image Include="res\FileType\ApkType.png">
+      <Filter>资源文件\FileType</Filter>
+    </Image>
+    <Image Include="res\FileType\Apps.png">
+      <Filter>资源文件\FileType</Filter>
+    </Image>
+    <Image Include="res\FileType\CADType.png">
+      <Filter>资源文件\FileType</Filter>
+    </Image>
+    <Image Include="res\FileType\DocType.png">
+      <Filter>资源文件\FileType</Filter>
+    </Image>
+    <Image Include="res\FileType\ExeType.png">
+      <Filter>资源文件\FileType</Filter>
+    </Image>
+    <Image Include="res\FileType\FolderType.png">
+      <Filter>资源文件\FileType</Filter>
+    </Image>
+    <Image Include="res\FileType\ImgType.png">
+      <Filter>资源文件\FileType</Filter>
+    </Image>
+    <Image Include="res\FileType\IpaType.png">
+      <Filter>资源文件\FileType</Filter>
+    </Image>
+    <Image Include="res\FileType\MixFileType.png">
+      <Filter>资源文件\FileType</Filter>
+    </Image>
+    <Image Include="res\FileType\MusicType.png">
+      <Filter>资源文件\FileType</Filter>
+    </Image>
+    <Image Include="res\FileType\OtherType.png">
+      <Filter>资源文件\FileType</Filter>
+    </Image>
+    <Image Include="res\FileType\PdfType.png">
+      <Filter>资源文件\FileType</Filter>
+    </Image>
+    <Image Include="res\FileType\PptType.png">
+      <Filter>资源文件\FileType</Filter>
+    </Image>
+    <Image Include="res\FileType\RarType.png">
+      <Filter>资源文件\FileType</Filter>
+    </Image>
+    <Image Include="res\FileType\TorrentType.png">
+      <Filter>资源文件\FileType</Filter>
+    </Image>
+    <Image Include="res\FileType\TxtType.png">
+      <Filter>资源文件\FileType</Filter>
+    </Image>
+    <Image Include="res\FileType\VideoType.png">
+      <Filter>资源文件\FileType</Filter>
+    </Image>
+    <Image Include="res\FileType\VsdType.png">
+      <Filter>资源文件\FileType</Filter>
+    </Image>
+    <Image Include="res\FileType\XlsType.png">
+      <Filter>资源文件\FileType</Filter>
+    </Image>
+    <Image Include="res\bitmap1.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\FileType\DocType.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
