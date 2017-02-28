@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\asiotest">
+      <UniqueIdentifier>{5f3a7b55-3046-4e3f-b52a-b70410d5ddd6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\sqlite-amalgamation-3170000\shell.c">
@@ -23,6 +26,9 @@
     </ClCompile>
     <ClCompile Include="源.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="asio_heartPort.cpp">
+      <Filter>头文件\asiotest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

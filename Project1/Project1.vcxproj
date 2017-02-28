@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\sqlite-amalgamation-3170000\shell.c" />
     <ClCompile Include="..\..\..\sqlite-amalgamation-3170000\sqlite3.c" />
+    <ClCompile Include="asio_heartPort.cpp" />
     <ClCompile Include="源.cpp" />
   </ItemGroup>
   <ItemGroup>
