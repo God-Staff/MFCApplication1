@@ -28,4 +28,11 @@ public:
 
 	afx_msg void OnNMRClickList7 (NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMRClickList8 (NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnAddFriends ();
+	afx_msg void OnDelFriend ();
+	afx_msg void OnShared2Friends ();
+	afx_msg void OnchangeMark ();
+	afx_msg void OnDelectSharedURL ();
+	afx_msg void OnSendUrl2Friends ();
+	afx_msg void OnAddSharedUrl ();
 };

@@ -117,6 +117,13 @@ BEGIN_MESSAGE_MAP(mytab, CDialog)
 	ON_BN_CLICKED (IDC_BUTTON1, &mytab::OnBnClickedButton1)
 	ON_NOTIFY (LVN_ITEMCHANGED, IDC_LIST2, &mytab::OnLvnItemchangedList2)
 	ON_NOTIFY (NM_RCLICK, IDC_LIST2, &mytab::OnNMRClickList2)
+	ON_COMMAND (ID_32799, &mytab::OnAllFliesStartDownload)
+	ON_COMMAND (ID_32800, &mytab::OnAllFilesDowning2Pause)
+	ON_COMMAND (ID_32801, &mytab::OnRemoveAllDowningFlies)
+	ON_COMMAND (ID_32802, &mytab::OnStartChosedFiles2Downing)
+	ON_COMMAND (ID_32803, &mytab::OnPusedChosedFilesDowning)
+	ON_COMMAND (ID_32804, &mytab::OnDelectChosedFilesFromList)
+	ON_COMMAND (ID_32805, &mytab::OnChangePriority4Files)
 END_MESSAGE_MAP()
 
 
@@ -179,4 +186,47 @@ void mytab::OnNMRClickList2 (NMHDR *pNMHDR, LRESULT *pResult)
 
 
 	*pResult = 0;
+}
+
+
+//下载list的右键响应事件
+void mytab::OnAllFliesStartDownload ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void mytab::OnAllFilesDowning2Pause ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void mytab::OnRemoveAllDowningFlies ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void mytab::OnStartChosedFiles2Downing ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void mytab::OnPusedChosedFilesDowning ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void mytab::OnDelectChosedFilesFromList ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void mytab::OnChangePriority4Files ()
+{
+	// TODO: 在此添加命令处理程序代码
 }

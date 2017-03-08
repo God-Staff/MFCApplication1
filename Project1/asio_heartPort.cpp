@@ -10,7 +10,7 @@
 using namespace boost;
 using namespace boost::asio;
 
-int main ()
+int main1 ()
 {
 
 

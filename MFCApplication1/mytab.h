@@ -28,4 +28,11 @@ public:
 	afx_msg void OnBnClickedButton1 ();
 	afx_msg void OnLvnItemchangedList2 (NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMRClickList2 (NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnAllFliesStartDownload ();
+	afx_msg void OnAllFilesDowning2Pause ();
+	afx_msg void OnRemoveAllDowningFlies ();
+	afx_msg void OnStartChosedFiles2Downing ();
+	afx_msg void OnPusedChosedFilesDowning ();
+	afx_msg void OnDelectChosedFilesFromList ();
+	afx_msg void OnChangePriority4Files ();
 };

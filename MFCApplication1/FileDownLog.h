@@ -27,4 +27,8 @@ public:
 	afx_msg void OnLvnItemchangedList2 (NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnLvnItemchangedList9 (NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMRClickList9 (NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnClearDownloadLogList ();
+	afx_msg void OnRetryDownloadFiles ();
+	afx_msg void OnDelectChosedFileslog ();
+	afx_msg void OnDelectChosedFiles ();
 };

@@ -31,6 +31,10 @@ BEGIN_MESSAGE_MAP(FileDownLog, CDialogEx)
 	ON_NOTIFY (LVN_ITEMCHANGED, IDC_LIST2, &FileDownLog::OnLvnItemchangedList2)
 	ON_NOTIFY (LVN_ITEMCHANGED, IDC_LIST9, &FileDownLog::OnLvnItemchangedList9)
 	ON_NOTIFY (NM_RCLICK, IDC_LIST9, &FileDownLog::OnNMRClickList9)
+	ON_COMMAND (ID_32795, &FileDownLog::OnClearDownloadLogList)
+	ON_COMMAND (ID_32796, &FileDownLog::OnRetryDownloadFiles)
+	ON_COMMAND (ID_32797, &FileDownLog::OnDelectChosedFileslog)
+	ON_COMMAND (ID_32798, &FileDownLog::OnDelectChosedFiles)
 END_MESSAGE_MAP()
 
 
@@ -138,4 +142,29 @@ void FileDownLog::OnNMRClickList9 (NMHDR *pNMHDR, LRESULT *pResult)
 	pSubMenu->TrackPopupMenu (TPM_LEFTALIGN, oPoint.x, oPoint.y, this);
 
 	*pResult = 0;
+}
+
+
+//下载记录的右键响应事件
+void FileDownLog::OnClearDownloadLogList ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void FileDownLog::OnRetryDownloadFiles ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void FileDownLog::OnDelectChosedFileslog ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void FileDownLog::OnDelectChosedFiles ()
+{
+	// TODO: 在此添加命令处理程序代码
 }

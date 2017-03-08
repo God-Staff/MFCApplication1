@@ -25,4 +25,7 @@ protected:
 public:
 	afx_msg void OnBnClickedButton1 ();
 	afx_msg void OnNMRClickList6 (NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnAddFilesPath ();
+	afx_msg void OnDelectFilesPath ();
+	afx_msg void OnUpdateFilePathList ();
 };

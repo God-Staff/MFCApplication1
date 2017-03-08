@@ -110,6 +110,13 @@ BEGIN_MESSAGE_MAP(FriendShared, CDialogEx)
 	//ON_NOTIFY (LVN_ITEMCHANGED, IDC_LIST8, &FriendShared::OnLvnItemchangedList8)
 	ON_NOTIFY (NM_RCLICK, IDC_LIST8, &FriendShared::OnNMRClickList8)
 	ON_NOTIFY (NM_RCLICK, IDC_LIST7, &FriendShared::OnNMRClickList7)
+	ON_COMMAND (ID_32779, &FriendShared::OnAddFriends)
+	ON_COMMAND (ID_32780, &FriendShared::OnDelFriend)
+	ON_COMMAND (ID_32781, &FriendShared::OnShared2Friends)
+	ON_COMMAND (ID_32782, &FriendShared::OnchangeMark)
+	ON_COMMAND (ID_32792, &FriendShared::OnDelectSharedURL)
+	ON_COMMAND (ID_32793, &FriendShared::OnSendUrl2Friends)
+	ON_COMMAND (ID_32794, &FriendShared::OnAddSharedUrl)
 END_MESSAGE_MAP()
 
 
@@ -196,3 +203,47 @@ void FriendShared::OnNMRClickList7 (NMHDR *pNMHDR, LRESULT *pResult)
 }
 
 
+
+//添加好友响应事件
+void FriendShared::OnAddFriends ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void FriendShared::OnDelFriend ()
+{
+	// TODO: 在此添加命令处理程序代码
+	MessageBox (L"Delect Friends");
+}
+
+
+void FriendShared::OnShared2Friends ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void FriendShared::OnchangeMark ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+//Shared Url Manged
+void FriendShared::OnDelectSharedURL ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void FriendShared::OnSendUrl2Friends ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void FriendShared::OnAddSharedUrl ()
+{
+	// TODO: 在此添加命令处理程序代码
+}

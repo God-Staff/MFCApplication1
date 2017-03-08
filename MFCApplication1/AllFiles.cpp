@@ -75,6 +75,15 @@ BEGIN_MESSAGE_MAP(AllFiles, CDialogEx)
 	//ON_NOTIFY (LVN_ITEMCHANGED, IDC_LIST4, &AllFiles::OnLvnItemchangedList4)
 	//ON_NOTIFY (LVN_ITEMCHANGED, IDC_LIST5, &AllFiles::OnLvnItemchangedList5)
 	ON_NOTIFY (NM_RCLICK, IDC_LIST5, &AllFiles::OnNMRClickList5)
+	ON_COMMAND (ID_32783, &AllFiles::OnCreateUrl2Shared)
+	ON_COMMAND (ID_32784, &AllFiles::OnDelectChosedFiles)
+	ON_COMMAND (ID_32785, &AllFiles::OnMoveChosedFiles)
+	ON_COMMAND (ID_32786, &AllFiles::OnPasteFile2HerePath)
+	ON_COMMAND (ID_32787, &AllFiles::OnDownloadFiles)
+	ON_COMMAND (ID_32788, &AllFiles::OnCheckFilesProperty)
+	ON_COMMAND (ID_32789, &AllFiles::OnCopyFiles)
+	ON_COMMAND (ID_32790, &AllFiles::OnUploadFiles2CurrentPath)
+	ON_COMMAND (ID_32791, &AllFiles::OnCreateFolder2CurrentPath)
 END_MESSAGE_MAP()
 
 
@@ -147,4 +156,59 @@ void AllFiles::OnNMRClickList5 (NMHDR *pNMHDR, LRESULT *pResult)
 
 
 	*pResult = 0;
+}
+
+
+//文件列表的右键响应事件
+void AllFiles::OnCreateUrl2Shared ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void AllFiles::OnDelectChosedFiles ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void AllFiles::OnMoveChosedFiles ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void AllFiles::OnPasteFile2HerePath ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void AllFiles::OnDownloadFiles ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void AllFiles::OnCheckFilesProperty ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void AllFiles::OnCopyFiles ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void AllFiles::OnUploadFiles2CurrentPath ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void AllFiles::OnCreateFolder2CurrentPath ()
+{
+	// TODO: 在此添加命令处理程序代码
 }

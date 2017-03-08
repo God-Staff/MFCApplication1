@@ -72,6 +72,9 @@ void ConfigSet::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(ConfigSet, CDialogEx)
 	ON_BN_CLICKED (IDC_BUTTON1, &ConfigSet::OnBnClickedButton1)
 	ON_NOTIFY (NM_RCLICK, IDC_LIST6, &ConfigSet::OnNMRClickList6)
+	ON_COMMAND (ID_32806, &ConfigSet::OnAddFilesPath)
+	ON_COMMAND (ID_32807, &ConfigSet::OnDelectFilesPath)
+	ON_COMMAND (ID_32808, &ConfigSet::OnUpdateFilePathList)
 END_MESSAGE_MAP()
 
 
@@ -209,4 +212,23 @@ void ConfigSet::OnNMRClickList6 (NMHDR *pNMHDR, LRESULT *pResult)
 	pSubMenu->TrackPopupMenu (TPM_LEFTALIGN, oPoint.x, oPoint.y, this);
 
 	*pResult = 0;
+}
+
+
+//Config 右键响应事件
+void ConfigSet::OnAddFilesPath ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void ConfigSet::OnDelectFilesPath ()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void ConfigSet::OnUpdateFilePathList ()
+{
+	// TODO: 在此添加命令处理程序代码
 }

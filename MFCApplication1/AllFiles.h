@@ -26,4 +26,13 @@ public:
 	afx_msg void OnLvnItemchangedList4 (NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnLvnItemchangedList5 (NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMRClickList5 (NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnCreateUrl2Shared ();
+	afx_msg void OnDelectChosedFiles ();
+	afx_msg void OnMoveChosedFiles ();
+	afx_msg void OnPasteFile2HerePath ();
+	afx_msg void OnDownloadFiles ();
+	afx_msg void OnCheckFilesProperty ();
+	afx_msg void OnCopyFiles ();
+	afx_msg void OnUploadFiles2CurrentPath ();
+	afx_msg void OnCreateFolder2CurrentPath ();
 };
