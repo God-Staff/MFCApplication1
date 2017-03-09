@@ -84,6 +84,9 @@
     <ClInclude Include="AllFiles.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="addFriends.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MFCApplication1.cpp">
@@ -123,6 +126,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="AllFiles.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="addFriends.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

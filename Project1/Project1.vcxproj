@@ -80,8 +80,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>G:\WorkSpace\Projects\MFCApplication1\Project1\sqlite3\x86;$(LibraryPath)</LibraryPath>
-    <IncludePath>G:\WorkSpace\Projects\MFCApplication1\Project1\sqlite3;$(IncludePath)</IncludePath>
+    <LibraryPath>F:\WorkSpace\MFCApplication1\MFCApplication1\sqlite3\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>F:\WorkSpace\MFCApplication1\MFCApplication1\sqlite3;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

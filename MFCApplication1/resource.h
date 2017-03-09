@@ -22,6 +22,7 @@
 #define IDB_BITMAP1                     137
 #define IDI_ICON1                       138
 #define IDR_MENU1                       142
+#define IDD_DIALOG1                     143
 #define IDB_BG_083                      283
 #define IDB_BG_084                      284
 #define IDB_BG_085                      285
@@ -84,6 +85,7 @@
 #define IDC_DATETIMEPICKER1             1021
 #define IDC_BUTTON3                     1021
 #define IDC_STATIC_PIC                  1022
+#define IDC_BUTTON4                     1022
 #define IDC_STATIC_LOGIN                1023
 #define IDC_LIST2                       1026
 #define IDC_LIST3                       1027
@@ -111,6 +113,8 @@
 #define IDC_LIST9                       1049
 #define IDC_LIST7                       1050
 #define IDC_LIST6                       1051
+#define IDC_EDIT1                       1052
+#define IDC_EDIT2                       1053
 #define ID_32775                        32775
 #define ID_32776                        32776
 #define ID_32777                        32777
@@ -150,9 +154,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        143
+#define _APS_NEXT_RESOURCE_VALUE        146
 #define _APS_NEXT_COMMAND_VALUE         32809
-#define _APS_NEXT_CONTROL_VALUE         1052
+#define _APS_NEXT_CONTROL_VALUE         1053
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

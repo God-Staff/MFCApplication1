@@ -24,6 +24,17 @@ BOOL ConfigSet::OnInitDialog ()
 {
 	CDialogEx::OnInitDialog ();
 
+	////
+	downpath	= (CEdit*)GetDlgItem (IDC_EDIT41);
+	downpath->SetReadOnly (TRUE);
+	downSpeed	= (CEdit*)GetDlgItem (IDC_EDIT42);
+	UploadSpeed = (CEdit*)GetDlgItem (IDC_EDIT43);
+	OldPS		= (CEdit*)GetDlgItem (IDC_EDIT44);
+	NewPS		= (CEdit*)GetDlgItem (IDC_EDIT46);
+	PhoneCode	= (CEdit*)GetDlgItem (IDC_EDIT45);
+	box1		= (CComboBox*)GetDlgItem (IDC_COMBO1);
+	box2		= (CComboBox*)GetDlgItem (IDC_COMBO2);
+
 	///////////////////////////////////
 	m_ListControl = (CListCtrl*)GetDlgItem (IDC_LIST6);
 	DWORD dwStyle2 = GetWindowLong (m_ListControl->m_hWnd, GWL_STYLE);
@@ -34,31 +45,32 @@ BOOL ConfigSet::OnInitDialog ()
 	m_ListControl->SetExtendedStyle (styles2 | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 
 	//给listctrl设置5个标题栏
-	TCHAR rgtsz2[5][10] = { _T ("好友昵称"),_T ("S") ,_T ("S3") ,_T ("S4") ,_T ("S5") };
+	TCHAR rgtsz2[8] = { _T ("备份目录") };
 
 	//修改数组大小，可以确定分栏数和没栏长度，如果修改下面的数据（蓝色部分）也要跟着改变
 
 	LV_COLUMN lvcolumn2;
 	CRect rect2;
 	m_ListControl->GetWindowRect (&rect2);
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		lvcolumn2.mask = LVCF_FMT | LVCF_SUBITEM | LVCF_TEXT
 			| LVCF_WIDTH | LVCF_ORDER;
 		lvcolumn2.fmt = LVCFMT_LEFT;
-		lvcolumn2.pszText = rgtsz2[i];
+		lvcolumn2.pszText = rgtsz2;
 		lvcolumn2.iSubItem = i;
 		lvcolumn2.iOrder = i;
-		lvcolumn2.cx = rect2.Width () / 5;
+		lvcolumn2.cx = rect2.Width ();
 		m_ListControl->InsertColumn (i, &lvcolumn2);
 	}
 
-	m_ListControl->InsertItem (0, L"qq");
-	m_ListControl->SetItemText (0, 1, L"mima");
+	//获取配置文件，填充数据
+
+
+	/*m_ListControl->InsertItem (0, L"qq");
 	m_ListControl->InsertItem (1, L"qq");
-	m_ListControl->SetItemText (1, 1, L"mima");
-	m_ListControl->InsertItem (2, L"qq");
-	m_ListControl->SetItemText (2, 1, L"mima");
+	m_ListControl->InsertItem (2, L"qq");*/
+	m_ListControl->InsertItem (0 ,L"mima");
 
 	return TRUE;
 }
@@ -75,6 +87,11 @@ BEGIN_MESSAGE_MAP(ConfigSet, CDialogEx)
 	ON_COMMAND (ID_32806, &ConfigSet::OnAddFilesPath)
 	ON_COMMAND (ID_32807, &ConfigSet::OnDelectFilesPath)
 	ON_COMMAND (ID_32808, &ConfigSet::OnUpdateFilePathList)
+	ON_CBN_SELCHANGE (IDC_COMBO1, &ConfigSet::OnCbnSelchangeCombo1)
+	ON_CBN_SELCHANGE (IDC_COMBO2, &ConfigSet::OnCbnSelchangeCombo2)
+	ON_BN_CLICKED (IDC_BUTTON2, &ConfigSet::OnBnClickedButton2)
+	ON_BN_CLICKED (IDC_BUTTON3, &ConfigSet::OnBnClickedButton3)
+	ON_BN_CLICKED (IDC_BUTTON4, &ConfigSet::OnBnClickedButton4)
 END_MESSAGE_MAP()
 
 
@@ -96,11 +113,11 @@ void ConfigSet::OnBnClickedButton1 ()
 
 	POSITION		w_pos = NULL;
 
-	CFileDialog     selDlg (TRUE, NULL, NULL,	//http://q.hatena.ne.jp/1173014326 ショートカットファイルのリンクを辿らない　OFN_NODEREFERENCELINKS
+	CFileDialog     selDlg (TRUE, NULL, NULL,	//不按快捷方式文件的链接 OFN_NODEREFERENCELINKS
 		OFN_HIDEREADONLY | OFN_ALLOWMULTISELECT | OFN_NODEREFERENCELINKS, filter);//OFN_NODEREFERENCELINKS 追加
 	int             err = 0, lbErr = 0;
 
-	// ファイル名リスト用メモリ確保
+	// 内存保留给文件名列表
 	if (!err)
 	{
 		try
@@ -119,15 +136,12 @@ void ConfigSet::OnBnClickedButton1 ()
 	if (!err) if ((pos = selDlg.GetStartPosition ()) == NULL) err = 1;
 	if (!err)
 	{
-
 		while (pos)
 		{
 			filePath = selDlg.GetNextPathName (pos);
 			if (!err)
 			{
 				ULONGLONG tempCnt;
-
-
 			}
 			//if (err) break;
 		}
@@ -146,7 +160,6 @@ void ConfigSet::OnBnClickedButton1 ()
 			if (!err)
 			{
 				//lbErr = CFileListCreatorDlg::importFileList_Func(filePath);
-
 				MessageBox (filePath);
 				int tempINT=0;
 				//tempINT = CFileListCreatorDlg::importFileList_Func (filePath, FALSE);
@@ -154,7 +167,6 @@ void ConfigSet::OnBnClickedButton1 ()
 					//err = 1;
 					ReadErrorFLG = TRUE;
 				}
-
 			}
 			//if (err) break;
 		}
@@ -167,7 +179,6 @@ void ConfigSet::OnBnClickedButton1 ()
 
 	strBuf.ReleaseBuffer ();
 	DrawMenuBar ();
-
 
 	return;
 }
@@ -219,16 +230,135 @@ void ConfigSet::OnNMRClickList6 (NMHDR *pNMHDR, LRESULT *pResult)
 void ConfigSet::OnAddFilesPath ()
 {
 	// TODO: 在此添加命令处理程序代码
+	
+	//获取列表的行数，便于在尾部添加新增路径
+	int i = m_ListControl->GetWindowedChildCount ();
+
+	////获取文件夹路径
+	TCHAR           szFolderPath[MAX_PATH] = { 0 };
+	CString         strFolderPath = TEXT ("");
+
+	BROWSEINFO      sInfo;
+	::ZeroMemory (&sInfo, sizeof (BROWSEINFO));
+	sInfo.pidlRoot = 0;
+	sInfo.lpszTitle = _T ("请选择一个文件夹：");
+	sInfo.ulFlags = BIF_DONTGOBELOWDOMAIN | BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE | BIF_EDITBOX;
+	sInfo.lpfn = NULL;
+
+	// 显示文件夹选择对话框  
+	LPITEMIDLIST lpidlBrowse = ::SHBrowseForFolder (&sInfo);
+	if (lpidlBrowse != NULL)
+	{
+		// 取得文件夹名  
+		if (::SHGetPathFromIDList (lpidlBrowse, szFolderPath))
+		{
+			strFolderPath = szFolderPath;
+		}
+	}
+	if (lpidlBrowse != NULL)
+	{
+		::CoTaskMemFree (lpidlBrowse);
+	}
+	///////
+
+	m_ListControl->InsertItem (i, strFolderPath);
+	//MessageBox (strFolderPath);
+
+	//将文件路径写入到配置文件
+	//TODO:
 }
 
 
 void ConfigSet::OnDelectFilesPath ()
 {
-	// TODO: 在此添加命令处理程序代码
+	//删除选中的Path
+
+	POSITION pos = m_ListControl->GetFirstSelectedItemPosition ();
+	if (pos == NULL)
+		TRACE0 ("No items were selected!\n");
+	else
+	{
+		while (pos)
+		{
+			int nItem = m_ListControl->GetNextSelectedItem (pos);
+			m_ListControl->DeleteItem (nItem);
+		}
+	}
+
+	//将文件路径写入到配置文件
+	//TODO:
 }
 
 
 void ConfigSet::OnUpdateFilePathList ()
 {
-	// TODO: 在此添加命令处理程序代码
+	// 更新AllFiles的文件列表或者是上传文件
+	
+}
+
+
+void ConfigSet::OnCbnSelchangeCombo1 ()
+{
+	//并行上传设置数量改变时执行变更,将变更数据保存到配置文件
+	box1->GetCurSel ();
+
+}
+
+
+void ConfigSet::OnCbnSelchangeCombo2 ()
+{
+	//并行下载设置数量改变时执行变更
+	box2->GetCurSel ();
+	
+}
+
+
+void ConfigSet::OnBnClickedButton2 ()
+{
+	//设置文件下载目录
+
+	////获取文件夹路径
+	TCHAR           szFolderPath[MAX_PATH] = { 0 };
+	CString         strFolderPath = TEXT ("");
+
+	BROWSEINFO      sInfo;
+	::ZeroMemory (&sInfo, sizeof (BROWSEINFO));
+	sInfo.pidlRoot = 0;
+	sInfo.lpszTitle = _T ("请选择一个文件夹：");
+	sInfo.ulFlags = BIF_DONTGOBELOWDOMAIN | BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE | BIF_EDITBOX;
+	sInfo.lpfn = NULL;
+
+	// 显示文件夹选择对话框  
+	LPITEMIDLIST lpidlBrowse = ::SHBrowseForFolder (&sInfo);
+	if (lpidlBrowse != NULL)
+	{
+		// 取得文件夹名  
+		if (::SHGetPathFromIDList (lpidlBrowse, szFolderPath))
+		{
+			strFolderPath = szFolderPath;
+		}
+	}
+	if (lpidlBrowse != NULL)
+	{
+		::CoTaskMemFree (lpidlBrowse);
+	}
+	
+	///////
+	downpath->SetReadOnly (FALSE);
+	downpath->SetWindowTextW (szFolderPath);
+	downpath->SetReadOnly (TRUE);
+}
+
+
+void ConfigSet::OnBnClickedButton3 ()
+{
+	// 更改密码时的响应事件
+
+}
+
+
+
+void ConfigSet::OnBnClickedButton4 ()
+{
+	// 获取手机的验证码
 }

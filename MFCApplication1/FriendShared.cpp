@@ -30,7 +30,7 @@ BOOL FriendShared::OnInitDialog ()
 	m_ListControl->SetExtendedStyle (styles | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 
 	//给listctrl设置5个标题栏
-	TCHAR rgtsz[2][10] = { _T ("好友昵称"),_T ("S") };
+	TCHAR rgtsz[2][10] = { _T ("好友"),_T ("备注") };
 
 	//修改数组大小，可以确定分栏数和没栏长度，如果修改下面的数据（蓝色部分）也要跟着改变
 	LV_COLUMN lvcolumn;
@@ -49,12 +49,8 @@ BOOL FriendShared::OnInitDialog ()
 	}
 
 	//add data
-	m_ListControl->InsertItem (0, L"qq");
-	m_ListControl->SetItemText (0, 1, L"mima");
-	m_ListControl->InsertItem (1, L"qq");
-	m_ListControl->SetItemText (1, 1, L"mima");
-	m_ListControl->InsertItem (2, L"qq");
-	m_ListControl->SetItemText (2, 1, L"mima");
+	m_ListControl->InsertItem (0, L"卦卦");
+	m_ListControl->SetItemText (0, 1, L"邱万利");
 
 	///////////////////////////////////
 	//初始化列表2
@@ -67,7 +63,7 @@ BOOL FriendShared::OnInitDialog ()
 	m_ListContro2->SetExtendedStyle (styles2 | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 
 	//给listctrl设置5个标题栏
-	TCHAR rgtsz2[5][10] = { _T ("好友昵称"),_T ("S") ,_T ("S3") ,_T ("S4") ,_T ("S5") };
+	TCHAR rgtsz2[5][10] = { _T ("分享链接"),_T ("密码") ,_T ("分享时间") ,_T ("链接时长") ,_T ("权限") };
 
 	//修改数组大小，可以确定分栏数和没栏长度，如果修改下面的数据（蓝色部分）也要跟着改变
 
@@ -86,12 +82,11 @@ BOOL FriendShared::OnInitDialog ()
 		m_ListContro2->InsertColumn (i, &lvcolumn2);
 	}
 
-	m_ListContro2->InsertItem (0, L"qq");
-	m_ListContro2->SetItemText (0, 1, L"mima");
-	m_ListContro2->InsertItem (1, L"qq");
-	m_ListContro2->SetItemText (1, 1, L"mima");
-	m_ListContro2->InsertItem (2, L"qq");
-	m_ListContro2->SetItemText (2, 1, L"mima");
+	m_ListContro2->InsertItem (0, L"https://isharedyou.club/ABCUD234");
+	m_ListContro2->SetItemText (0, 1, L"567890");
+	m_ListContro2->SetItemText (0, 2, L"2017-03-12");
+	m_ListContro2->SetItemText (0, 3, L"7*24");
+	m_ListContro2->SetItemText (0, 4, L"所有人");
 
 	return TRUE;
 }
@@ -104,10 +99,6 @@ void FriendShared::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(FriendShared, CDialogEx)
-	//ON_NOTIFY (LVN_ITEMCHANGED, IDC_LIST1, &FriendShared::OnLvnItemchangedList1)
-	//ON_NOTIFY (NM_RCLICK, IDC_LIST1, &FriendShared::OnNMRClickList1)
-	//ON_NOTIFY (NM_RCLICK, IDC_LIST4, &FriendShared::OnNMRClickList4)
-	//ON_NOTIFY (LVN_ITEMCHANGED, IDC_LIST8, &FriendShared::OnLvnItemchangedList8)
 	ON_NOTIFY (NM_RCLICK, IDC_LIST8, &FriendShared::OnNMRClickList8)
 	ON_NOTIFY (NM_RCLICK, IDC_LIST7, &FriendShared::OnNMRClickList7)
 	ON_COMMAND (ID_32779, &FriendShared::OnAddFriends)
@@ -158,7 +149,7 @@ void FriendShared::OnNMRClickList8 (NMHDR *pNMHDR, LRESULT *pResult)
 	//在指定位置显示弹出菜单
 	pSubMenu->TrackPopupMenu (TPM_LEFTALIGN, oPoint.x, oPoint.y, this);
 
-	*pResult = 0;
+	//*pResult = 0;
 }
 
 void FriendShared::OnNMRClickList7 (NMHDR *pNMHDR, LRESULT *pResult)
@@ -199,7 +190,7 @@ void FriendShared::OnNMRClickList7 (NMHDR *pNMHDR, LRESULT *pResult)
 	//在指定位置显示弹出菜单
 	pSubMenu->TrackPopupMenu (TPM_LEFTALIGN, oPoint.x, oPoint.y, this);
 
-	*pResult = 0;
+	//*pResult = 0;
 }
 
 
@@ -208,42 +199,104 @@ void FriendShared::OnNMRClickList7 (NMHDR *pNMHDR, LRESULT *pResult)
 void FriendShared::OnAddFriends ()
 {
 	// TODO: 在此添加命令处理程序代码
+	//添加好友
+	//初始化控件
+	addFriends *addfilends = new addFriends ();
+	addfilends->Create (IDD_DIALOG1, this);
+	addfilends->ShowWindow (SW_SHOW);
+
 }
 
 
 void FriendShared::OnDelFriend ()
 {
 	// TODO: 在此添加命令处理程序代码
-	MessageBox (L"Delect Friends");
+	//获得选中的好友,并删除
+	POSITION pos = m_ListControl->GetFirstSelectedItemPosition ();
+	if (pos == NULL)
+		TRACE0 ("No items were selected!\n");
+	else
+	{
+		while (pos)
+		{
+			int nItem = m_ListControl->GetNextSelectedItem (pos);
+			m_ListContro2->DeleteItem (nItem);
+			//通知服务端，删除相应的文件列表
+			//TODO:
+		}
+	}
 }
 
 
 void FriendShared::OnShared2Friends ()
 {
 	// TODO: 在此添加命令处理程序代码
+
 }
 
 
 void FriendShared::OnchangeMark ()
 {
 	// TODO: 在此添加命令处理程序代码
+
 }
 
 
 //Shared Url Manged
 void FriendShared::OnDelectSharedURL ()
 {
-	// TODO: 在此添加命令处理程序代码
+	//获得选中的URL,并删除
+	POSITION pos = m_ListContro2->GetFirstSelectedItemPosition ();
+	if (pos == NULL)
+		TRACE0 ("No items were selected!\n");
+	else
+	{
+		while (pos)
+		{
+			int nItem = m_ListContro2->GetNextSelectedItem (pos);
+			m_ListContro2->DeleteItem (nItem);
+			//通知服务端，删除相应的文件列表
+			//TODO:
+		}
+	}
 }
 
 
 void FriendShared::OnSendUrl2Friends ()
 {
-	// TODO: 在此添加命令处理程序代码
+	//获得选中的URL分享给好友
+	POSITION pos = m_ListContro2->GetFirstSelectedItemPosition ();
+	if (pos == NULL)
+		TRACE0 ("No items were selected!\n");
+	else
+	{
+		while (pos)
+		{
+			int nItem = m_ListContro2->GetNextSelectedItem (pos);
+			//获取（X，Y）
+			//m_ListContro2->GetItemText (nItem, 0); 
+			MessageBox (m_ListContro2->GetItemText (nItem, 0));
+		}
+	}
+
 }
 
 
 void FriendShared::OnAddSharedUrl ()
 {
-	// TODO: 在此添加命令处理程序代码
+	//获得选中的URL分享给好友
+	POSITION pos = m_ListContro2->GetFirstSelectedItemPosition ();
+	if (pos == NULL)
+		TRACE0 ("No items were selected!\n");
+	else
+	{
+		while (pos)
+		{
+			int nItem = m_ListContro2->GetNextSelectedItem (pos);
+			//获取（X，Y）
+			//m_ListContro2->GetItemText (nItem, 0); 
+			MessageBox (m_ListContro2->GetItemText (nItem, 0));
+		}
+	}
+
 }

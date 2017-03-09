@@ -1,5 +1,6 @@
 #pragma once
 #include "datadefine.h"
+#include "addFriends.h"
 
 
 // FriendShared 对话框
@@ -20,6 +21,7 @@ public:
 protected:
 	CListCtrl*  m_ListControl;
 	CListCtrl*  m_ListContro2;
+
 	virtual BOOL FriendShared::OnInitDialog ();
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
