@@ -5,6 +5,8 @@
 #include "MFCApplication1.h"
 #include "ConfigSet.h"
 #include "afxdialogex.h"
+#include <fstream>
+
 
 // ConfigSet 对话框
 
@@ -65,7 +67,9 @@ BOOL ConfigSet::OnInitDialog ()
 	}
 
 	//获取配置文件，填充数据
-
+	//配置加载失败，退出
+	if (!configInit ())
+		return;
 
 	/*m_ListControl->InsertItem (0, L"qq");
 	m_ListControl->InsertItem (1, L"qq");
@@ -102,6 +106,23 @@ END_MESSAGE_MAP()
 //{
 //	// TODO: 在此添加控件通知处理程序代码
 //}
+
+BOOL	ConfigSet::configInit ()
+{
+	std::ifstream *conf;
+	conf->open ("config.ini");
+	if (!conf)
+	{	//打开失败
+		return FALSE;
+	} else {
+
+		config.GetCachedSize ();
+		config.ParseFromIstream (conf);
+
+		return TRUE;
+	}
+}
+
 
 void ConfigSet::OnBnClickedButton1 ()
 {

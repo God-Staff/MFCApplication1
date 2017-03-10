@@ -9,7 +9,7 @@
 #include "mytab.h"
 #include "reg.h"
 #include "FriendShared.h"
-
+#include "login_all.pb.h"
 
 
 #ifdef _DEBUG
@@ -136,6 +136,9 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	edit3->SetLimitText (6);
 	//edit3->SetWindowText (L"验证码");
 
+	qiuwanli::user Login_ip;
+	Login_ip.set_user_id ("1234567");
+	Login_ip.set_user_name ("xiaoqiang");
 		
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }

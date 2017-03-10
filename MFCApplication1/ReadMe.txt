@@ -68,3 +68,17 @@ MFCApplication1.manifest
 有关上述话题的更多信息，请参见 MSDN 文档中有关重新分发 Visual C++ 应用程序的部分。
 
 /////////////////////////////////////////////////////////////////////////////
+
+
+//config 用于保存配置文件 
+文件名：config.ini
+｛数据类型，数据Data，配置编号｝
+
+自动备份文件夹		1		path to String
+并行上传数量		2		int to String
+并行下载数量		3		int
+文件下载位置		4		path to string
+上传速度限制		5		int
+下载速度限制		6		int
+上传流量总计		7		int
+下载流量总计		8		int

@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Utility_Dll.cpp", "Utility_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dll_inc", "Dll_inc\Dll_inc.vcxproj", "{1F584500-D19F-4907-9B68-83995E01B4A3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project2", "Project2\Project2.vcxproj", "{8F61A590-EF99-4359-865D-962F79F751D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{1F584500-D19F-4907-9B68-83995E01B4A3}.Release|x64.Build.0 = Release|x64
 		{1F584500-D19F-4907-9B68-83995E01B4A3}.Release|x86.ActiveCfg = Release|Win32
 		{1F584500-D19F-4907-9B68-83995E01B4A3}.Release|x86.Build.0 = Release|Win32
+		{8F61A590-EF99-4359-865D-962F79F751D8}.Debug|x64.ActiveCfg = Debug|x64
+		{8F61A590-EF99-4359-865D-962F79F751D8}.Debug|x64.Build.0 = Debug|x64
+		{8F61A590-EF99-4359-865D-962F79F751D8}.Debug|x86.ActiveCfg = Debug|Win32
+		{8F61A590-EF99-4359-865D-962F79F751D8}.Debug|x86.Build.0 = Debug|Win32
+		{8F61A590-EF99-4359-865D-962F79F751D8}.Release|x64.ActiveCfg = Release|x64
+		{8F61A590-EF99-4359-865D-962F79F751D8}.Release|x64.Build.0 = Release|x64
+		{8F61A590-EF99-4359-865D-962F79F751D8}.Release|x86.ActiveCfg = Release|Win32
+		{8F61A590-EF99-4359-865D-962F79F751D8}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

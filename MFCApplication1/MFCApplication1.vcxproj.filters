@@ -19,6 +19,9 @@
     <Filter Include="资源文件\FileType">
       <UniqueIdentifier>{eee50fcd-a068-4f8f-b8a6-666aaeac18c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{c0abfdc5-a40e-4063-904a-a500e2b3726a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -84,6 +87,15 @@
     <ClInclude Include="addFriends.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="uuid.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="login_all.pb.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="config.pb.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MFCApplication1.cpp">
@@ -128,6 +140,12 @@
     <ClCompile Include="addFriends.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="login_all.pb.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="config.pb.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MFCApplication1.rc">
@@ -136,6 +154,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\MFCApplication1.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="config.proto">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>

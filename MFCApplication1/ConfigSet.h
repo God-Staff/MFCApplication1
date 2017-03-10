@@ -1,6 +1,6 @@
 #pragma once
 #include "datadefine.h"
-
+#include "config.pb.h"
 
 // ConfigSet ¶Ô»°¿ò
 
@@ -18,6 +18,9 @@ public:
 #endif
 
 protected:
+	qiuwanli::config config;
+	BOOL		configInit ();
+
 	CEdit		*downpath;
 	CEdit		*downSpeed;
 	CEdit		*UploadSpeed;
