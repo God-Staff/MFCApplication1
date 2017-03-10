@@ -1,9 +1,9 @@
 #include <iostream>
 #include <boost/filesystem.hpp>
-using namespace boost;
-
+#include "stdafx.h"
 #include "Utilitys/MD5.hpp"
 #include "datadefine.h"
+
 
 /**
 * 获得文件的绝对路径，保存为文本格式(ZH_CN编码待解决)
@@ -11,7 +11,7 @@ using namespace boost;
 * @param 	p 		文件路径
 * @param	file 	文件指针
 */
-void pathAll (filesystem::path p, filesystem::ofstream & file)
+void pathAll (boost::filesystem::path p, boost::filesystem::ofstream & file)
 {
 	//try 当访问到无法访问的目录时，跳过//
 	try
@@ -19,13 +19,13 @@ void pathAll (filesystem::path p, filesystem::ofstream & file)
 		if (exists (p))
 		{
 			if (is_regular_file (p))
-				std::cout << p << " size is " << filesystem::file_size (p) << '\n';
+				std::cout << p << " size is " << boost::filesystem::file_size (p) << '\n';
 
 			else if (is_directory (p))
 			{
 				std::cout << p << " is a directory containing:\n";
 
-				for (filesystem::directory_entry& x : filesystem::directory_iterator (p))
+				for (boost::filesystem::directory_entry& x : boost::filesystem::directory_iterator (p))
 				{
 					if (!is_regular_file (x))
 					{
@@ -48,14 +48,14 @@ void pathAll (filesystem::path p, filesystem::ofstream & file)
 			std::cout << p << " does not exist\n";
 	}
 
-	catch (const filesystem::filesystem_error& ex)
+	catch (const boost::filesystem::filesystem_error& ex)
 	{
 		std::cout << ex.what () << '\n';
 	}
 }
 
 //dir
-int main (int argc, char* argv[])
+int main1 (int argc, char* argv[])
 {
 	if (argc < 1)
 	{
@@ -63,19 +63,19 @@ int main (int argc, char* argv[])
 		return 1;
 	}
 
-	filesystem::path p (argv[1]);
+	boost::filesystem::path p (argv[1]);
 	try
 	{
 		if (exists (p))
 		{
 			if (is_regular_file (p))
-				std::cout << p << " size is " << filesystem::file_size (p) << '\n';
+				std::cout << p << " size is " << boost::filesystem::file_size (p) << '\n';
 
 			else if (is_directory (p))
 			{
 				std::cout << p << " is a directory containing:\n";
-				filesystem::path p (R"(d:\)");
-				filesystem::ofstream f ("www1.txt");
+				boost::filesystem::path p (R"(d:\)");
+				boost::filesystem::ofstream f ("www1.txt");
 				pathAll (p, f);
 			}
 			else
@@ -85,10 +85,11 @@ int main (int argc, char* argv[])
 			std::cout << p << " does not exist\n";
 	}
 
-	catch (const filesystem::filesystem_error& ex)
+	catch (const boost::filesystem::filesystem_error& ex)
 	{
 		std::cout << ex.what () << '\n';
 	}
 
 	return 0;
 }
+

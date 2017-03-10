@@ -40,7 +40,7 @@ enum class filetype
 };
 
 //´æ´¢ÁÙÊ±µÄMD5Öµ
-char buffer[128];
+//char buffer[128];
 
 
 #endif // !_DATADEFINE_H_

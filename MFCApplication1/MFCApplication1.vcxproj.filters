@@ -19,12 +19,6 @@
     <Filter Include="资源文件\FileType">
       <UniqueIdentifier>{eee50fcd-a068-4f8f-b8a6-666aaeac18c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\hh">
-      <UniqueIdentifier>{009a58a3-e6a1-4493-980f-2e59a80f4bb7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="头文件\Utilitys">
-      <UniqueIdentifier>{e92c21a3-bb87-4c49-b718-fdbdcf6a8124}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -90,9 +84,6 @@
     <ClInclude Include="addFriends.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Utilitys\MD5.hpp">
-      <Filter>头文件\Utilitys</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MFCApplication1.cpp">
@@ -137,12 +128,6 @@
     <ClCompile Include="addFriends.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Utility.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilitys\MD5.cpp">
-      <Filter>头文件\Utilitys</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MFCApplication1.rc">
@@ -153,8 +138,6 @@
     <None Include="res\MFCApplication1.rc2">
       <Filter>资源文件</Filter>
     </None>
-    <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\MFCApplication1.ico">

@@ -5,6 +5,8 @@
 #pragma once
 #include "Main_UI.h"
 #include "datadefine.h"
+//#include "Utilitys/login_all.pb.h"
+//#include "Utilitys/uuidxx.h"
 
 
 // CMFCApplication1Dlg 对话框
@@ -29,6 +31,10 @@ protected:
 	CEdit* edit1;
 	CEdit* edit2;
 	CEdit* edit3;
+
+	//用户登录信息类，创建个实例
+	//qiuwanli::user	*user;
+
 	// 生成的消息映射函数
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
@@ -36,6 +42,7 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
+	std::string getUuid ();
 	afx_msg void OnBnClickedOk ();
 	afx_msg void OnBnClickedCancel ();
 	afx_msg void OnKillfocusEdit1 ();

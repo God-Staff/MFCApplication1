@@ -11,6 +11,7 @@
 #include "FriendShared.h"
 
 
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -87,7 +88,7 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	// IDM_ABOUTBOX 必须在系统命令范围内。
 	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
 	ASSERT(IDM_ABOUTBOX < 0xF000);
-
+	getUuid ();
 	CMenu* pSysMenu = GetSystemMenu(FALSE);
 	if (pSysMenu != NULL)
 	{
@@ -187,6 +188,17 @@ HCURSOR CMFCApplication1Dlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
 }
+
+//Get PC UUID
+std::string CMFCApplication1Dlg::getUuid ()
+{
+	std::string uuidPC{};
+	/*uuidxx::uuid uu= uuidxx::uuid::Generate ();
+	uuidPC = uu.ToString (true).c_str ();
+	std::cout << "UUID:" << uuidPC << std::endl;*/
+	return uuidPC;
+}
+
 
 
 //用户登陆
