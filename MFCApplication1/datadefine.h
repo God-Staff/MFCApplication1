@@ -39,5 +39,8 @@ enum class filetype
 	mkv
 };
 
+//´æ´¢ÁÙÊ±µÄMD5Öµ
+char buffer[128];
+
 
 #endif // !_DATADEFINE_H_
