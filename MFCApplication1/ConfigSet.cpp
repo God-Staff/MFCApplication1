@@ -31,9 +31,6 @@ BOOL ConfigSet::OnInitDialog ()
 	downpath->SetReadOnly (TRUE);
 	downSpeed	= (CEdit*)GetDlgItem (IDC_EDIT42);
 	UploadSpeed = (CEdit*)GetDlgItem (IDC_EDIT43);
-	OldPS		= (CEdit*)GetDlgItem (IDC_EDIT44);
-	NewPS		= (CEdit*)GetDlgItem (IDC_EDIT46);
-	PhoneCode	= (CEdit*)GetDlgItem (IDC_EDIT45);
 	box1		= (CComboBox*)GetDlgItem (IDC_COMBO1);
 	box2		= (CComboBox*)GetDlgItem (IDC_COMBO2);
 
@@ -69,12 +66,13 @@ BOOL ConfigSet::OnInitDialog ()
 	//获取配置文件，填充数据
 	//配置加载失败，退出
 	if (!configInit ())
-		return;
+		return 0;
 
 	/*m_ListControl->InsertItem (0, L"qq");
 	m_ListControl->InsertItem (1, L"qq");
 	m_ListControl->InsertItem (2, L"qq");*/
 	m_ListControl->InsertItem (0 ,L"mima");
+
 
 	return TRUE;
 }
@@ -86,7 +84,7 @@ void ConfigSet::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(ConfigSet, CDialogEx)
-	ON_BN_CLICKED (IDC_BUTTON1, &ConfigSet::OnBnClickedButton1)
+	//ON_BN_CLICKED (IDC_BUTTON1, &ConfigSet::OnBnClickedButton1)
 	ON_NOTIFY (NM_RCLICK, IDC_LIST6, &ConfigSet::OnNMRClickList6)
 	ON_COMMAND (ID_32806, &ConfigSet::OnAddFilesPath)
 	ON_COMMAND (ID_32807, &ConfigSet::OnDelectFilesPath)
@@ -94,8 +92,8 @@ BEGIN_MESSAGE_MAP(ConfigSet, CDialogEx)
 	ON_CBN_SELCHANGE (IDC_COMBO1, &ConfigSet::OnCbnSelchangeCombo1)
 	ON_CBN_SELCHANGE (IDC_COMBO2, &ConfigSet::OnCbnSelchangeCombo2)
 	ON_BN_CLICKED (IDC_BUTTON2, &ConfigSet::OnBnClickedButton2)
-	ON_BN_CLICKED (IDC_BUTTON3, &ConfigSet::OnBnClickedButton3)
-	ON_BN_CLICKED (IDC_BUTTON4, &ConfigSet::OnBnClickedButton4)
+	//ON_BN_CLICKED (IDC_BUTTON3, &ConfigSet::OnBnClickedButton3)
+	//ON_BN_CLICKED (IDC_BUTTON4, &ConfigSet::OnBnClickedButton4)
 END_MESSAGE_MAP()
 
 
@@ -103,38 +101,36 @@ END_MESSAGE_MAP()
 
 BOOL	ConfigSet::configInit ()
 {
-	std::ifstream *conf;
+	std::ifstream *conf=nullptr;
 	conf->open ("config.ini");
 	if (!conf)
 	{	//打开失败
 		return FALSE;
 	} else {
-		//遍历文件，解析配置文件
+		//解析配置文件
 		for (int i = 0; i < configFile->config_size(); i++)
 		{
 			const qiuwanli::Config& config = configFile->config (i);
+
 			switch ( config.type())
 			{
-			case qiuwanli::Config_Type_FilePath :
-
+			case qiuwanli::Config_Type_FilePath: 
+			{
+				int j = m_ListControl->GetWindowedChildCount ();
+				m_ListControl->InsertItem (j, qiuwanli::StringToWstring (config.value ()).c_str ());
+			}
 				break;
 			case qiuwanli::Config_Type_ThreadNumUp:
-				
+				box1->SetCurSel (atoi (config.value ().c_str ()));
 				break;
 			case qiuwanli::Config_Type_ThreadNumDown:
-				
+				box2->SetCurSel (atoi (config.value ().c_str ()));
 				break;
 			case qiuwanli::Config_Type_FileUpSpeed:
 				UploadSpeed->SetWindowText (qiuwanli::StringToWstring (config.value ()).c_str ());
 				break;
 			case qiuwanli::Config_Type_FileDownSpeed:
 				downSpeed->SetWindowText (qiuwanli::StringToWstring (config.value ()).c_str ());
-				break;
-			case qiuwanli::Config_Type_UPSIZE:
-
-				break;
-			case qiuwanli::Config_Type_DOWNSIZE:
-			
 				break;
 			case qiuwanli::Config_Type_DownFilePath:
 				downpath->SetReadOnly (FALSE);
@@ -152,85 +148,10 @@ BOOL	ConfigSet::configInit ()
 }
 
 
-
-void ConfigSet::OnBnClickedButton1 ()
+BOOL	ConfigSet::updateConfig ()
 {
 
-	//if (AutoSaveFLG == FALSE ) 
-	CString filter ("List Files|*.htm; *.html; *.cpp; *.hpp||");
-	CString         filePath, strBuf;
-	POSITION        pos = NULL;
-
-	POSITION		w_pos = NULL;
-
-	CFileDialog     selDlg (TRUE, NULL, NULL,	//不按快捷方式文件的链接 OFN_NODEREFERENCELINKS
-		OFN_HIDEREADONLY | OFN_ALLOWMULTISELECT | OFN_NODEREFERENCELINKS, filter);//OFN_NODEREFERENCELINKS 追加
-	int             err = 0, lbErr = 0;
-
-	// 内存保留给文件名列表
-	if (!err)
-	{
-		try
-		{
-			selDlg.GetOFN ().lpstrFile = strBuf.GetBuffer (MAX_PATH * 100);
-			selDlg.GetOFN ().nMaxFile = MAX_PATH * 100;
-		}
-		catch (...) { err = 1; }
-	}
-	if (!err) if (selDlg.DoModal () != IDOK) err = 1;
-
-	if (selDlg.GetStartPosition () != NULL) {
-		w_pos = selDlg.GetStartPosition ();
-	}
-
-	if (!err) if ((pos = selDlg.GetStartPosition ()) == NULL) err = 1;
-	if (!err)
-	{
-		while (pos)
-		{
-			filePath = selDlg.GetNextPathName (pos);
-			if (!err)
-			{
-				ULONGLONG tempCnt;
-			}
-			//if (err) break;
-		}
-		UpdateData (FALSE);
-	}
-
-	BOOL ReadErrorFLG = FALSE;
-
-	if (!err) if ((pos = w_pos) == NULL) err = 1;
-	if (!err)
-	{
-
-		while (pos)
-		{
-			filePath = selDlg.GetNextPathName (pos);
-			if (!err)
-			{
-				//lbErr = CFileListCreatorDlg::importFileList_Func(filePath);
-				MessageBox (filePath);
-				int tempINT=0;
-				//tempINT = CFileListCreatorDlg::importFileList_Func (filePath, FALSE);
-				if (tempINT == 0) {
-					//err = 1;
-					ReadErrorFLG = TRUE;
-				}
-			}
-			//if (err) break;
-		}
-		UpdateData (FALSE);
-	}
-	//strBuf.ReleaseBuffer();//コメントアウト//2011.05.31
-
-	//CFileListCreatorDlg::StrToTagSign();
-	//CFileListCreatorDlg::SetStrFormat_Func(); //Funcの中で
-
-	strBuf.ReleaseBuffer ();
-	DrawMenuBar ();
-
-	return;
+	return TRUE;
 }
 
 void ConfigSet::OnNMRClickList6 (NMHDR *pNMHDR, LRESULT *pResult)
@@ -400,15 +321,81 @@ void ConfigSet::OnBnClickedButton2 ()
 }
 
 
-void ConfigSet::OnBnClickedButton3 ()
-{
-	// 更改密码时的响应事件
-
-}
-
-
-
-void ConfigSet::OnBnClickedButton4 ()
-{
-	// 获取手机的验证码
-}
+//void ConfigSet::OnBnClickedButton1 ()
+//{
+//	//if (AutoSaveFLG == FALSE ) 
+//	CString filter ("List Files|*.htm; *.html; *.cpp; *.hpp||");
+//	CString         filePath, strBuf;
+//	POSITION        pos = NULL;
+//
+//	POSITION		w_pos = NULL;
+//
+//	CFileDialog     selDlg (TRUE, NULL, NULL,	//不按快捷方式文件的链接 OFN_NODEREFERENCELINKS
+//		OFN_HIDEREADONLY | OFN_ALLOWMULTISELECT | OFN_NODEREFERENCELINKS, filter);//OFN_NODEREFERENCELINKS 追加
+//	int             err = 0, lbErr = 0;
+//
+//	// 内存保留给文件名列表
+//	if (!err)
+//	{
+//		try
+//		{
+//			selDlg.GetOFN ().lpstrFile = strBuf.GetBuffer (MAX_PATH * 100);
+//			selDlg.GetOFN ().nMaxFile = MAX_PATH * 100;
+//		}
+//		catch (...) { err = 1; }
+//	}
+//	if (!err) if (selDlg.DoModal () != IDOK) err = 1;
+//
+//	if (selDlg.GetStartPosition () != NULL) {
+//		w_pos = selDlg.GetStartPosition ();
+//	}
+//
+//	if (!err) if ((pos = selDlg.GetStartPosition ()) == NULL) err = 1;
+//	if (!err)
+//	{
+//		while (pos)
+//		{
+//			filePath = selDlg.GetNextPathName (pos);
+//			if (!err)
+//			{
+//				ULONGLONG tempCnt;
+//			}
+//			//if (err) break;
+//		}
+//		UpdateData (FALSE);
+//	}
+//
+//	BOOL ReadErrorFLG = FALSE;
+//
+//	if (!err) if ((pos = w_pos) == NULL) err = 1;
+//	if (!err)
+//	{
+//
+//		while (pos)
+//		{
+//			filePath = selDlg.GetNextPathName (pos);
+//			if (!err)
+//			{
+//				//lbErr = CFileListCreatorDlg::importFileList_Func(filePath);
+//				MessageBox (filePath);
+//				int tempINT=0;
+//				//tempINT = CFileListCreatorDlg::importFileList_Func (filePath, FALSE);
+//				if (tempINT == 0) {
+//					//err = 1;
+//					ReadErrorFLG = TRUE;
+//				}
+//			}
+//			//if (err) break;
+//		}
+//		UpdateData (FALSE);
+//	}
+//	//strBuf.ReleaseBuffer();//コメントアウト//2011.05.31
+//
+//	//CFileListCreatorDlg::StrToTagSign();
+//	//CFileListCreatorDlg::SetStrFormat_Func(); //Funcの中で
+//
+//	strBuf.ReleaseBuffer ();
+//	DrawMenuBar ();
+//
+//	return;
+//}

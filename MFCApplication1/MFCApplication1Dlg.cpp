@@ -300,40 +300,40 @@ void CMFCApplication1Dlg::getUserAsio ()
 	// Read the existing address book.
 	std::fstream input ("config", std::ios::in | std::ios::binary);
 	if (!user_login->ParseFromIstream (&input)) {
-		cerr << "Failed to parse address book." << endl;
-		return -1;
+		//cerr << "Failed to parse address book." << endl;
+		//return -1;
 	}
 }
 
 void CMFCApplication1Dlg::ListPeople (const qiuwanli::user& user_file)
 {
-	for (int i = 0; i < user_file.size; i++)
-	{
-		const tutorial::Person& person = address_book.person (i);
+	//for (int i = 0; i < user_file.size; i++)
+	//{
+	//	const tutorial::Person& person = address_book.person (i);
 
-		cout << "Person ID: " << person.id () << endl;
-		cout << "  Name: " << person.name () << endl;
-		if (person.has_email ()) {
-			cout << "  E-mail address: " << person.email () << endl;
-		}
+	//	cout << "Person ID: " << person.id () << endl;
+	//	cout << "  Name: " << person.name () << endl;
+	//	if (person.has_email ()) {
+	//		cout << "  E-mail address: " << person.email () << endl;
+	//	}
 
-		for (int j = 0; j < person.phone_size (); j++) {
-			const tutorial::Person::PhoneNumber& phone_number = person.phones (j);
+	//	for (int j = 0; j < person.phone_size (); j++) {
+	//		const tutorial::Person::PhoneNumber& phone_number = person.phones (j);
 
-			switch (phone_number.type ()) {
-			case tutorial::Person::MOBILE:
-				cout << "  Mobile phone #: ";
-				break;
-			case tutorial::Person::HOME:
-				cout << "  Home phone #: ";
-				break;
-			case tutorial::Person::WORK:
-				cout << "  Work phone #: ";
-				break;
-			}
-			cout << phone_number.number () << endl;
-		}
-	}
+	//		switch (phone_number.type ()) {
+	//		case tutorial::Person::MOBILE:
+	//			cout << "  Mobile phone #: ";
+	//			break;
+	//		case tutorial::Person::HOME:
+	//			cout << "  Home phone #: ";
+	//			break;
+	//		case tutorial::Person::WORK:
+	//			cout << "  Work phone #: ";
+	//			break;
+	//		}
+	//		cout << phone_number.number () << endl;
+	//	}
+	//}
 }
 
 

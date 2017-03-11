@@ -19,17 +19,15 @@ public:
 
 protected:
 	qiuwanli::ConfigFile *configFile=nullptr;
-	BOOL		configInit ();
+	BOOL		configInit ();			//加载配置文件
+	BOOL		updateConfig ();		//更新配置文件
 
-	CEdit		*downpath;
-	CEdit		*downSpeed;
-	CEdit		*UploadSpeed;
-	CEdit		*OldPS;
-	CEdit		*NewPS;
-	CEdit		*PhoneCode;
-	CComboBox	*box1;
-	CComboBox	*box2;
-	CListCtrl	*m_ListControl;
+	CEdit		*downpath		= nullptr;
+	CEdit		*downSpeed		= nullptr;
+	CEdit		*UploadSpeed	= nullptr;
+	CComboBox	*box1			= nullptr;
+	CComboBox	*box2			= nullptr;
+	CListCtrl	*m_ListControl	= nullptr;
 
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 	virtual BOOL OnInitDialog ();
