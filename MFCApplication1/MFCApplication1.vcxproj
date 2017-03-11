@@ -212,6 +212,7 @@
     <ClInclude Include="sqlite.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="utility.hpp" />
     <ClInclude Include="uuid.hpp" />
   </ItemGroup>
   <ItemGroup>

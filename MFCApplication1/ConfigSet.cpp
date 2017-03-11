@@ -6,7 +6,7 @@
 #include "ConfigSet.h"
 #include "afxdialogex.h"
 #include <fstream>
-
+#include "utility.hpp"
 
 // ConfigSet 对话框
 
@@ -101,12 +101,6 @@ END_MESSAGE_MAP()
 
 // ConfigSet 消息处理程序
 
-//
-//void ConfigSet::OnBnClickedButton1 ()
-//{
-//	// TODO: 在此添加控件通知处理程序代码
-//}
-
 BOOL	ConfigSet::configInit ()
 {
 	std::ifstream *conf;
@@ -115,13 +109,48 @@ BOOL	ConfigSet::configInit ()
 	{	//打开失败
 		return FALSE;
 	} else {
+		//遍历文件，解析配置文件
+		for (int i = 0; i < configFile->config_size(); i++)
+		{
+			const qiuwanli::Config& config = configFile->config (i);
+			switch ( config.type())
+			{
+			case qiuwanli::Config_Type_FilePath :
 
-		config.GetCachedSize ();
-		config.ParseFromIstream (conf);
+				break;
+			case qiuwanli::Config_Type_ThreadNumUp:
+				
+				break;
+			case qiuwanli::Config_Type_ThreadNumDown:
+				
+				break;
+			case qiuwanli::Config_Type_FileUpSpeed:
+				UploadSpeed->SetWindowText (qiuwanli::StringToWstring (config.value ()).c_str ());
+				break;
+			case qiuwanli::Config_Type_FileDownSpeed:
+				downSpeed->SetWindowText (qiuwanli::StringToWstring (config.value ()).c_str ());
+				break;
+			case qiuwanli::Config_Type_UPSIZE:
+
+				break;
+			case qiuwanli::Config_Type_DOWNSIZE:
+			
+				break;
+			case qiuwanli::Config_Type_DownFilePath:
+				downpath->SetReadOnly (FALSE);
+				//将string 转化为Wstring 再转化为 LPTSTR 
+				downpath->SetWindowText( qiuwanli::StringToWstring( config.value()).c_str() );
+				downpath->SetReadOnly (TRUE);
+				break;
+			default:
+				break;
+			}
+		}
 
 		return TRUE;
 	}
 }
+
 
 
 void ConfigSet::OnBnClickedButton1 ()

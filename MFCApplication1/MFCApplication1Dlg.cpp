@@ -222,7 +222,13 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 	edit3->GetWindowText(User_Code);
 	
 	//验证结果,可以使用枚举类型
-	unsigned int CheckResult=0;			
+	size_t CheckResult=0;	
+
+	//user_login->set_user_id ("");
+	//user_login->set_user_name ("");
+	//user_login->set_user_password_md5 ("");
+	//user_login->set_login_code ("");
+	//user_login->set_user_client_uuid ("");
 
 	std::wstring str_user = L"root";
 	std::wstring str_password = L"root";
@@ -247,7 +253,6 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 
 
 	//成功验证，跳转到网盘对话框
-
 
 	if (CheckResult==2)
 	{
@@ -288,6 +293,47 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 
 	// TODO: 在此添加控件通知处理程序代码
 	// CDialogEx::OnOK ();
+}
+
+void CMFCApplication1Dlg::getUserAsio ()
+{
+	// Read the existing address book.
+	std::fstream input ("config", std::ios::in | std::ios::binary);
+	if (!user_login->ParseFromIstream (&input)) {
+		cerr << "Failed to parse address book." << endl;
+		return -1;
+	}
+}
+
+void CMFCApplication1Dlg::ListPeople (const qiuwanli::user& user_file)
+{
+	for (int i = 0; i < user_file.size; i++)
+	{
+		const tutorial::Person& person = address_book.person (i);
+
+		cout << "Person ID: " << person.id () << endl;
+		cout << "  Name: " << person.name () << endl;
+		if (person.has_email ()) {
+			cout << "  E-mail address: " << person.email () << endl;
+		}
+
+		for (int j = 0; j < person.phone_size (); j++) {
+			const tutorial::Person::PhoneNumber& phone_number = person.phones (j);
+
+			switch (phone_number.type ()) {
+			case tutorial::Person::MOBILE:
+				cout << "  Mobile phone #: ";
+				break;
+			case tutorial::Person::HOME:
+				cout << "  Home phone #: ";
+				break;
+			case tutorial::Person::WORK:
+				cout << "  Work phone #: ";
+				break;
+			}
+			cout << phone_number.number () << endl;
+		}
+	}
 }
 
 

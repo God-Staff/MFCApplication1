@@ -5,9 +5,9 @@
 #pragma once
 #include "Main_UI.h"
 #include "datadefine.h"
-//#include "Utilitys/login_all.pb.h"
+#include "login_all.pb.h"
 //#include "Utilitys/uuidxx.h"
-
+#include <fstream>
 
 // CMFCApplication1Dlg 对话框
 class CMFCApplication1Dlg : public CDialogEx
@@ -33,7 +33,14 @@ protected:
 	CEdit* edit3;
 
 	//用户登录信息类，创建个实例
-	//qiuwanli::user	*user;
+	qiuwanli::user	*user_login=nullptr;
+
+	//文件指针,指向asio发送来的数据块
+	std::fstream *net_user=nullptr;
+
+	//从文件中解析对象
+	void ListPeople (const qiuwanli::user& user_file);
+	void getUserAsio ();
 
 	// 生成的消息映射函数
 	virtual BOOL OnInitDialog();

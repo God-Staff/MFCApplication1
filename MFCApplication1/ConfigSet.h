@@ -18,7 +18,7 @@ public:
 #endif
 
 protected:
-	qiuwanli::config config;
+	qiuwanli::ConfigFile *configFile=nullptr;
 	BOOL		configInit ();
 
 	CEdit		*downpath;

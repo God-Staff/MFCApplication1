@@ -1,8 +1,24 @@
 syntax = "proto3";
+
 package qiuwanli;
-message config
+
+message Config
 {
-    bytes type=1;
-    string value=2;
-    bytes num=3;
+    string value=1;
+    enum Type {
+    FilePath        = 0;
+    ThreadNumUp     = 1;
+    ThreadNumDown   = 2;
+    FileUpSpeed     = 3;
+    FileDownSpeed   = 4;
+    UPSIZE          = 5;
+    DOWNSIZE        = 6;
+    DownFilePath    = 7;
+    }
+
+    Type type=2;
+}
+
+message ConfigFile {
+  repeated Config config = 1;
 }

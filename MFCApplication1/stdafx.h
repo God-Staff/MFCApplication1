@@ -36,9 +36,12 @@
 
 #include <afxsock.h>            // MFC Ì×½Ó×ÖÀ©Õ¹
 
+#include <fstream>
+#include <string>
 
-
-
+#include <boost/asio.hpp>
+#include <boost/bind.hpp>
+#include <boost/filesystem.hpp>
 
 
 
