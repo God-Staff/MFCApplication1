@@ -20,20 +20,23 @@ public:
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_MFCAPPLICATION1_DIALOG };
 #endif
-
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 支持
-
 
 // 实现
 protected:
 	HICON m_hIcon;
-	CEdit* edit1;
-	CEdit* edit2;
-	CEdit* edit3;
+	CEdit* edit1 = nullptr;
+	CEdit* edit2 = nullptr;
+	CEdit* edit3 = nullptr;
 
 	//用户登录信息类，创建个实例
-	qiuwanli::user	*user_login=nullptr;
+	qiuwanli::user	*user_login = nullptr;
+
+	//定义指针便于操作
+	asio::io_service *io_service=nullptr;
+	asio::ip::tcp::socket *s = nullptr;
+	asio::ip::tcp::resolver *reslover = nullptr;
 
 	//文件指针,指向asio发送来的数据块
 	std::fstream *net_user=nullptr;

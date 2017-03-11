@@ -4,7 +4,11 @@
 #include <vector>
 #include <iostream>
 #include <string>
-
+#include <cstdlib>
+#include <cstring>
+#include "asio.hpp"
+#include <fstream>
+#include <>
 
 //枚举tab类型，便于切换
 //enum class tabtype
@@ -42,5 +46,6 @@ enum class filetype
 //存储临时的MD5值
 //char buffer[128];
 
+enum { max_length = 1024 };
 
 #endif // !_DATADEFINE_H_
