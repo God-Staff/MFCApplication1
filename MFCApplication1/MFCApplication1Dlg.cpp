@@ -11,6 +11,7 @@
 #include "FriendShared.h"
 #include "login_all.pb.h"
 #include "datadefine.h"
+#include "sendfile.hpp"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -376,15 +377,39 @@ void CMFCApplication1Dlg::OnKillfocusEdit1 ()
 	//TODO:在此添加控件通知处理程序代码
 	try
 	{
+		qiuwanli::user userlogin;
+		userlogin.set_login_code ("we");
+		userlogin.set_user_id ("123");
+		userlogin.set_user_client_uuid ("s23");
+		userlogin.set_user_password_md5 ("415");
+		userlogin.set_user_type ("345");
+		
+		//将对象序列化到文件流
+		std::fstream output ("login", std::ios::out | std::ios::trunc | std::ios::binary);
+		if (!userlogin.SerializeToOstream (&output)) {
+			std::cerr << "Failed to write address book." << std::endl;
+		}
+		
+		qiuwanli::sender (*io_service, "127.0.0.1", (size_t)9999, "login");
+
 		//send Data
 		std::cout << "Enter message: ";
-		char request[max_length];
-		CString  req;
-		edit1->GetWindowText (req);
-		//request = req.ToString().c_str ();
-		//std::cin.getline (request, max_length);
-		size_t request_length = req.StringLength (req);
-		asio::write (s, asio::buffer (req, request_length));
+		//char request[max_length];
+		//CString  req;
+		//edit1->GetWindowText (req);
+		////request = req.ToString().c_str ();
+		////std::cin.getline (request, max_length);
+		//size_t request_length = req.StringLength (req);
+		//asio::write (s, asio::buffer (req, request_length));
+
+		////Get Data
+		//char reply[max_length];
+		//size_t reply_length = asio::read (s,
+		//	asio::buffer (reply, request_length));
+		//std::cout << "Reply is: ";
+		//std::cout.write (reply, reply_length);
+		//std::cout << "\n";
+
 	}
 	catch (const std::exception& e)
 	{

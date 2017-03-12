@@ -43,6 +43,8 @@
 #include <boost/bind.hpp>
 #include <boost/filesystem.hpp>
 
+#define _CRT_SECURE_NO_WARNING
+
 
 
 #ifdef _UNICODE

@@ -3,8 +3,15 @@
 #include <cstring>
 #include <boost/shared_ptr.hpp>
 #include "fileinfo.hpp"
+#include "login_all.pb.h"
+
+#include <fstream>
+
+namespace qiuwanli
+{
 
 
+//发送文件数据块
 void sender (asio::io_service& io, const char* ip_address, unsigned port, const char* filename)
 {
 	typedef asio::ip::tcp TCP;
@@ -14,7 +21,7 @@ void sender (asio::io_service& io, const char* ip_address, unsigned port, const 
 		std::cerr << "cannot open file\n";
 		return;
 	}
-
+	
 	//使用智能指针，防止程序出现异常时，fclose未被调用。
 	boost::shared_ptr<FILE> file_ptr (fp, fclose);
 
@@ -61,19 +68,48 @@ void sender (asio::io_service& io, const char* ip_address, unsigned port, const 
 		<< "speed: " << speed << " MB/s\n\n";
 }
 
-int main (int args, char* argc[])
-{
-	if (args < 3) {
-		std::cerr << "Usage: " << argc[0] << " ip_address  filename1 filename2 ...\n";
-		return 1;
-	}
+};//NameSpace End
 
-	asio::io_service io;
-	for (int i = 2; i < args; ++i) {
-		try { 
-			sender (io, argc[1], 1345, argc[i]); 
-		} catch (std::exception& err) {
-			std::cerr << err.what () << "\n";
-		}
-	}
-}
+//int main (int args, char* argc[])
+//{
+//	if (args < 3) {
+//		std::cerr << "Usage: " << argc[0] << " ip_address  filename1 filename2 ...\n";
+//		return 1;
+//	}
+//
+//	asio::io_service io;
+//	for (int i = 2; i < args; ++i) {
+//		try { 
+//			sender (io, argc[1], 1345, argc[i]); 
+//		} catch (std::exception& err) {
+//			std::cerr << err.what () << "\n";
+//		}
+//	}
+//}
+//
+////发送文件
+//void func ()
+//{
+//	//文件的输入输出
+//	std::fstream InandOut ("login.ini", std::ios::out | std::ios::in | std::ios::trunc | std::ios::binary);
+//
+//
+//	InandOut << "" << std::endl;
+//}
+//
+////连接控制
+//
+////绑定连接
+//
+////对象序列化输出到文件
+//template<typename T0,typename T1>
+//Path Obj2Files (T0 Obj,T1 filename)
+//{
+//	//将对象序列化到文件流
+//	fstream output (filename, ios::out | ios::trunc | ios::binary);
+//	if (!Obj.SerializeToOstream (&output)) {
+//		cerr << "Failed to write address book." << endl;
+//		return nullptr;
+//	}
+//	return std::move (output);
+//}
