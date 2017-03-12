@@ -99,6 +99,9 @@
     <ClInclude Include="utility.hpp">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="fileinfo.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MFCApplication1.cpp">
@@ -150,6 +153,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="login_asio.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="sendfile.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
   </ItemGroup>

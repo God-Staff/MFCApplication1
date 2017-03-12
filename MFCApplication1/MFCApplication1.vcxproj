@@ -198,6 +198,7 @@
     <ClInclude Include="datadefine.h" />
     <ClInclude Include="do_ref.h" />
     <ClInclude Include="FileDownLog.h" />
+    <ClInclude Include="fileinfo.hpp" />
     <ClInclude Include="FriendShared.h" />
     <ClInclude Include="Laodpng.h" />
     <ClInclude Include="login_all.pb.h" />
@@ -232,6 +233,7 @@
     <ClCompile Include="mytab.cpp" />
     <ClCompile Include="reg.cpp" />
     <ClCompile Include="reg_info.cpp" />
+    <ClCompile Include="sendfile.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

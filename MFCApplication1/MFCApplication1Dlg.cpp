@@ -84,14 +84,22 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	CDialogEx::OnInitDialog();
 
 	//初始化网络连接
-	asio::io_service io_service1;
-	io_service = std::move (&io_service1);
+	try
+	{
+		asio::io_service io_service1;
+		io_service = std::move (&io_service1);
 
-	asio::ip::tcp::socket s1 (io_service1);
-	s = std::move (&s1);
-	asio::ip::tcp::resolver resolver1 (io_service1);
-	reslover = std::move (&resolver1);
-	asio::connect (s1, resolver1.resolve ({ "127.0.0.1","9999" }));
+		asio::ip::tcp::socket s1 (io_service1);
+		s = std::move (&s1);
+		asio::ip::tcp::resolver resolver1 (io_service1);
+		reslover = std::move (&resolver1);
+		asio::connect (s1, resolver1.resolve ({ "127.0.0.1","9999" }));
+	}
+	catch (std::exception& e)
+	{
+		std::cerr << "Exception: " << e.what () << "\n";
+	}
+
 
 	// IDM_ABOUTBOX 必须在系统命令范围内。
 	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
@@ -209,7 +217,6 @@ std::string CMFCApplication1Dlg::getUuid ()
 	std::cout << "UUID:" << uuidPC << std::endl;*/
 	return uuidPC;
 }
-
 
 
 //用户登陆
@@ -367,6 +374,22 @@ void CMFCApplication1Dlg::OnBnClickedCancel ()
 void CMFCApplication1Dlg::OnKillfocusEdit1 ()
 {
 	//TODO:在此添加控件通知处理程序代码
+	try
+	{
+		//send Data
+		std::cout << "Enter message: ";
+		char request[max_length];
+		CString  req;
+		edit1->GetWindowText (req);
+		//request = req.ToString().c_str ();
+		//std::cin.getline (request, max_length);
+		size_t request_length = req.StringLength (req);
+		asio::write (s, asio::buffer (req, request_length));
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << "ERROE:" << e.what () << std::endl;
+	}
 }
 
 //刷新验证码
