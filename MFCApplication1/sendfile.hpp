@@ -16,14 +16,21 @@ void sender (asio::io_service& io, const char* ip_address, unsigned port, const 
 {
 	typedef asio::ip::tcp TCP;
 
-	FILE *fp = fopen (filename, "rb");
-	if (fp == NULL) {
-		std::cerr << "cannot open file\n";
+	//FILE *fp = fopen (filename, "rb");
+	//if (fp == NULL) {
+	//	std::cerr << "cannot open file\n";
+	//	return;
+	//}
+
+	//
+	std::ifstream infile (filename);
+	if (!infile)
+	{
 		return;
 	}
-	
+
 	//使用智能指针，防止程序出现异常时，fclose未被调用。
-	boost::shared_ptr<FILE> file_ptr (fp, fclose);
+	boost::shared_ptr<std::ifstream> file_ptr (&infile, fclose);
 
 	clock_t cost_time = clock ();
 
@@ -40,9 +47,10 @@ void sender (asio::io_service& io, const char* ip_address, unsigned port, const 
 	}
 	file_info.filename_size = filename_size;
 
-	fseek (fp, 0, SEEK_END);
-	file_info.filesize = ftell (fp);
-	rewind (fp);
+	//get File size
+	infile.seekg( 0, std::ios::end);
+	file_info.filesize = infile.tellg ();
+	infile.seekg (0);
 
 	memcpy (buffer, &file_info, file_info_size);
 	memcpy (buffer + file_info_size, filename, filename_size);
@@ -55,8 +63,11 @@ void sender (asio::io_service& io, const char* ip_address, unsigned port, const 
 	unsigned long long total_bytes_read = 0;
 	while (true) {
 		socket.send (asio::buffer (buffer, len), 0);
-		if (feof (fp)) break;
-		len = fread (buffer, 1, k_buffer_size, fp);
+		if (infile.eof())
+			break;
+		//读取File
+		infile.read (buffer, k_buffer_size);
+		//len = fread (buffer, 1, k_buffer_size, fp);
 		total_bytes_read += len;
 	}
 
