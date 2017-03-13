@@ -6,7 +6,6 @@
 #include "ConfigSet.h"
 #include "afxdialogex.h"
 #include <fstream>
-#include "utility.hpp"
 
 // ConfigSet ¶Ô»°¿ò
 

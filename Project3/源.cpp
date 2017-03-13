@@ -10,8 +10,7 @@
 #include <boost/bind.hpp>
 #include <fstream>
 
-class Session : public boost::enable_shared_from_this<Session>
-{
+class Session : public boost::enable_shared_from_this<Session> {
 public:
 	typedef asio::ip::tcp TCP;
 	typedef asio::error_code Error;
@@ -26,8 +25,7 @@ public:
 
 	~Session ()
 	{
-		if (fileout)
-			fileout.close ();
+		if (fp_) fclose (fp_);
 		clock_ = clock () - clock_;
 		Size_type bytes_writen = total_bytes_writen_;
 		if (clock_ == 0) clock_ = 1;
@@ -47,7 +45,7 @@ public:
 	}
 
 private:
-	Session (asio::io_service& io) : socket_ (io),total_bytes_writen_ (0) { }
+	Session (asio::io_service& io) : socket_ (io), fp_ (NULL), total_bytes_writen_ (0) { }
 
 	void handle_header (const Error& error)
 	{
@@ -71,10 +69,10 @@ private:
 
 		std::cout << "Open file: " << basename << " (" << buffer_ << ")\n";
 
-		fileout.open ("sdf", std::ios::binary|std::ios::app| std::ios::in | std::ios::out );
-		//fp_ = fopen (basename, "wb");
-		if (fileout) {
+		fp_ = fopen (basename, "wb");
+		if (fp_ == NULL) {
 			std::cerr << "Failed to open file to write\n";
+			return;
 		}
 		receive_file_content ();
 	}
@@ -96,16 +94,13 @@ private:
 				<< "/" << filesize << "\n";
 			return;
 		}
-		fileout<<buffer_;
-		total_bytes_writen_ += bytes_transferred;
-		//total_bytes_writen_ += fwrite (buffer_, 1, bytes_transferred, fp_);
+		total_bytes_writen_ += fwrite (buffer_, 1, bytes_transferred, fp_);
 		receive_file_content ();
 	}
 
 	clock_t clock_;
 	TCP::socket socket_;
-	//FILE *fp_;
-	std::fstream fileout;
+	FILE *fp_;
 	File_info file_info_;
 	Size_type total_bytes_writen_;
 	static const unsigned k_buffer_size = 1024 * 32;
@@ -152,4 +147,3 @@ int main ()
 	Tcp_server receiver (io, 9999);
 	io.run ();
 }
-

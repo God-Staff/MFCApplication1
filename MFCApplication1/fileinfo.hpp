@@ -1,15 +1,11 @@
 #ifndef _FILE_INFO_H_
 #define _FILE_INFO_H_
 
-#if USE_ASIO_ALONE
-#include <asio.hpp>
-#else
 #include <boost/asio.hpp>
-namespace asio {
+#include <boost/shared_ptr.hpp>
+
 	using namespace boost::asio;
 	using boost::system::error_code;
-}
-#endif
 
 struct File_info {
 	typedef unsigned long long Size_type;

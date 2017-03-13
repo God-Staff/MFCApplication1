@@ -1,6 +1,7 @@
 #pragma once
 #include "datadefine.h"
 #include "config.pb.h"
+#include "utility.hpp"
 
 // ConfigSet ¶Ô»°¿ò
 
@@ -33,7 +34,7 @@ protected:
 	virtual BOOL OnInitDialog ();
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnBnClickedButton1 ();
+	//afx_msg void OnBnClickedButton1 ();
 	afx_msg void OnNMRClickList6 (NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnAddFilesPath ();
 	afx_msg void OnDelectFilesPath ();
@@ -41,6 +42,6 @@ public:
 	afx_msg void OnCbnSelchangeCombo1 ();
 	afx_msg void OnCbnSelchangeCombo2 ();
 	afx_msg void OnBnClickedButton2 ();
-	afx_msg void OnBnClickedButton3 ();
-	afx_msg void OnBnClickedButton4 ();
+	//afx_msg void OnBnClickedButton3 ();
+	//afx_msg void OnBnClickedButton4 ();
 };

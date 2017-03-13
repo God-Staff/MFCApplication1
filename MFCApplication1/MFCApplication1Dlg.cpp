@@ -1,7 +1,6 @@
 
 // MFCApplication1Dlg.cpp : 实现文件
 //
-
 #include "stdafx.h"
 #include "MFCApplication1.h"
 #include "MFCApplication1Dlg.h"
@@ -11,7 +10,6 @@
 #include "FriendShared.h"
 #include "login_all.pb.h"
 #include "datadefine.h"
-#include "sendfile.hpp"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -84,22 +82,22 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	//初始化网络连接
-	try
-	{
-		asio::io_service io_service1;
-		io_service = std::move (&io_service1);
+	////初始化网络连接
+	//try
+	//{
+	//	asio::io_service io_service1;
+	//	io_service = std::move (&io_service1);
 
-		asio::ip::tcp::socket s1 (io_service1);
-		s = std::move (&s1);
-		asio::ip::tcp::resolver resolver1 (io_service1);
-		reslover = std::move (&resolver1);
-		asio::connect (s1, resolver1.resolve ({ "127.0.0.1","9999" }));
-	}
-	catch (std::exception& e)
-	{
-		std::cerr << "Exception: " << e.what () << "\n";
-	}
+	//	asio::ip::tcp::socket s1 (io_service1);
+	//	s = std::move (&s1);
+	//	asio::ip::tcp::resolver resolver1 (io_service1);
+	//	reslover = std::move (&resolver1);
+	//	asio::connect (s1, resolver1.resolve ({ "127.0.0.1","9999" }));
+	//}
+	//catch (std::exception& e)
+	//{
+	//	std::cerr << "Exception: " << e.what () << "\n";
+	//}
 
 
 	// IDM_ABOUTBOX 必须在系统命令范围内。
@@ -265,10 +263,10 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 
 
 	//send Data
-	char request[max_length]="get Login_User:userid";
+	//char request[max_length]="get Login_User:userid";
 	//std::cin.getline (request, max_length);
-	size_t request_length = std::strlen (request);
-	asio::write (s, asio::buffer (request, request_length));
+	//size_t request_length = std::strlen (request);
+	//asio::write (s, asio::buffer (request, request_length));
 
 	/************************************************************************/
 	/* CODE         //一系列登录验证                                        */
@@ -318,15 +316,6 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 	// CDialogEx::OnOK ();
 }
 
-void CMFCApplication1Dlg::getUserAsio ()
-{
-	// Read the existing address book.
-	std::fstream input ("config", std::ios::in | std::ios::binary);
-	if (!user_login->ParseFromIstream (&input)) {
-		//cerr << "Failed to parse address book." << endl;
-		//return -1;
-	}
-}
 
 void CMFCApplication1Dlg::ListPeople (const qiuwanli::user& user_file)
 {
@@ -389,11 +378,12 @@ void CMFCApplication1Dlg::OnKillfocusEdit1 ()
 		if (!userlogin.SerializeToOstream (&output)) {
 			std::cerr << "Failed to write address book." << std::endl;
 		}
-		
-		qiuwanli::sender (*io_service, "127.0.0.1", (size_t)9999, "login");
+
+		//qiuwanli::sendfile ("login");
+		//sender (*io_service, "127.0.0.1", 9999, "login");
 
 		//send Data
-		std::cout << "Enter message: ";
+		//std::cout << "Enter message: ";
 		//char request[max_length];
 		//CString  req;
 		//edit1->GetWindowText (req);
