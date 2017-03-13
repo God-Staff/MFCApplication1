@@ -1,9 +1,9 @@
-#pragma once
+#ifndef REG_H
+#define REG_H
+
 #include "datadefine.h"
 
-
 // reg ¶Ô»°¿ò
-
 class reg : public CDialogEx
 {
 	DECLARE_DYNAMIC(reg)
@@ -33,3 +33,5 @@ public:
 	afx_msg void OnBnClickedOk ();
 	afx_msg void OnBnClickedCancel2 ();
 };
+
+#endif // REG_H

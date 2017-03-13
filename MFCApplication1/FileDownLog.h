@@ -1,4 +1,6 @@
-#pragma once
+#ifndef FILEDOWNLOG_H
+#define FILEDOWNLOG_H
+
 #include "datadefine.h"
 
 
@@ -32,3 +34,5 @@ public:
 	afx_msg void OnDelectChosedFileslog ();
 	afx_msg void OnDelectChosedFiles ();
 };
+#endif // FILEDOWNLOG_H
+

@@ -1,9 +1,9 @@
-#pragma once
+#ifndef MYTAB_H
+#define MYTAB_H
+
 #include "datadefine.h"
 
-
 // mytab ¶Ô»°¿ò
-
 class mytab : public CDialog
 {
 	DECLARE_DYNAMIC(mytab)
@@ -36,3 +36,4 @@ public:
 	afx_msg void OnDelectChosedFilesFromList ();
 	afx_msg void OnChangePriority4Files ();
 };
+#endif // MYTAB_H

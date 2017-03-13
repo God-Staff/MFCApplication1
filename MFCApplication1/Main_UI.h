@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MAIN_UI_H
+#define MAIN_UI_H
+
 #include "ConfigSet.h"
 #include "do_ref.h"
 #include "mytab.h"
@@ -47,3 +49,4 @@ public:
 
 };
 
+#endif // MAIN_UI_H

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef FRIENDSHARED_H
+#define FRIENDSHARED_H
+
 #include "datadefine.h"
 #include "addFriends.h"
 
@@ -38,3 +40,5 @@ public:
 	afx_msg void OnSendUrl2Friends ();
 	afx_msg void OnAddSharedUrl ();
 };
+#endif // FRIENDSHARED_H
+

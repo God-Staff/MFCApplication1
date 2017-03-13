@@ -200,6 +200,7 @@
     <ClInclude Include="FileDownLog.h" />
     <ClInclude Include="fileinfo.hpp" />
     <ClInclude Include="FriendShared.h" />
+    <ClInclude Include="headinclude.hpp" />
     <ClInclude Include="Laodpng.h" />
     <ClInclude Include="login_all.pb.h" />
     <ClInclude Include="Main_Tab.h" />
@@ -214,7 +215,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="utility.hpp" />
-    <ClInclude Include="uuid.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="addFriends.cpp" />

@@ -9,7 +9,7 @@
 #include <codecvt>
 #include <iostream>
 #include <cstdio>
-#include <cstring>
+#include <string>
 #include <boost/shared_ptr.hpp>
 #include "fileinfo.hpp"
 //#include <boost/asio.hpp>

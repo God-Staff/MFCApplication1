@@ -116,7 +116,7 @@ BOOL	ConfigSet::configInit ()
 			case qiuwanli::Config_Type_FilePath: 
 			{
 				int j = m_ListControl->GetWindowedChildCount ();
-				m_ListControl->InsertItem (j, qiuwanli::StringToWstring (config.value ()).c_str ());
+				//m_ListControl->InsertItem (j, qiuwanli::StringToWstring (config.value ()).c_str ());
 			}
 				break;
 			case qiuwanli::Config_Type_ThreadNumUp:
@@ -126,15 +126,15 @@ BOOL	ConfigSet::configInit ()
 				box2->SetCurSel (atoi (config.value ().c_str ()));
 				break;
 			case qiuwanli::Config_Type_FileUpSpeed:
-				UploadSpeed->SetWindowText (qiuwanli::StringToWstring (config.value ()).c_str ());
+				//UploadSpeed->SetWindowText (qiuwanli::StringToWstring (config.value ()).c_str ());
 				break;
 			case qiuwanli::Config_Type_FileDownSpeed:
-				downSpeed->SetWindowText (qiuwanli::StringToWstring (config.value ()).c_str ());
+				//downSpeed->SetWindowText (qiuwanli::StringToWstring (config.value ()).c_str ());
 				break;
 			case qiuwanli::Config_Type_DownFilePath:
 				downpath->SetReadOnly (FALSE);
 				//将string 转化为Wstring 再转化为 LPTSTR 
-				downpath->SetWindowText( qiuwanli::StringToWstring( config.value()).c_str() );
+				//downpath->SetWindowText( qiuwanli::StringToWstring( config.value()).c_str() );
 				downpath->SetReadOnly (TRUE);
 				break;
 			default:

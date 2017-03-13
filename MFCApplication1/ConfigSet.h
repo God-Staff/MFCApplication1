@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CONFIGSET_H
+#define CONFIGSET_H
+
 #include "datadefine.h"
 #include "config.pb.h"
 #include "utility.hpp"
@@ -45,3 +47,5 @@ public:
 	//afx_msg void OnBnClickedButton3 ();
 	//afx_msg void OnBnClickedButton4 ();
 };
+
+#endif // CONFIGSET_H

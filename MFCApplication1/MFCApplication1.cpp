@@ -51,11 +51,11 @@ BOOL CMFCApplication1App::InitInstance()
 
 	CWinApp::InitInstance();
 
-	if (!AfxSocketInit())
-	{
-		AfxMessageBox(IDP_SOCKETS_INIT_FAILED);
-		return FALSE;
-	}
+	//if (!AfxSocketInit())
+	//{
+	//	AfxMessageBox(IDP_SOCKETS_INIT_FAILED);
+	//	return FALSE;
+	//}
 
 
 	AfxEnableControlContainer();

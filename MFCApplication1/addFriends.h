@@ -1,5 +1,7 @@
-#pragma once
+#ifndef _ADDFRIENDS_H_
+#define _ADDFRIENDS_H_
 
+#include "datadefine.h"
 
 // addFriends ¶Ô»°¿ò
 
@@ -29,3 +31,5 @@ public:
 	afx_msg void OnEnKillfocusEdit1 ();
 	afx_msg void OnBnClickedOk ();
 };
+
+#endif // _ADDFRIENDS_H_

@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
-#include <cstring>
+#include <string>
 #include "asio.hpp"
 #include <fstream>
 
@@ -20,10 +20,10 @@
 //	setting
 //};
 
-#define		ayls_file		10000
-#define		ayls_down		01000
+#define		ayls_file			10000
+#define		ayls_down			01000
 #define		ayls_downlog		00100
-#define		ayls_shared		00010
+#define		ayls_shared			00010
 #define		ayls_setting		00001
 
 

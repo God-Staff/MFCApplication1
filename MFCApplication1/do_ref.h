@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DO_REF_H
+#define DO_REF_H
+
 #include "datadefine.h"
 
 // do_ref ¶Ô»°¿ò
@@ -39,3 +41,6 @@ public:
 	afx_msg void OnBnClickedButton1 ();
 	afx_msg void OnCbnSelchangeCombo1 ();
 };
+
+#endif // DO_REF_H
+

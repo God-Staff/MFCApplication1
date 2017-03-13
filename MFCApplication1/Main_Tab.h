@@ -1,7 +1,7 @@
-#pragma once
+#ifndef MAIN_TAB_H
+#define MAIN_TAB_H
+
 #include "datadefine.h"
-
-
 
 // Main_Tab
 
@@ -22,3 +22,4 @@ protected:
 };
 
 
+#endif // MAIN_TAB_H

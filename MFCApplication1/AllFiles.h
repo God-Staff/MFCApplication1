@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ALLFILES_H
+#define ALLFILES_H
+
 #include "datadefine.h"
 
 // AllFiles ¶Ô»°¿ò
@@ -36,3 +38,6 @@ public:
 	afx_msg void OnUploadFiles2CurrentPath ();
 	afx_msg void OnCreateFolder2CurrentPath ();
 };
+
+
+#endif // ALLFILES_H

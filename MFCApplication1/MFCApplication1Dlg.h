@@ -1,12 +1,12 @@
 
 // MFCApplication1Dlg.h : 头文件
 //
+#ifndef MFC_DLG_H
+#define MFC_DLG_H
 
-#pragma once
 #include "Main_UI.h"
 #include "datadefine.h"
 #include "login_all.pb.h"
-//#include "Utilitys/uuidxx.h"
 #include <fstream>
 //调用外部EXE
 #include <shellapi.h>
@@ -63,3 +63,5 @@ public:
 	//afx_msg void OnClickPic (CCmdUI *pCmdUI);
 	afx_msg void OnStnClickedStaticPic ();
 };
+
+#endif // MFC_DLG_H
