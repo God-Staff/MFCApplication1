@@ -102,6 +102,12 @@
     <ClInclude Include="addFriends.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="handler_allocator.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="client.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MFCApplication1.cpp">
@@ -152,6 +158,9 @@
     <ClCompile Include="config.pb.cc">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="client.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MFCApplication1.rc">
@@ -164,6 +173,10 @@
     </None>
     <None Include="config.proto">
       <Filter>资源文件</Filter>
+    </None>
+    <None Include="ClassDiagram.cd" />
+    <None Include="utility.cpp">
+      <Filter>Utility</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

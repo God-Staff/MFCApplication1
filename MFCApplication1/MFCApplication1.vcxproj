@@ -137,7 +137,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -193,6 +193,7 @@
     <ClInclude Include="addFriends.h" />
     <ClInclude Include="AllFiles.h" />
     <ClInclude Include="city.hpp" />
+    <ClInclude Include="client.hpp" />
     <ClInclude Include="config.pb.h" />
     <ClInclude Include="ConfigSet.h" />
     <ClInclude Include="datadefine.h" />
@@ -200,6 +201,7 @@
     <ClInclude Include="FileDownLog.h" />
     <ClInclude Include="fileinfo.hpp" />
     <ClInclude Include="FriendShared.h" />
+    <ClInclude Include="handler_allocator.hpp" />
     <ClInclude Include="headinclude.hpp" />
     <ClInclude Include="Laodpng.h" />
     <ClInclude Include="login_all.pb.h" />
@@ -219,6 +221,7 @@
   <ItemGroup>
     <ClCompile Include="addFriends.cpp" />
     <ClCompile Include="AllFiles.cpp" />
+    <ClCompile Include="client.cpp" />
     <ClCompile Include="config.pb.cc" />
     <ClCompile Include="ConfigSet.cpp" />
     <ClCompile Include="do_ref.cpp" />
@@ -243,8 +246,10 @@
     <ResourceCompile Include="MFCApplication1.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="config.proto" />
     <None Include="res\MFCApplication1.rc2" />
+    <None Include="utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\bitmap1.bmp" />

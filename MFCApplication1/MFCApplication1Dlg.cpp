@@ -10,7 +10,7 @@
 #include "FriendShared.h"
 #include "login_all.pb.h"
 #include "datadefine.h"
-
+#include "client.hpp"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -243,6 +243,50 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 	//user_login->set_user_password_md5 ("");
 	//user_login->set_login_code ("");
 	//user_login->set_user_client_uuid ("");
+
+
+
+
+
+	try{
+		using namespace std; // For atoi.
+		const char* host = "127.0.0.1";
+		const char* port = "9999";
+		int thread_count =  (4);
+		size_t block_size =  (8);
+		size_t session_count = (4);
+		int timeout = (30);
+
+		asio::io_service ios;
+
+		asio::ip::tcp::resolver r (ios);
+		asio::ip::tcp::resolver::iterator iter =
+			r.resolve (asio::ip::tcp::resolver::query (host, port));
+
+		client c (ios, iter, block_size, session_count, timeout);
+
+		std::list<asio::thread*> threads;
+		while (--thread_count > 0)
+		{
+			asio::thread* new_thread = new asio::thread (
+				boost::bind (&asio::io_service::run, &ios));
+			threads.push_back (new_thread);
+		}
+
+		ios.run ();
+
+		while (!threads.empty ())
+		{
+			threads.front ()->join ();
+			delete threads.front ();
+			threads.pop_front ();
+		}
+	}	catch (std::exception& e)	{
+		std::cerr << "Exception: " << e.what () << "\n";
+	}
+
+
+
 
 	std::wstring str_user = L"root";
 	std::wstring str_password = L"root";
