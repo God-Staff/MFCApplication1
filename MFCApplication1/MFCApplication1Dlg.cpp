@@ -11,6 +11,8 @@
 #include "login_all.pb.h"
 #include "datadefine.h"
 #include "client.hpp"
+#include "utility.cpp"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -238,54 +240,98 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 	//验证结果,可以使用枚举类型
 	size_t CheckResult=0;	
 
+	try
+	{
+		qiuwanli::user userlogin;
+		userlogin.set_login_code ("we");
+		userlogin.set_user_id ("123");
+		userlogin.set_user_client_uuid ("s23");
+		userlogin.set_user_password_md5 ("415");
+		userlogin.set_user_type ("345");
+
+		//将对象序列化到文件流
+		std::fstream output ("login", std::ios::out | std::ios::trunc | std::ios::binary);
+		if (!userlogin.SerializeToOstream (&output)) {
+			std::cerr << "Failed to write address book." << std::endl;
+		}
+		//userlogin.SerializePartialToOstream(&output);
+		output.close ();
+
+		asio::io_service io;
+		//::sendfile ("login");
+		try { 
+			qiuwanli::sender (io, "127.0.0.1", 9999, "./login"); 
+}
+		catch (std::exception& err) {
+			std::cerr << err.what () << "\n";
+		}
+
+		//send Data
+		//std::cout << "Enter message: ";
+		//char request[max_length];
+		//CString  req;
+		//edit1->GetWindowText (req);
+		////request = req.ToString().c_str ();
+		////std::cin.getline (request, max_length);
+		//size_t request_length = req.StringLength (req);
+		//asio::write (s, asio::buffer (req, request_length));
+
+		////Get Data
+		//char reply[max_length];
+		//size_t reply_length = asio::read (s,
+		//	asio::buffer (reply, request_length));
+		//std::cout << "Reply is: ";
+		//std::cout.write (reply, reply_length);
+		//std::cout << "\n";
+
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << "ERROE:" << e.what () << std::endl;
+	}
+
 	//user_login->set_user_id ("");
 	//user_login->set_user_name ("");
 	//user_login->set_user_password_md5 ("");
 	//user_login->set_login_code ("");
 	//user_login->set_user_client_uuid ("");
 
+	//try{
+	//	using namespace std; // For atoi.
+	//	const char* host = "127.0.0.1";
+	//	const char* port = "9999";
+	//	int thread_count =  (4);
+	//	size_t block_size =  (8);
+	//	size_t session_count = (4);
+	//	int timeout = (30);
 
+	//	asio::io_service ios;
 
+	//	asio::ip::tcp::resolver r (ios);
+	//	asio::ip::tcp::resolver::iterator iter =
+	//		r.resolve (asio::ip::tcp::resolver::query (host, port));
 
+	//	client c (ios, iter, block_size, session_count, timeout);
 
-	try{
-		using namespace std; // For atoi.
-		const char* host = "127.0.0.1";
-		const char* port = "9999";
-		int thread_count =  (4);
-		size_t block_size =  (8);
-		size_t session_count = (4);
-		int timeout = (30);
+	//	std::list<asio::thread*> threads;
+	//	while (--thread_count > 0)
+	//	{
+	//		asio::thread* new_thread = new asio::thread (
+	//			boost::bind (&asio::io_service::run, &ios));
+	//		threads.push_back (new_thread);
+	//	}
 
-		asio::io_service ios;
+	//	ios.run ();
 
-		asio::ip::tcp::resolver r (ios);
-		asio::ip::tcp::resolver::iterator iter =
-			r.resolve (asio::ip::tcp::resolver::query (host, port));
-
-		client c (ios, iter, block_size, session_count, timeout);
-
-		std::list<asio::thread*> threads;
-		while (--thread_count > 0)
-		{
-			asio::thread* new_thread = new asio::thread (
-				boost::bind (&asio::io_service::run, &ios));
-			threads.push_back (new_thread);
-		}
-
-		ios.run ();
-
-		while (!threads.empty ())
-		{
-			threads.front ()->join ();
-			delete threads.front ();
-			threads.pop_front ();
-		}
-	}	catch (std::exception& e)	{
-		std::cerr << "Exception: " << e.what () << "\n";
-	}
-
-
+	//	while (!threads.empty ())
+	//	{
+	//		threads.front ()->join ();
+	//		delete threads.front ();
+	//		threads.pop_front ();
+	//	}
+	//}	catch (std::exception& e)	{
+	//	std::cerr << "Exception: " << e.what () << "\n";
+	//}
 
 
 	std::wstring str_user = L"root";

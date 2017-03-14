@@ -15,33 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="fileinfo.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="config.pb.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="login_all.pb.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="源.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="config.pb.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="login_all.pb.cc">
+    <ClCompile Include="chartServer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="config.proto">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="login_all.proto">
-      <Filter>资源文件</Filter>
-    </None>
+    <ClInclude Include="chat_message.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

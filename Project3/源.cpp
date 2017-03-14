@@ -33,6 +33,9 @@ public:
 		std::cout << "cost time: " << clock_ / (double)CLOCKS_PER_SEC << " s  "
 			<< "bytes_writen: " << bytes_writen << " bytes\n"
 			<< "speed: " << speed << " MB/s\n\n";
+
+		//在文件接收完成时，打开文件，解析文件参数
+
 	}
 
 	void start ()
@@ -97,6 +100,10 @@ private:
 		total_bytes_writen_ += fwrite (buffer_, 1, bytes_transferred, fp_);
 		receive_file_content ();
 	}
+	void send_file_content ()
+	{
+
+	}
 
 	clock_t clock_;
 	TCP::socket socket_;
@@ -138,6 +145,7 @@ private:
 
 	TCP::acceptor acceptor_;
 };
+
 
 
 int main ()
