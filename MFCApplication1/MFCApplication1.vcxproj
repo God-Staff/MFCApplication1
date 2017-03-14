@@ -192,6 +192,7 @@
   <ItemGroup>
     <ClInclude Include="addFriends.h" />
     <ClInclude Include="AllFiles.h" />
+    <ClInclude Include="checkNet.hpp" />
     <ClInclude Include="city.hpp" />
     <ClInclude Include="client.hpp" />
     <ClInclude Include="config.pb.h" />
@@ -203,7 +204,6 @@
     <ClInclude Include="FriendShared.h" />
     <ClInclude Include="handler_allocator.hpp" />
     <ClInclude Include="headinclude.hpp" />
-    <ClInclude Include="Laodpng.h" />
     <ClInclude Include="login_all.pb.h" />
     <ClInclude Include="Main_Tab.h" />
     <ClInclude Include="Main_UI.h" />

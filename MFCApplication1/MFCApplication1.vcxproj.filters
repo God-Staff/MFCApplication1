@@ -48,9 +48,6 @@
     <ClInclude Include="mytab.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Laodpng.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="reg.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -107,6 +104,9 @@
     </ClInclude>
     <ClInclude Include="client.hpp">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="checkNet.hpp">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,8 @@
 #include "login_all.pb.h"
 #include "datadefine.h"
 #include "client.hpp"
-#include "utility.cpp"
+#include "utility.hpp"
+#include "checkNet.hpp"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -19,7 +20,6 @@
 
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
-
 class CAboutDlg : public CDialogEx
 {
 public:
@@ -84,24 +84,6 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	////初始化网络连接
-	//try
-	//{
-	//	asio::io_service io_service1;
-	//	io_service = std::move (&io_service1);
-
-	//	asio::ip::tcp::socket s1 (io_service1);
-	//	s = std::move (&s1);
-	//	asio::ip::tcp::resolver resolver1 (io_service1);
-	//	reslover = std::move (&resolver1);
-	//	asio::connect (s1, resolver1.resolve ({ "127.0.0.1","9999" }));
-	//}
-	//catch (std::exception& e)
-	//{
-	//	std::cerr << "Exception: " << e.what () << "\n";
-	//}
-
-
 	// IDM_ABOUTBOX 必须在系统命令范围内。
 	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
 	ASSERT(IDM_ABOUTBOX < 0xF000);
@@ -153,9 +135,28 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	edit3->SetLimitText (6);
 	//edit3->SetWindowText (L"验证码");
 
-	qiuwanli::user Login_ip;
-	Login_ip.set_user_id ("1234567");
-	Login_ip.set_user_name ("xiaoqiang");
+	boost::asio::io_service io;
+	unsigned int seconds = 15;  // 设定超时时间，客户端必须在这个时间内周期性地调用 reset函数
+	HeartBeatService t(&io, seconds);
+	//调用 io_service::run， 定时器开始计时
+	auto future = boost::async(boost::launch::async, [&]{io.run();});  // better
+
+	boost::thread io_thread (boost::bind (&boost::asio::io_service::run, &io));
+
+	boost::this_thread::sleep_for (boost::chrono::seconds (15));   // 再次等待超时
+	//EXPECT_TRUE (t.getFlag ());  // 已经超时，并且设置了标志位为true
+	//testing::internal::CaptureStderr ();  // 超时了会有打印信息，捕获打印
+	io.stop ();
+	io_thread.join ();
+
+	if (t.getFlag())
+	{
+		MessageBox (L"FFFFFFF");
+	}
+	else
+	{
+		MessageBox (L"XXXXXXX");
+	}
 		
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -176,7 +177,6 @@ void CMFCApplication1Dlg::OnSysCommand(UINT nID, LPARAM lParam)
 // 如果向对话框添加最小化按钮，则需要下面的代码
 //  来绘制该图标。  对于使用文档/视图模型的 MFC 应用程序，
 //  这将由框架自动完成。
-
 void CMFCApplication1Dlg::OnPaint()
 {
 	if (IsIconic())
@@ -243,11 +243,15 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 	try
 	{
 		qiuwanli::user userlogin;
-		userlogin.set_login_code ("we");
-		userlogin.set_user_id ("123");
-		userlogin.set_user_client_uuid ("s23");
-		userlogin.set_user_password_md5 ("415");
-		userlogin.set_user_type ("345");
+		
+		std::string s = CT2A (User_ID);
+		userlogin.set_user_id (s);
+		s = CT2A (User_Password);
+		userlogin.set_user_password_md5 (s);
+		userlogin.set_user_type ("haha");
+		s = CT2A (User_Code);
+		userlogin.set_login_code (s);
+		userlogin.set_user_client_uuid ("123456789012");
 
 		//将对象序列化到文件流
 		std::fstream output ("login", std::ios::out | std::ios::trunc | std::ios::binary);
@@ -260,7 +264,8 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 		asio::io_service io;
 		//::sendfile ("login");
 		try { 
-			qiuwanli::sender (io, "127.0.0.1", 9999, "./login"); 
+			qiuwanli::utilty s;
+			s.sender (io, "127.0.0.1", 9999, "login");
 }
 		catch (std::exception& err) {
 			std::cerr << err.what () << "\n";

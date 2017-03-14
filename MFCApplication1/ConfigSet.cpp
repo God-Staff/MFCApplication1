@@ -6,6 +6,7 @@
 #include "ConfigSet.h"
 #include "afxdialogex.h"
 #include <fstream>
+#include "utility.hpp"
 
 // ConfigSet ¶Ô»°¿ò
 
@@ -120,10 +121,10 @@ BOOL	ConfigSet::configInit ()
 			}
 				break;
 			case qiuwanli::Config_Type_ThreadNumUp:
-				box1->SetCurSel (atoi (config.value ().c_str ()));
+				//box1->SetCurSel (atoi (config.value ().c_str ()));
 				break;
 			case qiuwanli::Config_Type_ThreadNumDown:
-				box2->SetCurSel (atoi (config.value ().c_str ()));
+				//box2->SetCurSel (atoi (config.value ().c_str ()));
 				break;
 			case qiuwanli::Config_Type_FileUpSpeed:
 				//UploadSpeed->SetWindowText (qiuwanli::StringToWstring (config.value ()).c_str ());
@@ -141,7 +142,6 @@ BOOL	ConfigSet::configInit ()
 				break;
 			}
 		}
-
 		return TRUE;
 	}
 }
