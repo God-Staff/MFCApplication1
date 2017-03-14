@@ -135,29 +135,29 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	edit3->SetLimitText (6);
 	//edit3->SetWindowText (L"验证码");
 
-	boost::asio::io_service io;
-	unsigned int seconds = 15;  // 设定超时时间，客户端必须在这个时间内周期性地调用 reset函数
-	HeartBeatService t(&io, seconds);
-	//调用 io_service::run， 定时器开始计时
-	auto future = boost::async(boost::launch::async, [&]{io.run();});  // better
+	//boost::asio::io_service io;
+	//unsigned int seconds = 15;  // 设定超时时间，客户端必须在这个时间内周期性地调用 reset函数
+	//HeartBeatService t(&io, seconds);
+	////调用 io_service::run， 定时器开始计时
+	//auto future = boost::async(boost::launch::async, [&]{io.run();});  // better
 
-	boost::thread io_thread (boost::bind (&boost::asio::io_service::run, &io));
+	//boost::thread io_thread (boost::bind (&boost::asio::io_service::run, &io));
 
-	boost::this_thread::sleep_for (boost::chrono::seconds (15));   // 再次等待超时
-	//EXPECT_TRUE (t.getFlag ());  // 已经超时，并且设置了标志位为true
-	//testing::internal::CaptureStderr ();  // 超时了会有打印信息，捕获打印
-	io.stop ();
-	io_thread.join ();
+	//boost::this_thread::sleep_for (boost::chrono::seconds (15));   // 再次等待超时
+	////EXPECT_TRUE (t.getFlag ());  // 已经超时，并且设置了标志位为true
+	////testing::internal::CaptureStderr ();  // 超时了会有打印信息，捕获打印
+	//io.stop ();
+	//io_thread.join ();
 
-	if (t.getFlag())
-	{
-		MessageBox (L"FFFFFFF");
-	}
-	else
-	{
-		MessageBox (L"XXXXXXX");
-	}
-		
+	//if (t.getFlag())
+	//{
+	//	MessageBox (L"FFFFFFF");
+	//}
+	//else
+	//{
+	//	MessageBox (L"XXXXXXX");
+	//}
+	//	
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 

@@ -9,6 +9,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/bind.hpp>
 #include <fstream>
+#include "login_all.pb.h"
 
 class Session : public boost::enable_shared_from_this<Session> {
 public:
@@ -35,7 +36,10 @@ public:
 			<< "speed: " << speed << " MB/s\n\n";
 
 		//在文件接收完成时，打开文件，解析文件参数
-
+		qiuwanli::user u;
+		std::fstream input ("login", std::ios::in | std::ios::binary);
+		u.ParseFromIstream (&input);
+		std::cout << u.user_id () << std::endl << u.user_name () << std::endl << u.user_password_md5 ();
 	}
 
 	void start ()
