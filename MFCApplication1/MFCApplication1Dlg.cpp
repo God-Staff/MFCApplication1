@@ -152,9 +152,7 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	//if (t.getFlag())
 	//{
 	//	MessageBox (L"FFFFFFF");
-	//}
-	//else
-	//{
+	//}else{
 	//	MessageBox (L"XXXXXXX");
 	//}
 	//	
@@ -202,8 +200,7 @@ void CMFCApplication1Dlg::OnPaint()
 	}
 }
 
-//当用户拖动最小化窗口时系统调用此函数取得光标
-//显示。
+//当用户拖动最小化窗口时系统调用此函数取得光标显示。
 HCURSOR CMFCApplication1Dlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
@@ -240,8 +237,7 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 	//验证结果,可以使用枚举类型
 	size_t CheckResult=0;	
 
-	try
-	{
+	try{
 		qiuwanli::user userlogin;
 		
 		std::string s = CT2A (User_ID);
@@ -252,10 +248,16 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 		s = CT2A (User_Code);
 		userlogin.set_login_code (s);
 		userlogin.set_user_client_uuid ("123456789012");
+		userlogin.set_user_name ("LOL");
 
+		//char b[4096];
+		//std::string s;
 		//将对象序列化到文件流
 		std::fstream output ("login", std::ios::out | std::ios::trunc | std::ios::binary);
 		if (!userlogin.SerializeToOstream (&output)) {
+			//将对象序列化为string-->char
+			//userlogin.SerializePartialToString(&s);
+			//strcpy (b, s.c_str ());
 			std::cerr << "Failed to write address book." << std::endl;
 		}
 		//userlogin.SerializePartialToOstream(&output);
@@ -265,79 +267,16 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 		//::sendfile ("login");
 		try { 
 			qiuwanli::utilty s;
-			s.sender (io, "127.0.0.1", 9999, "login");
+			s.sender (io, "127.0.0.1", 9999, "login","1001\0");
 }
 		catch (std::exception& err) {
 			std::cerr << err.what () << "\n";
 		}
-
-		//send Data
-		//std::cout << "Enter message: ";
-		//char request[max_length];
-		//CString  req;
-		//edit1->GetWindowText (req);
-		////request = req.ToString().c_str ();
-		////std::cin.getline (request, max_length);
-		//size_t request_length = req.StringLength (req);
-		//asio::write (s, asio::buffer (req, request_length));
-
-		////Get Data
-		//char reply[max_length];
-		//size_t reply_length = asio::read (s,
-		//	asio::buffer (reply, request_length));
-		//std::cout << "Reply is: ";
-		//std::cout.write (reply, reply_length);
-		//std::cout << "\n";
-
 	}
 	catch (const std::exception& e)
 	{
 		std::cout << "ERROE:" << e.what () << std::endl;
 	}
-
-	//user_login->set_user_id ("");
-	//user_login->set_user_name ("");
-	//user_login->set_user_password_md5 ("");
-	//user_login->set_login_code ("");
-	//user_login->set_user_client_uuid ("");
-
-	//try{
-	//	using namespace std; // For atoi.
-	//	const char* host = "127.0.0.1";
-	//	const char* port = "9999";
-	//	int thread_count =  (4);
-	//	size_t block_size =  (8);
-	//	size_t session_count = (4);
-	//	int timeout = (30);
-
-	//	asio::io_service ios;
-
-	//	asio::ip::tcp::resolver r (ios);
-	//	asio::ip::tcp::resolver::iterator iter =
-	//		r.resolve (asio::ip::tcp::resolver::query (host, port));
-
-	//	client c (ios, iter, block_size, session_count, timeout);
-
-	//	std::list<asio::thread*> threads;
-	//	while (--thread_count > 0)
-	//	{
-	//		asio::thread* new_thread = new asio::thread (
-	//			boost::bind (&asio::io_service::run, &ios));
-	//		threads.push_back (new_thread);
-	//	}
-
-	//	ios.run ();
-
-	//	while (!threads.empty ())
-	//	{
-	//		threads.front ()->join ();
-	//		delete threads.front ();
-	//		threads.pop_front ();
-	//	}
-	//}	catch (std::exception& e)	{
-	//	std::cerr << "Exception: " << e.what () << "\n";
-	//}
-
 
 	std::wstring str_user = L"root";
 	std::wstring str_password = L"root";
@@ -355,13 +294,6 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 	{
 		CheckResult = 8;
 	}
-
-
-	//send Data
-	//char request[max_length]="get Login_User:userid";
-	//std::cin.getline (request, max_length);
-	//size_t request_length = std::strlen (request);
-	//asio::write (s, asio::buffer (request, request_length));
 
 	/************************************************************************/
 	/* CODE         //一系列登录验证                                        */

@@ -8,10 +8,15 @@
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/bind.hpp>
+#include "asio.hpp"
 #include <fstream>
 #include "login_all.pb.h"
+#include "boost/regex.hpp"
+#include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/classification.hpp>
 
-class Session : public boost::enable_shared_from_this<Session> {
+class Session : public boost::enable_shared_from_this<Session> 
+{
 public:
 	typedef asio::ip::tcp TCP;
 	typedef asio::error_code Error;
@@ -39,7 +44,9 @@ public:
 		qiuwanli::user u;
 		std::fstream input ("login", std::ios::in | std::ios::binary);
 		u.ParseFromIstream (&input);
-		std::cout << u.user_id () << std::endl << u.user_name () << std::endl << u.user_password_md5 ();
+		std::cout << u.user_id () << std::endl << u.user_type () << std::endl <<
+			u.user_password_md5 () << std::endl << u.login_code () << std::endl <<
+			u.user_name () << std::endl << u.user_client_uuid () << std::endl;
 	}
 
 	void start ()
@@ -58,7 +65,7 @@ private:
 	{
 		if (error) return print_asio_error (error);
 		size_t filename_size = file_info_.filename_size;
-		if (filename_size > k_buffer_size) {
+		if ((filename_size) > k_buffer_size) {
 			std::cerr << "Path name is too long!\n";
 			return;
 		}
@@ -67,12 +74,29 @@ private:
 			boost::bind (&Session::handle_file, shared_from_this (), asio::placeholders::error));
 	}
 
+	//将接受到的数据块，解析为文件名+文件数据
 	void handle_file (const Error& error)
 	{
-		if (error) return print_asio_error (error);
-		const char *basename = buffer_ + file_info_.filename_size - 1;
-		while (basename >= buffer_ && (*basename != '\\' && *basename != '/')) --basename;
-		++basename;
+		if (error) 
+			return print_asio_error (error);
+		const char *base_name_msg = buffer_+file_info_.filename_size - 1;
+		while (base_name_msg >= buffer_ && (*base_name_msg != '\\' && *base_name_msg != '/'))
+			--base_name_msg;
+		++base_name_msg;
+
+		const char *basename = "";
+		const char *msg_type = "";
+
+		//将const char* 分割
+		std::string str (base_name_msg);
+		std::vector<std::string>  vstr;
+		boost::split (vstr, str, boost::is_any_of ("+"), boost::token_compress_on);
+		basename = vstr[0].c_str ();
+		msg_type = vstr[1].c_str ();;
+
+		std::cout << "base_name_msg:" << base_name_msg << std::endl;
+		std::cout << "basename:" << basename << std::endl;
+		std::cout << "msg_type:" << msg_type << std::endl;
 
 		std::cout << "Open file: " << basename << " (" << buffer_ << ")\n";
 
@@ -80,6 +104,24 @@ private:
 		if (fp_ == NULL) {
 			std::cerr << "Failed to open file to write\n";
 			return;
+		}
+
+		switch ((int)*msg_type)
+		{
+		case 1001:
+			std::cout << "Add Success" << std::endl;
+			break;
+		case 1002:
+
+			break;
+		case 1003:
+			break;
+		case 1004:
+			break;
+		case 1005:
+			break;
+		default:
+			break;
 		}
 		receive_file_content ();
 	}
@@ -103,6 +145,42 @@ private:
 		}
 		total_bytes_writen_ += fwrite (buffer_, 1, bytes_transferred, fp_);
 		receive_file_content ();
+	}
+
+	//将文件名和消息类型拆分
+	void chageChar (const char* src,const char* srcname,const char* srctype)
+	{
+		char s1[32 * 1024] = "";
+		char s2[10] = "";
+		int end = 0;
+		for (int i = 0;;)
+		{
+			s1[i] = *src;
+			end = i;
+			if (*src == '+')
+				break;
+			++src;
+		}
+		s1[end + 1] = '\0';
+		if (*src > '9' || *src < '0')
+			++src;
+		if (*src > '9' || *src < '0')
+			++src;
+
+		for (int i = 0;;)
+		{
+			s2[i] = *src;
+			end = i;
+			if (*src == '\0')
+				break;
+			++src;
+		}
+		s2[end + 1] = '\0';
+
+		std::cout << s1 << std::endl;
+		std::cout << s2 << std::endl;
+		srcname = s1;
+		srctype = s2;
 	}
 	void send_file_content ()
 	{

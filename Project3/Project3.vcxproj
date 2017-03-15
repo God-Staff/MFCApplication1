@@ -69,7 +69,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>C:\local\vcpkg\packages\asio_x86-windows\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\local\vcpkg\packages\asio_x86-windows\share;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -114,10 +117,12 @@
     <ClInclude Include="config.pb.h" />
     <ClInclude Include="fileinfo.hpp" />
     <ClInclude Include="login_all.pb.h" />
+    <ClInclude Include="tools.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="config.pb.cc" />
     <ClCompile Include="login_all.pb.cc" />
+    <ClCompile Include="tools.cpp" />
     <ClCompile Include="源.cpp" />
   </ItemGroup>
   <ItemGroup>

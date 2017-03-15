@@ -82,3 +82,44 @@ MFCApplication1.manifest
 下载速度限制		6		int
 上传流量总计		7		int
 下载流量总计		8		int
+
+
+
+
+
+	//try{
+	//	using namespace std; // For atoi.
+	//	const char* host = "127.0.0.1";
+	//	const char* port = "9999";
+	//	int thread_count =  (4);
+	//	size_t block_size =  (8);
+	//	size_t session_count = (4);
+	//	int timeout = (30);
+
+	//	asio::io_service ios;
+
+	//	asio::ip::tcp::resolver r (ios);
+	//	asio::ip::tcp::resolver::iterator iter =
+	//		r.resolve (asio::ip::tcp::resolver::query (host, port));
+
+	//	client c (ios, iter, block_size, session_count, timeout);
+
+	//	std::list<asio::thread*> threads;
+	//	while (--thread_count > 0)
+	//	{
+	//		asio::thread* new_thread = new asio::thread (
+	//			boost::bind (&asio::io_service::run, &ios));
+	//		threads.push_back (new_thread);
+	//	}
+
+	//	ios.run ();
+
+	//	while (!threads.empty ())
+	//	{
+	//		threads.front ()->join ();
+	//		delete threads.front ();
+	//		threads.pop_front ();
+	//	}
+	//}	catch (std::exception& e)	{
+	//	std::cerr << "Exception: " << e.what () << "\n";
+	//}

@@ -5,9 +5,10 @@
 #include <string>
 #include <boost/shared_ptr.hpp>
 #include "fileinfo.hpp"
+#include "asio.hpp"
 
 
-void sender (asio::io_service& io, const char* ip_address, unsigned port, const char* filename)
+void sender (asio::io_service& io, const char* ip_address, unsigned port, const char* filename)//,unsigned char msg_type/*消息类型*/)
 {
 	typedef asio::ip::tcp TCP;
 
@@ -34,11 +35,13 @@ void sender (asio::io_service& io, const char* ip_address, unsigned port, const 
 		return;
 	}
 	file_info.filename_size = filename_size;
+	//file_info.msg_type = msg_type;			//消息类型
 
 	fseek (fp, 0, SEEK_END);
 	file_info.filesize = ftell (fp);
 	rewind (fp);
 
+	//拷贝要发送文件信息+文件名到buffer
 	memcpy (buffer, &file_info, file_info_size);
 	memcpy (buffer + file_info_size, filename, filename_size);
 
@@ -49,6 +52,7 @@ void sender (asio::io_service& io, const char* ip_address, unsigned port, const 
 	size_t len = total_size;
 	unsigned long long total_bytes_read = 0;
 	while (true) {
+		//第一次先把文件头信息发送过去//之后发送的是数据包
 		socket.send (asio::buffer (buffer, len), 0);
 		if (feof (fp)) break;
 		len = fread (buffer, 1, k_buffer_size, fp);
