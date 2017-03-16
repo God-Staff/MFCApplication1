@@ -178,6 +178,7 @@
     <None Include="utility.cpp">
       <Filter>Utility</Filter>
     </None>
+    <None Include="About.MD" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\MFCApplication1.ico">

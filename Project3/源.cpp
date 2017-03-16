@@ -85,14 +85,14 @@ private:
 		++base_name_msg;
 
 		const char *basename = "";
-		const char *msg_type = "";
+		//const char *msg_type = "";
 
 		//将const char* 分割
 		std::string str (base_name_msg);
 		std::vector<std::string>  vstr;
 		boost::split (vstr, str, boost::is_any_of ("+"), boost::token_compress_on);
 		basename = vstr[0].c_str ();
-		msg_type = vstr[1].c_str ();;
+		//msg_type = vstr[1].c_str ();;
 
 		std::cout << "base_name_msg:" << base_name_msg << std::endl;
 		std::cout << "basename:" << basename << std::endl;
@@ -106,19 +106,69 @@ private:
 			return;
 		}
 
-		switch ((int)*msg_type)
+		switch (std::stoi(vstr[1]))
 		{
-		case 1001:
-			std::cout << "Add Success" << std::endl;
+		case	996:	//用户注册信息//
 			break;
-		case 1002:
-
+		case	997:	//注册结果//
 			break;
-		case 1003:
+		case	998:	//获取验证码//
 			break;
-		case 1004:
+		case	999:	//实名认证信息//
 			break;
-		case 1005:
+		case	1001:	//登陆信息//
+			receive_file_content ();
+			break;
+		case	1002:	//登录验证信息//
+			break;
+		case	1003:	//发送用户信息到Server//
+			break;
+		case	1004:	//Servers返回用户的详细信息//
+			break;
+		case	1005:	//发送用户实名认证信息//
+			break;
+		case	1006:   //Servers返回用户实名信息验证结果//
+			break;  
+		case	1007:   //发送本地文件列表//
+			break;
+		case	1008:   //发送本地文件更新列表//
+			break;
+		case	1009:   //发送文件删除列表//
+			break;
+		case	1010:   //发送分享链接的数据块（包含文件用户名以及文件列表）//
+			break;
+		case	1011:   //获取用户好友列表//
+			break;
+		case	1012:   //添加好友//
+			break;
+		case	1013:   //删除好友//
+			break;
+		case	1014:   //向好友发送文件链接//
+			break;
+		case	1015:   //请求文件下载列表//
+			break;
+		case	1016:   //Servers返回文件对应的IP，port、用户名、以及用户的验证信息//
+			break;
+		case	1017:   //心跳连接//
+			break;
+		case	1018:   //检测是用户否在线//
+			break;
+		case	1019:   //P2P请求文件下载列表//
+			break;
+		case	1020:   //获取用户对应的Server颁发的的认证信息//
+			break;
+		case	1021:   //返回用户对应的认证信息//
+			break;
+		case	1022:   //P2P认证确认，并传回文件名，第几块的消息摘要//
+			break;
+		case	1023:   //文件传输//
+			receive_file_content ();
+			break;
+		case	1024:   //指定文件传输（传输那个文件，从第几块起，长度）（若文件块出错可用于指定传输）//
+			break;
+		case	1025:   //传输结束某个文件时，发送确认信息//
+			break;
+		case	1026:   //所有文件传输完成时，发送确认信息//
 			break;
 		default:
 			break;
@@ -147,44 +197,10 @@ private:
 		receive_file_content ();
 	}
 
-	//将文件名和消息类型拆分
-	void chageChar (const char* src,const char* srcname,const char* srctype)
-	{
-		char s1[32 * 1024] = "";
-		char s2[10] = "";
-		int end = 0;
-		for (int i = 0;;)
-		{
-			s1[i] = *src;
-			end = i;
-			if (*src == '+')
-				break;
-			++src;
-		}
-		s1[end + 1] = '\0';
-		if (*src > '9' || *src < '0')
-			++src;
-		if (*src > '9' || *src < '0')
-			++src;
-
-		for (int i = 0;;)
-		{
-			s2[i] = *src;
-			end = i;
-			if (*src == '\0')
-				break;
-			++src;
-		}
-		s2[end + 1] = '\0';
-
-		std::cout << s1 << std::endl;
-		std::cout << s2 << std::endl;
-		srcname = s1;
-		srctype = s2;
-	}
+	//发送文件
 	void send_file_content ()
 	{
-
+		
 	}
 
 	clock_t clock_;

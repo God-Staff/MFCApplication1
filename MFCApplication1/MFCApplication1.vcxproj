@@ -84,8 +84,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\local\boost_1_63_0;F:\WorkSpace\Projects\MFCApplication1\MFCApplication1\sqlite3\x86;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\local\boost_1_63_0\lib32-msvc-14.0;F:\WorkSpace\Projects\MFCApplication1\MFCApplication1\sqlite3;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\local\vcpkg\packages\sqlite-modern-cpp_x86-windows\include;C:\local\boost_1_63_0;C:\local\vcpkg\packages\sqlite3_x86-windows\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\local\boost_1_63_0\lib32-msvc-14.0;C:\local\vcpkg\packages\sqlite3_x86-windows\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -246,6 +246,7 @@
     <ResourceCompile Include="MFCApplication1.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="About.MD" />
     <None Include="ClassDiagram.cd" />
     <None Include="config.proto" />
     <None Include="res\MFCApplication1.rc2" />

@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Sqlite">
+      <UniqueIdentifier>{02445666-64fb-4143-a4e5-1468a360de4f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fileinfo.hpp">
@@ -27,6 +30,21 @@
     <ClInclude Include="tools.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="sqlite3\sqlite3.h">
+      <Filter>Sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlite3\sqlite3ext.h">
+      <Filter>Sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="sqliteInterface.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSQLite3U.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="源.cpp">
@@ -39,6 +57,18 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="tools.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="sqlite3\shell.c">
+      <Filter>Sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="sqlite3\sqlite3.c">
+      <Filter>Sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="sqliteInterface.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSQLite3U.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -19,14 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\sqlite-amalgamation-3170000\shell.c" />
-    <ClCompile Include="..\..\..\sqlite-amalgamation-3170000\sqlite3.c" />
-    <ClCompile Include="asio_heartPort.cpp" />
+    <ClCompile Include="sqlite3\shell.c" />
+    <ClCompile Include="sqlite3\sqlite3.c" />
     <ClCompile Include="源.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\sqlite-amalgamation-3170000\sqlite3.h" />
-    <ClInclude Include="..\..\..\sqlite-amalgamation-3170000\sqlite3ext.h" />
+    <ClInclude Include="sqlite3\sqlite3.h" />
+    <ClInclude Include="sqlite3\sqlite3ext.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

@@ -18,24 +18,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\sqlite-amalgamation-3170000\shell.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\sqlite-amalgamation-3170000\sqlite3.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="源.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="asio_heartPort.cpp">
-      <Filter>头文件\asiotest</Filter>
+    <ClCompile Include="sqlite3\shell.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="sqlite3\sqlite3.c">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\sqlite-amalgamation-3170000\sqlite3.h">
+    <ClInclude Include="sqlite3\sqlite3.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\sqlite-amalgamation-3170000\sqlite3ext.h">
+    <ClInclude Include="sqlite3\sqlite3ext.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
