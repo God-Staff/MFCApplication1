@@ -21,7 +21,7 @@ public:
 #endif
 
 protected:
-	qiuwanli::ConfigFile *configFile=nullptr;
+	//qiuwanli::ConfigFile *configFile;
 	BOOL		configInit ();			//加载配置文件
 	BOOL		updateConfig ();		//更新配置文件
 

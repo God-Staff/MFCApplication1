@@ -88,7 +88,7 @@ void reg::OnBnClickedCancel ()
 		asio::io_service io;
 		try {
 			qiuwanli::utilty s;
-			s.sender (io, "127.0.0.1", 9999, "login", "996\0");
+			s.sender (io, "127.0.0.1", 9999, "userreg", "996\0");
 		}
 		catch (std::exception& err) {
 			std::cerr << err.what () << "\n";
@@ -99,12 +99,17 @@ void reg::OnBnClickedCancel ()
 		std::cout << "ERROE:" << e.what () << std::endl;
 	}
 	
+	//注册成功
+
 	//生成新窗口，并切换
 	reg_info *tt = new reg_info ();
 	tt->Create (IDD_MFCAPPLICATION1_DIALOG2, this);
 	tt->ShowWindow (SW_SHOW);
 
 	reg::ShowWindow (FALSE);
+
+	//注册失败
+	//错误类型
 }
 
 

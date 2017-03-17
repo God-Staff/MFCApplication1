@@ -52,14 +52,9 @@ BOOL AllFiles::OnInitDialog ()
 		pmyListCtrl->InsertColumn (i, &lvcolumn);
 	}
 
-
 	//add data
 	pmyListCtrl->InsertItem (0, L"qq");
 	pmyListCtrl->SetItemText (0, 1, L"mima");
-	pmyListCtrl->InsertItem (1, L"qq");
-	pmyListCtrl->SetItemText (1, 1, L"mima");
-	pmyListCtrl->InsertItem (2, L"qq");
-	pmyListCtrl->SetItemText (2, 1, L"mima");
 
 	return TRUE;
 }

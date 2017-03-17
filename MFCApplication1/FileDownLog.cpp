@@ -81,7 +81,6 @@ BOOL FileDownLog::OnInitDialog ()
 	pmyListCtrl->InsertItem (2, L"qq");
 	pmyListCtrl->SetItemText (2, 1, L"mima");
 
-
 	return TRUE;
 }
 

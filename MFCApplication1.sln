@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MFCApplication1", "MFCApplication1\MFCApplication1.vcxproj", "{981DBEFA-3422-4BF5-8E36-1E01FC219F2F}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "chart", "chart\chart.vcxproj", "{C4A0540C-F66E-4E75-9418-B26030C667D6}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "chart_server", "chart_server\chart_server.vcxproj", "{9C4F8A08-81D5-4257-ADE1-12F89AE37B9B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BuildCOnfigFiles", "BuildCOnfigFiles\BuildCOnfigFiles.vcxproj", "{DBDB8795-D822-4C47-AD69-6937AF1D8936}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +113,14 @@ Global
 		{9C4F8A08-81D5-4257-ADE1-12F89AE37B9B}.Release|x64.Build.0 = Release|x64
 		{9C4F8A08-81D5-4257-ADE1-12F89AE37B9B}.Release|x86.ActiveCfg = Release|Win32
 		{9C4F8A08-81D5-4257-ADE1-12F89AE37B9B}.Release|x86.Build.0 = Release|Win32
+		{DBDB8795-D822-4C47-AD69-6937AF1D8936}.Debug|x64.ActiveCfg = Debug|x64
+		{DBDB8795-D822-4C47-AD69-6937AF1D8936}.Debug|x64.Build.0 = Debug|x64
+		{DBDB8795-D822-4C47-AD69-6937AF1D8936}.Debug|x86.ActiveCfg = Debug|Win32
+		{DBDB8795-D822-4C47-AD69-6937AF1D8936}.Debug|x86.Build.0 = Debug|Win32
+		{DBDB8795-D822-4C47-AD69-6937AF1D8936}.Release|x64.ActiveCfg = Release|x64
+		{DBDB8795-D822-4C47-AD69-6937AF1D8936}.Release|x64.Build.0 = Release|x64
+		{DBDB8795-D822-4C47-AD69-6937AF1D8936}.Release|x86.ActiveCfg = Release|Win32
+		{DBDB8795-D822-4C47-AD69-6937AF1D8936}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

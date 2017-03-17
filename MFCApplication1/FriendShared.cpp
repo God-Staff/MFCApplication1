@@ -19,7 +19,7 @@ FriendShared::FriendShared(CWnd* pParent /*=NULL*/)
 BOOL FriendShared::OnInitDialog ()
 {
 	CDialogEx::OnInitDialog ();
-	
+
 	//初始化列表
 	m_ListControl = (CListCtrl*)GetDlgItem (IDC_LIST8);
 	DWORD dwStyle = GetWindowLong (m_ListControl->m_hWnd, GWL_STYLE);
@@ -87,6 +87,7 @@ BOOL FriendShared::OnInitDialog ()
 	m_ListContro2->SetItemText (0, 2, L"2017-03-12");
 	m_ListContro2->SetItemText (0, 3, L"7*24");
 	m_ListContro2->SetItemText (0, 4, L"所有人");
+
 
 	return TRUE;
 }

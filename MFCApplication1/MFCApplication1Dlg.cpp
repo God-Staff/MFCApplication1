@@ -15,6 +15,7 @@
 #include "checkNet.hpp"
 #include <sstream>
 #include <random>
+#include "Main_UI.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -235,63 +236,63 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 	//验证结果,可以使用枚举类型
 	size_t CheckResult=0;	
 
-	try{
-		qiuwanli::user userlogin;
-		
-		std::string s = CT2A (User_ID);
-		userlogin.set_user_id (s);
-		s = CT2A (User_Password);
-		userlogin.set_user_password_md5 (s);
-		userlogin.set_user_type ("haha");
-		s = CT2A (User_Code);
-		userlogin.set_login_code (s);
-		userlogin.set_user_client_uuid ("123456789012");
-		userlogin.set_user_name ("LOL");
+//	try{
+//		qiuwanli::user userlogin;
+//		
+//		std::string s = CT2A (User_ID);
+//		userlogin.set_user_id (s);
+//		s = CT2A (User_Password);
+//		userlogin.set_user_password_md5 (s);
+//		userlogin.set_user_type ("haha");
+//		s = CT2A (User_Code);
+//		userlogin.set_login_code (s);
+//		userlogin.set_user_client_uuid ("123456789012");
+//		userlogin.set_user_name ("LOL");
+//
+//		//char b[4096];
+//		//std::string s;
+//		//将对象序列化到文件流
+//		std::fstream output ("login", std::ios::out | std::ios::trunc | std::ios::binary);
+//		if (!userlogin.SerializeToOstream (&output)) {
+//			//将对象序列化为string-->char
+//			//userlogin.SerializePartialToString(&s);
+//			//strcpy (b, s.c_str ());
+//			std::cerr << "Failed to write address book." << std::endl;
+//		}
+//		//userlogin.SerializePartialToOstream(&output);
+//		output.close ();
+//
+//		asio::io_service io;
+//		//::sendfile ("login");
+//		try { 
+//			qiuwanli::utilty s;
+//			s.sender (io, "127.0.0.1", 9999, "login","1001\0");
+//}
+//		catch (std::exception& err) {
+//			std::cerr << err.what () << "\n";
+//		}
+//	}
+//	catch (const std::exception& e)
+//	{
+//		std::cout << "ERROE:" << e.what () << std::endl;
+//	}
 
-		//char b[4096];
-		//std::string s;
-		//将对象序列化到文件流
-		std::fstream output ("login", std::ios::out | std::ios::trunc | std::ios::binary);
-		if (!userlogin.SerializeToOstream (&output)) {
-			//将对象序列化为string-->char
-			//userlogin.SerializePartialToString(&s);
-			//strcpy (b, s.c_str ());
-			std::cerr << "Failed to write address book." << std::endl;
-		}
-		//userlogin.SerializePartialToOstream(&output);
-		output.close ();
-
-		asio::io_service io;
-		//::sendfile ("login");
-		try { 
-			qiuwanli::utilty s;
-			s.sender (io, "127.0.0.1", 9999, "login","1001\0");
-}
-		catch (std::exception& err) {
-			std::cerr << err.what () << "\n";
-		}
-	}
-	catch (const std::exception& e)
-	{
-		std::cout << "ERROE:" << e.what () << std::endl;
-	}
-
-	std::wstring str_user = L"root";
-	std::wstring str_password = L"root";
-	std::wstring str_code = L"1234";
-	//若用户ID相同则...
-	if (!str_user.compare (User_ID.GetString()))
-	{
-		CheckResult = 2;
-	}
-	else if (str_password.compare(User_Password.GetString ()))
-	{
-		CheckResult = 4;
-	}
-	else if (str_code.compare (User_Code.GetString ()))
-	{
-		CheckResult = 8;
-	}
+	//std::wstring str_user = L"root";
+	//std::wstring str_password = L"root";
+	//std::wstring str_code = L"1234";
+	////若用户ID相同则...
+	//if (!str_user.compare (User_ID.GetString()))
+	//{
+	//	CheckResult = 2;
+	//}
+	//else if (str_password.compare(User_Password.GetString ()))
+	//{
+	//	CheckResult = 4;
+	//}
+	//else if (str_code.compare (User_Code.GetString ()))
+	//{
+	//	CheckResult = 8;
+	//}
 
 	/************************************************************************/
 	/* CODE         //一系列登录验证                                        */
@@ -299,15 +300,15 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 
 
 	//成功验证，跳转到网盘对话框
-
+	CheckResult = 2;
 	if (CheckResult==2)
 	{
 		//密码正确，进入网盘
-		Main_UI *tt = new Main_UI ();
-		tt->Create (IDD_MFCAPPLICATION1_DIALOG4, this);
-		tt->ShowWindow (SW_SHOW);
+		Main_UI *tt1 = new Main_UI ();
+		tt1->Create (IDD_MFCAPPLICATION1_DIALOG4, this);
+		tt1->ShowWindow (SW_SHOW);
 
-		//CMFCApplication1Dlg::ShowWindow (FALSE);
+		CMFCApplication1Dlg::ShowWindow (FALSE);
 	}
 	else	//验证失败
 	{
@@ -336,7 +337,7 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 
 	// TODO: 在此添加控件通知处理程序代码
 	//CDialogEx::OnOK ();
-	CMFCApplication1Dlg::ShowWindow (FALSE);
+	//CMFCApplication1Dlg::ShowWindow (FALSE);
 }
 
 

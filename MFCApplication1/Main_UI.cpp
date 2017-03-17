@@ -171,5 +171,4 @@ void Main_UI::swithTable (int i)
 		}
 	}
 	change_table = i;
-
 }

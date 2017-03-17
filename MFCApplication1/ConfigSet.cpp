@@ -7,6 +7,7 @@
 #include "afxdialogex.h"
 #include <fstream>
 #include "utility.hpp"
+#include <string>
 
 // ConfigSet 对话框
 
@@ -20,12 +21,13 @@ ConfigSet::ConfigSet(CWnd* pParent /*=NULL*/)
 
 ConfigSet::~ConfigSet()
 {
+	google::protobuf::ShutdownProtobufLibrary ();
 }
 
 BOOL ConfigSet::OnInitDialog ()
 {
 	CDialogEx::OnInitDialog ();
-
+	
 	////
 	downpath	= (CEdit*)GetDlgItem (IDC_EDIT41);
 	downpath->SetReadOnly (TRUE);
@@ -68,12 +70,7 @@ BOOL ConfigSet::OnInitDialog ()
 	if (!configInit ())
 		return 0;
 
-	/*m_ListControl->InsertItem (0, L"qq");
-	m_ListControl->InsertItem (1, L"qq");
-	m_ListControl->InsertItem (2, L"qq");*/
-	m_ListControl->InsertItem (0 ,L"mima");
-
-
+	MessageBox (L"配置文件");
 	return TRUE;
 }
 
@@ -101,47 +98,73 @@ END_MESSAGE_MAP()
 
 BOOL	ConfigSet::configInit ()
 {
-	std::ifstream *conf=nullptr;
-	conf->open ("config.ini");
-	if (!conf)
-	{	//打开失败
+	qiuwanli::utilty utility;
+	LPCTSTR lpctstr;
+	qiuwanli::ConfigFile configfile;
+	//configFile = &configfile;
+	std::fstream input ("config", std::ios::in | std::ios::binary);
+	if (!input){
+		MessageBox (L"配置文件打开失败！");
 		return FALSE;
-	} else {
-		//解析配置文件
-		for (int i = 0; i < configFile->config_size(); i++)
+	}
+		
+	if (!configfile.ParseFromIstream(&input))
+	{	//打开失败
+		MessageBox (L"配置文件加载失败！");
+		return FALSE;
+	}
+	else 
+	{	//解析配置文件
+		for (int i = 0; i < (configfile.config_size()); i++)
 		{
-			const qiuwanli::Config& config = configFile->config (i);
+			auto config = configfile.config (i);
 
-			switch ( config.type())
+			if (qiuwanli::Type::ThreadNumUp == config.type ()) 
 			{
-			case qiuwanli::Config_Type_FilePath: 
-			{
-				int j = m_ListControl->GetWindowedChildCount ();
-				//m_ListControl->InsertItem (j, qiuwanli::StringToWstring (config.value ()).c_str ());
+				box1->SetCurSel (atoi (config.value ().c_str ()));
+				MessageBox (L"2！");
 			}
-				break;
-			case qiuwanli::Config_Type_ThreadNumUp:
-				//box1->SetCurSel (atoi (config.value ().c_str ()));
-				break;
-			case qiuwanli::Config_Type_ThreadNumDown:
-				//box2->SetCurSel (atoi (config.value ().c_str ()));
-				break;
-			case qiuwanli::Config_Type_FileUpSpeed:
-				//UploadSpeed->SetWindowText (qiuwanli::StringToWstring (config.value ()).c_str ());
-				break;
-			case qiuwanli::Config_Type_FileDownSpeed:
-				//downSpeed->SetWindowText (qiuwanli::StringToWstring (config.value ()).c_str ());
-				break;
-			case qiuwanli::Config_Type_DownFilePath:
+			else if (qiuwanli::Type::ThreadNumDown == config.type ())
+			{
+				box2->SetCurSel (atoi (config.value ().c_str ()));
+				MessageBox (L"3！");
+			}
+			else if (qiuwanli::Type::FileUpSpeed == config.type ())
+			{
+				UploadSpeed->SetWindowText (utility.StringToWstring (config.value ().c_str()).c_str());
+				MessageBox (L"4！");
+			}
+			else if (qiuwanli::Type::FileDownSpeed == config.type ())
+			{
+				downSpeed->SetWindowText (utility.StringToWstring (config.value ()).c_str ());
+				MessageBox (L"5！");
+			}
+			else if (qiuwanli::Type::DownFilePath == config.type ())
+			{
 				downpath->SetReadOnly (FALSE);
 				//将string 转化为Wstring 再转化为 LPTSTR 
-				//downpath->SetWindowText( qiuwanli::StringToWstring( config.value()).c_str() );
+				downpath->SetWindowText (utility.StringToWstring (config.value ()).c_str ());
 				downpath->SetReadOnly (TRUE);
-				break;
-			default:
-				break;
+				MessageBox (L"6！");
+			}
+			else if (qiuwanli::Type::FilePath == config.type ())
+			{
+				int j = m_ListControl->GetWindowedChildCount ();
+				
+#ifdef UNICODE
+				std::wstring stemp = utility.s2ws (config.value ()); // Temporary buffer is required
+				LPCWSTR result = stemp.c_str ();
+#else
+				LPCWSTR result = s.c_str ();
+#endif
+
+				m_ListControl->InsertItem (j, result);
+				j = m_ListControl->GetWindowedChildCount ();
+				m_ListControl->InsertItem (j, L"addddd");
+				MessageBox (L"7！");
 			}
 		}
+
 		return TRUE;
 	}
 }
@@ -319,82 +342,3 @@ void ConfigSet::OnBnClickedButton2 ()
 	downpath->SetReadOnly (TRUE);
 }
 
-
-//void ConfigSet::OnBnClickedButton1 ()
-//{
-//	//if (AutoSaveFLG == FALSE ) 
-//	CString filter ("List Files|*.htm; *.html; *.cpp; *.hpp||");
-//	CString         filePath, strBuf;
-//	POSITION        pos = NULL;
-//
-//	POSITION		w_pos = NULL;
-//
-//	CFileDialog     selDlg (TRUE, NULL, NULL,	//不按快捷方式文件的链接 OFN_NODEREFERENCELINKS
-//		OFN_HIDEREADONLY | OFN_ALLOWMULTISELECT | OFN_NODEREFERENCELINKS, filter);//OFN_NODEREFERENCELINKS 追加
-//	int             err = 0, lbErr = 0;
-//
-//	// 内存保留给文件名列表
-//	if (!err)
-//	{
-//		try
-//		{
-//			selDlg.GetOFN ().lpstrFile = strBuf.GetBuffer (MAX_PATH * 100);
-//			selDlg.GetOFN ().nMaxFile = MAX_PATH * 100;
-//		}
-//		catch (...) { err = 1; }
-//	}
-//	if (!err) if (selDlg.DoModal () != IDOK) err = 1;
-//
-//	if (selDlg.GetStartPosition () != NULL) {
-//		w_pos = selDlg.GetStartPosition ();
-//	}
-//
-//	if (!err) if ((pos = selDlg.GetStartPosition ()) == NULL) err = 1;
-//	if (!err)
-//	{
-//		while (pos)
-//		{
-//			filePath = selDlg.GetNextPathName (pos);
-//			if (!err)
-//			{
-//				ULONGLONG tempCnt;
-//			}
-//			//if (err) break;
-//		}
-//		UpdateData (FALSE);
-//	}
-//
-//	BOOL ReadErrorFLG = FALSE;
-//
-//	if (!err) if ((pos = w_pos) == NULL) err = 1;
-//	if (!err)
-//	{
-//
-//		while (pos)
-//		{
-//			filePath = selDlg.GetNextPathName (pos);
-//			if (!err)
-//			{
-//				//lbErr = CFileListCreatorDlg::importFileList_Func(filePath);
-//				MessageBox (filePath);
-//				int tempINT=0;
-//				//tempINT = CFileListCreatorDlg::importFileList_Func (filePath, FALSE);
-//				if (tempINT == 0) {
-//					//err = 1;
-//					ReadErrorFLG = TRUE;
-//				}
-//			}
-//			//if (err) break;
-//		}
-//		UpdateData (FALSE);
-//	}
-//	//strBuf.ReleaseBuffer();//コメントアウト//2011.05.31
-//
-//	//CFileListCreatorDlg::StrToTagSign();
-//	//CFileListCreatorDlg::SetStrFormat_Func(); //Funcの中で
-//
-//	strBuf.ReleaseBuffer ();
-//	DrawMenuBar ();
-//
-//	return;
-//}
