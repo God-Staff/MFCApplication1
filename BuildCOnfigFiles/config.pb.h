@@ -146,23 +146,29 @@ class Config : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
 
   // accessors -------------------------------------------------------
 
-  // string value = 1;
-  void clear_value();
-  static const int kValueFieldNumber = 1;
-  const ::std::string& value() const;
-  void set_value(const ::std::string& value);
+  // string valueString = 2;
+  void clear_valuestring();
+  static const int kValueStringFieldNumber = 2;
+  const ::std::string& valuestring() const;
+  void set_valuestring(const ::std::string& value);
   #if LANG_CXX11
-  void set_value(::std::string&& value);
+  void set_valuestring(::std::string&& value);
   #endif
-  void set_value(const char* value);
-  void set_value(const char* value, size_t size);
-  ::std::string* mutable_value();
-  ::std::string* release_value();
-  void set_allocated_value(::std::string* value);
+  void set_valuestring(const char* value);
+  void set_valuestring(const char* value, size_t size);
+  ::std::string* mutable_valuestring();
+  ::std::string* release_valuestring();
+  void set_allocated_valuestring(::std::string* valuestring);
 
-  // .qiuwanli.Type type = 2;
+  // uint32 length = 1;
+  void clear_length();
+  static const int kLengthFieldNumber = 1;
+  ::google::protobuf::uint32 length() const;
+  void set_length(::google::protobuf::uint32 value);
+
+  // .qiuwanli.Type type = 3;
   void clear_type();
-  static const int kTypeFieldNumber = 2;
+  static const int kTypeFieldNumber = 3;
   ::qiuwanli::Type type() const;
   void set_type(::qiuwanli::Type value);
 
@@ -170,7 +176,8 @@ class Config : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr value_;
+  ::google::protobuf::internal::ArenaStringPtr valuestring_;
+  ::google::protobuf::uint32 length_;
   int type_;
   mutable int _cached_size_;
   friend struct  protobuf_config_2eproto::TableStruct;
@@ -244,10 +251,10 @@ class ConfigFile : public ::google::protobuf::Message /* @@protoc_insertion_poin
 
   // accessors -------------------------------------------------------
 
-  // repeated .qiuwanli.Config config = 1;
+  // repeated .qiuwanli.Config config = 2;
   int config_size() const;
   void clear_config();
-  static const int kConfigFieldNumber = 1;
+  static const int kConfigFieldNumber = 2;
   const ::qiuwanli::Config& config(int index) const;
   ::qiuwanli::Config* mutable_config(int index);
   ::qiuwanli::Config* add_config();
@@ -272,59 +279,73 @@ class ConfigFile : public ::google::protobuf::Message /* @@protoc_insertion_poin
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
 // Config
 
-// string value = 1;
-inline void Config::clear_value() {
-  value_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// uint32 length = 1;
+inline void Config::clear_length() {
+  length_ = 0u;
 }
-inline const ::std::string& Config::value() const {
-  // @@protoc_insertion_point(field_get:qiuwanli.Config.value)
-  return value_.GetNoArena();
+inline ::google::protobuf::uint32 Config::length() const {
+  // @@protoc_insertion_point(field_get:qiuwanli.Config.length)
+  return length_;
 }
-inline void Config::set_value(const ::std::string& value) {
+inline void Config::set_length(::google::protobuf::uint32 value) {
   
-  value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:qiuwanli.Config.value)
+  length_ = value;
+  // @@protoc_insertion_point(field_set:qiuwanli.Config.length)
+}
+
+// string valueString = 2;
+inline void Config::clear_valuestring() {
+  valuestring_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& Config::valuestring() const {
+  // @@protoc_insertion_point(field_get:qiuwanli.Config.valueString)
+  return valuestring_.GetNoArena();
+}
+inline void Config::set_valuestring(const ::std::string& value) {
+  
+  valuestring_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:qiuwanli.Config.valueString)
 }
 #if LANG_CXX11
-inline void Config::set_value(::std::string&& value) {
+inline void Config::set_valuestring(::std::string&& value) {
   
-  value_.SetNoArena(
+  valuestring_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:qiuwanli.Config.value)
+  // @@protoc_insertion_point(field_set_rvalue:qiuwanli.Config.valueString)
 }
 #endif
-inline void Config::set_value(const char* value) {
+inline void Config::set_valuestring(const char* value) {
   
-  value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:qiuwanli.Config.value)
+  valuestring_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:qiuwanli.Config.valueString)
 }
-inline void Config::set_value(const char* value, size_t size) {
+inline void Config::set_valuestring(const char* value, size_t size) {
   
-  value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  valuestring_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:qiuwanli.Config.value)
+  // @@protoc_insertion_point(field_set_pointer:qiuwanli.Config.valueString)
 }
-inline ::std::string* Config::mutable_value() {
+inline ::std::string* Config::mutable_valuestring() {
   
-  // @@protoc_insertion_point(field_mutable:qiuwanli.Config.value)
-  return value_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:qiuwanli.Config.valueString)
+  return valuestring_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* Config::release_value() {
-  // @@protoc_insertion_point(field_release:qiuwanli.Config.value)
+inline ::std::string* Config::release_valuestring() {
+  // @@protoc_insertion_point(field_release:qiuwanli.Config.valueString)
   
-  return value_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return valuestring_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void Config::set_allocated_value(::std::string* value) {
-  if (value != NULL) {
+inline void Config::set_allocated_valuestring(::std::string* valuestring) {
+  if (valuestring != NULL) {
     
   } else {
     
   }
-  value_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set_allocated:qiuwanli.Config.value)
+  valuestring_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), valuestring);
+  // @@protoc_insertion_point(field_set_allocated:qiuwanli.Config.valueString)
 }
 
-// .qiuwanli.Type type = 2;
+// .qiuwanli.Type type = 3;
 inline void Config::clear_type() {
   type_ = 0;
 }
@@ -342,7 +363,7 @@ inline void Config::set_type(::qiuwanli::Type value) {
 
 // ConfigFile
 
-// repeated .qiuwanli.Config config = 1;
+// repeated .qiuwanli.Config config = 2;
 inline int ConfigFile::config_size() const {
   return config_.size();
 }

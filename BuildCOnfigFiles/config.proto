@@ -12,10 +12,11 @@ enum Type {
 }
 message Config
 {
-    string value=1;
-    Type type=2;
+	  uint32 length=1;
+    string valueString=2;
+    Type type=3;
 }
 
 message ConfigFile {
-  repeated Config config = 1;
+    repeated Config config = 2;
 }

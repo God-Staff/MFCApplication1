@@ -38,7 +38,8 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Config, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Config, value_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Config, length_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Config, valuestring_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Config, type_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ConfigFile, _internal_metadata_),
@@ -49,7 +50,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
 
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 0, -1, sizeof(Config)},
-  { 6, -1, sizeof(ConfigFile)},
+  { 7, -1, sizeof(ConfigFile)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -102,16 +103,16 @@ void InitDefaults() {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\014config.proto\022\010qiuwanli\"5\n\006Config\022\r\n\005va"
-      "lue\030\001 \001(\t\022\034\n\004type\030\002 \001(\0162\016.qiuwanli.Type\""
-      ".\n\nConfigFile\022 \n\006config\030\001 \003(\0132\020.qiuwanli"
-      ".Config*n\n\004Type\022\020\n\014DownFilePath\020\000\022\017\n\013Thr"
-      "eadNumUp\020\001\022\021\n\rThreadNumDown\020\002\022\017\n\013FileUpS"
-      "peed\020\003\022\021\n\rFileDownSpeed\020\004\022\014\n\010FilePath\020\005b"
-      "\006proto3"
+      "\n\014config.proto\022\010qiuwanli\"K\n\006Config\022\016\n\006le"
+      "ngth\030\001 \001(\r\022\023\n\013valueString\030\002 \001(\t\022\034\n\004type\030"
+      "\003 \001(\0162\016.qiuwanli.Type\".\n\nConfigFile\022 \n\006c"
+      "onfig\030\002 \003(\0132\020.qiuwanli.Config*n\n\004Type\022\020\n"
+      "\014DownFilePath\020\000\022\017\n\013ThreadNumUp\020\001\022\021\n\rThre"
+      "adNumDown\020\002\022\017\n\013FileUpSpeed\020\003\022\021\n\rFileDown"
+      "Speed\020\004\022\014\n\010FilePath\020\005b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 247);
+      descriptor, 269);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "config.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -152,7 +153,8 @@ bool Type_IsValid(int value) {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int Config::kValueFieldNumber;
+const int Config::kLengthFieldNumber;
+const int Config::kValueStringFieldNumber;
 const int Config::kTypeFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -169,17 +171,20 @@ Config::Config(const Config& from)
       _internal_metadata_(NULL),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  value_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.value().size() > 0) {
-    value_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.value_);
+  valuestring_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.valuestring().size() > 0) {
+    valuestring_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.valuestring_);
   }
-  type_ = from.type_;
+  ::memcpy(&length_, &from.length_,
+    reinterpret_cast<char*>(&type_) -
+    reinterpret_cast<char*>(&length_) + sizeof(type_));
   // @@protoc_insertion_point(copy_constructor:qiuwanli.Config)
 }
 
 void Config::SharedCtor() {
-  value_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  type_ = 0;
+  valuestring_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&length_, 0, reinterpret_cast<char*>(&type_) -
+    reinterpret_cast<char*>(&length_) + sizeof(type_));
   _cached_size_ = 0;
 }
 
@@ -189,7 +194,7 @@ Config::~Config() {
 }
 
 void Config::SharedDtor() {
-  value_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  valuestring_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void Config::SetCachedSize(int size) const {
@@ -217,8 +222,9 @@ Config* Config::New(::google::protobuf::Arena* arena) const {
 
 void Config::Clear() {
 // @@protoc_insertion_point(message_clear_start:qiuwanli.Config)
-  value_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  type_ = 0;
+  valuestring_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&length_, 0, reinterpret_cast<char*>(&type_) -
+    reinterpret_cast<char*>(&length_) + sizeof(type_));
 }
 
 bool Config::MergePartialFromCodedStream(
@@ -231,24 +237,37 @@ bool Config::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // string value = 1;
+      // uint32 length = 1;
       case 1: {
-        if (tag == 10u) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_value()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->value().data(), this->value().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "qiuwanli.Config.value"));
+        if (tag == 8u) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &length_)));
         } else {
           goto handle_unusual;
         }
         break;
       }
 
-      // .qiuwanli.Type type = 2;
+      // string valueString = 2;
       case 2: {
-        if (tag == 16u) {
+        if (tag == 18u) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_valuestring()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->valuestring().data(), this->valuestring().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "qiuwanli.Config.valueString"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .qiuwanli.Type type = 3;
+      case 3: {
+        if (tag == 24u) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
@@ -284,20 +303,25 @@ failure:
 void Config::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:qiuwanli.Config)
-  // string value = 1;
-  if (this->value().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->value().data(), this->value().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "qiuwanli.Config.value");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->value(), output);
+  // uint32 length = 1;
+  if (this->length() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->length(), output);
   }
 
-  // .qiuwanli.Type type = 2;
+  // string valueString = 2;
+  if (this->valuestring().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->valuestring().data(), this->valuestring().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "qiuwanli.Config.valueString");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->valuestring(), output);
+  }
+
+  // .qiuwanli.Type type = 3;
   if (this->type() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      2, this->type(), output);
+      3, this->type(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:qiuwanli.Config)
@@ -307,21 +331,26 @@ void Config::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:qiuwanli.Config)
-  // string value = 1;
-  if (this->value().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->value().data(), this->value().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "qiuwanli.Config.value");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->value(), target);
+  // uint32 length = 1;
+  if (this->length() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->length(), target);
   }
 
-  // .qiuwanli.Type type = 2;
+  // string valueString = 2;
+  if (this->valuestring().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->valuestring().data(), this->valuestring().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "qiuwanli.Config.valueString");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->valuestring(), target);
+  }
+
+  // .qiuwanli.Type type = 3;
   if (this->type() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      2, this->type(), target);
+      3, this->type(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:qiuwanli.Config)
@@ -332,14 +361,21 @@ size_t Config::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:qiuwanli.Config)
   size_t total_size = 0;
 
-  // string value = 1;
-  if (this->value().size() > 0) {
+  // string valueString = 2;
+  if (this->valuestring().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->value());
+        this->valuestring());
   }
 
-  // .qiuwanli.Type type = 2;
+  // uint32 length = 1;
+  if (this->length() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->length());
+  }
+
+  // .qiuwanli.Type type = 3;
   if (this->type() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
@@ -371,9 +407,12 @@ void Config::MergeFrom(const Config& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:qiuwanli.Config)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  if (from.value().size() > 0) {
+  if (from.valuestring().size() > 0) {
 
-    value_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.value_);
+    valuestring_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.valuestring_);
+  }
+  if (from.length() != 0) {
+    set_length(from.length());
   }
   if (from.type() != 0) {
     set_type(from.type());
@@ -403,7 +442,8 @@ void Config::Swap(Config* other) {
   InternalSwap(other);
 }
 void Config::InternalSwap(Config* other) {
-  value_.Swap(&other->value_);
+  valuestring_.Swap(&other->valuestring_);
+  std::swap(length_, other->length_);
   std::swap(type_, other->type_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -416,59 +456,73 @@ void Config::InternalSwap(Config* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // Config
 
-// string value = 1;
-void Config::clear_value() {
-  value_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// uint32 length = 1;
+void Config::clear_length() {
+  length_ = 0u;
 }
-const ::std::string& Config::value() const {
-  // @@protoc_insertion_point(field_get:qiuwanli.Config.value)
-  return value_.GetNoArena();
+::google::protobuf::uint32 Config::length() const {
+  // @@protoc_insertion_point(field_get:qiuwanli.Config.length)
+  return length_;
 }
-void Config::set_value(const ::std::string& value) {
+void Config::set_length(::google::protobuf::uint32 value) {
   
-  value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:qiuwanli.Config.value)
+  length_ = value;
+  // @@protoc_insertion_point(field_set:qiuwanli.Config.length)
+}
+
+// string valueString = 2;
+void Config::clear_valuestring() {
+  valuestring_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& Config::valuestring() const {
+  // @@protoc_insertion_point(field_get:qiuwanli.Config.valueString)
+  return valuestring_.GetNoArena();
+}
+void Config::set_valuestring(const ::std::string& value) {
+  
+  valuestring_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:qiuwanli.Config.valueString)
 }
 #if LANG_CXX11
-void Config::set_value(::std::string&& value) {
+void Config::set_valuestring(::std::string&& value) {
   
-  value_.SetNoArena(
+  valuestring_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:qiuwanli.Config.value)
+  // @@protoc_insertion_point(field_set_rvalue:qiuwanli.Config.valueString)
 }
 #endif
-void Config::set_value(const char* value) {
+void Config::set_valuestring(const char* value) {
   
-  value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:qiuwanli.Config.value)
+  valuestring_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:qiuwanli.Config.valueString)
 }
-void Config::set_value(const char* value, size_t size) {
+void Config::set_valuestring(const char* value, size_t size) {
   
-  value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  valuestring_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:qiuwanli.Config.value)
+  // @@protoc_insertion_point(field_set_pointer:qiuwanli.Config.valueString)
 }
-::std::string* Config::mutable_value() {
+::std::string* Config::mutable_valuestring() {
   
-  // @@protoc_insertion_point(field_mutable:qiuwanli.Config.value)
-  return value_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:qiuwanli.Config.valueString)
+  return valuestring_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* Config::release_value() {
-  // @@protoc_insertion_point(field_release:qiuwanli.Config.value)
+::std::string* Config::release_valuestring() {
+  // @@protoc_insertion_point(field_release:qiuwanli.Config.valueString)
   
-  return value_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return valuestring_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void Config::set_allocated_value(::std::string* value) {
-  if (value != NULL) {
+void Config::set_allocated_valuestring(::std::string* valuestring) {
+  if (valuestring != NULL) {
     
   } else {
     
   }
-  value_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set_allocated:qiuwanli.Config.value)
+  valuestring_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), valuestring);
+  // @@protoc_insertion_point(field_set_allocated:qiuwanli.Config.valueString)
 }
 
-// .qiuwanli.Type type = 2;
+// .qiuwanli.Type type = 3;
 void Config::clear_type() {
   type_ = 0;
 }
@@ -557,9 +611,9 @@ bool ConfigFile::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .qiuwanli.Config config = 1;
-      case 1: {
-        if (tag == 10u) {
+      // repeated .qiuwanli.Config config = 2;
+      case 2: {
+        if (tag == 18u) {
           DO_(input->IncrementRecursionDepth());
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
                 input, add_config()));
@@ -594,10 +648,10 @@ failure:
 void ConfigFile::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:qiuwanli.ConfigFile)
-  // repeated .qiuwanli.Config config = 1;
+  // repeated .qiuwanli.Config config = 2;
   for (unsigned int i = 0, n = this->config_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->config(i), output);
+      2, this->config(i), output);
   }
 
   // @@protoc_insertion_point(serialize_end:qiuwanli.ConfigFile)
@@ -607,11 +661,11 @@ void ConfigFile::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:qiuwanli.ConfigFile)
-  // repeated .qiuwanli.Config config = 1;
+  // repeated .qiuwanli.Config config = 2;
   for (unsigned int i = 0, n = this->config_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        1, this->config(i), false, target);
+        2, this->config(i), false, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:qiuwanli.ConfigFile)
@@ -622,7 +676,7 @@ size_t ConfigFile::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:qiuwanli.ConfigFile)
   size_t total_size = 0;
 
-  // repeated .qiuwanli.Config config = 1;
+  // repeated .qiuwanli.Config config = 2;
   {
     unsigned int count = this->config_size();
     total_size += 1UL * count;
@@ -697,7 +751,7 @@ void ConfigFile::InternalSwap(ConfigFile* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // ConfigFile
 
-// repeated .qiuwanli.Config config = 1;
+// repeated .qiuwanli.Config config = 2;
 int ConfigFile::config_size() const {
   return config_.size();
 }
