@@ -115,26 +115,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="config.pb.h" />
-    <ClInclude Include="CppSQLite3U.h" />
     <ClInclude Include="fileinfo.hpp" />
     <ClInclude Include="login_all.pb.h" />
     <ClInclude Include="sqlite3\sqlite3.h" />
     <ClInclude Include="sqlite3\sqlite3ext.h" />
-    <ClInclude Include="sqliteInterface.hpp" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="tools.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="config.pb.cc" />
-    <ClCompile Include="CppSQLite3U.cpp" />
     <ClCompile Include="login_all.pb.cc" />
     <ClCompile Include="sqlite3\shell.c" />
     <ClCompile Include="sqlite3\sqlite3.c" />
-    <ClCompile Include="sqliteInterface.cpp" />
-    <ClCompile Include="tools.cpp" />
     <ClCompile Include="源.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="config.proto" />
     <None Include="login_all.proto" />
   </ItemGroup>

@@ -22,7 +22,7 @@ bool sqliteInterface::insert (const char* insertTableSql)
 	char name[] = "大气象";
 	char value[500];
 	//定义一条参数SQL命令，其中chn,eng为需要插入的数据    
-	sprintf (value, "insert into tblTest(id, name)values(%d, '%s')", id, name);
+	//sprintf (value, "insert into tblTest(id, name)values(%d, '%s')", id, name);
 
 	rc = sqlite3_exec (pDB, value, 0, 0, &errMsg);
 	return 1;
@@ -64,8 +64,8 @@ bool sqliteInterface::select (const char* selectSql)
 	//定义一条查询语句，其中条件为当english为target时的中文记录
 	//print_result_cb为callback函数，在其中可以得到查询的结果，具体见下文
 	//sprintf(value,"select * from tblTest where name='%s'", "大气象");
-	sprintf (value, "select * from tblTest", "hello");
-	rc = sqlite3_exec (pDB, value, print_result_cb, 0, &errMsg);
+	//sprintf (value, "select * from tblTest", "hello");
+	//rc = sqlite3_exec (pDB, value, print_result_cb, 0, &errMsg);
 
 	if (rc == SQLITE_OK)
 	{

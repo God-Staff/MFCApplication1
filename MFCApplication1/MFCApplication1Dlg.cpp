@@ -13,6 +13,8 @@
 #include "client.hpp"
 #include "utility.hpp"
 #include "checkNet.hpp"
+#include <sstream>
+#include <random>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -227,11 +229,7 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 
 	CEdit* dd = (CEdit*)GetDlgItem (IDC_EDIT12);
 	edit1->GetWindowText(User_ID);
-	//edit2->SetPasswordChar (NULL);
 	edit2->GetWindowText (User_Password);
-	//dd->GetWindowTextW (User_Password);
-	//edit2->SetPasswordChar ('*');
-	//edit2->GetWindowText (User_Password);
 	edit3->GetWindowText(User_Code);
 	
 	//验证结果,可以使用枚举类型
@@ -309,10 +307,7 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 		tt->Create (IDD_MFCAPPLICATION1_DIALOG4, this);
 		tt->ShowWindow (SW_SHOW);
 
-		/*mytab *tt = new mytab ();
-		tt->Create (IDD_FORMVIEW, this);
-		tt->ShowWindow (SW_SHOW);
-		tt->UpdateWindow ();*/
+		//CMFCApplication1Dlg::ShowWindow (FALSE);
 	}
 	else	//验证失败
 	{
@@ -340,7 +335,8 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 	}
 
 	// TODO: 在此添加控件通知处理程序代码
-	// CDialogEx::OnOK ();
+	//CDialogEx::OnOK ();
+	CMFCApplication1Dlg::ShowWindow (FALSE);
 }
 
 
@@ -382,51 +378,16 @@ void CMFCApplication1Dlg::OnBnClickedCancel ()
 	reg *tt = new reg ();
 	tt->Create (IDD_MFCAPPLICATION1_DIALOG1, this);
 	tt->ShowWindow (SW_SHOW);
-	
-	// TODO: 在此添加控件通知处理程序代码
-	//CDialogEx::OnCancel ();
+
+	CMFCApplication1Dlg::ShowWindow (FALSE);
 }
 
 //当用户输入完成密码时，检查用户名的正确性，并从数据库中核对用户是否存在
 void CMFCApplication1Dlg::OnKillfocusEdit1 ()
 {
 	//TODO:在此添加控件通知处理程序代码
-	try
-	{
-		qiuwanli::user userlogin;
-		userlogin.set_login_code ("we");
-		userlogin.set_user_id ("123");
-		userlogin.set_user_client_uuid ("s23");
-		userlogin.set_user_password_md5 ("415");
-		userlogin.set_user_type ("345");
-		
-		//将对象序列化到文件流
-		std::fstream output ("login", std::ios::out | std::ios::trunc | std::ios::binary);
-		if (!userlogin.SerializeToOstream (&output)) {
-			std::cerr << "Failed to write address book." << std::endl;
-		}
-
-		//qiuwanli::sendfile ("login");
-		//sender (*io_service, "127.0.0.1", 9999, "login");
-
-		//send Data
-		//std::cout << "Enter message: ";
-		//char request[max_length];
-		//CString  req;
-		//edit1->GetWindowText (req);
-		////request = req.ToString().c_str ();
-		////std::cin.getline (request, max_length);
-		//size_t request_length = req.StringLength (req);
-		//asio::write (s, asio::buffer (req, request_length));
-
-		////Get Data
-		//char reply[max_length];
-		//size_t reply_length = asio::read (s,
-		//	asio::buffer (reply, request_length));
-		//std::cout << "Reply is: ";
-		//std::cout.write (reply, reply_length);
-		//std::cout << "\n";
-
+	try{
+		//...
 	}
 	catch (const std::exception& e)
 	{
@@ -437,13 +398,19 @@ void CMFCApplication1Dlg::OnKillfocusEdit1 ()
 //刷新验证码
 void CMFCApplication1Dlg::OnStnClickedStaticPic ()
 {
-	// TODO: 在此添加控件通知处理程序代码
-	//GetDlgItem (IDC_EDIT2);
-	//mytab *tt = new mytab ();
-	//tt->Create (IDD_FORMVIEW, this);
-	//tt->ShowWindow (SW_SHOW);
-	//tt->UpdateWindow ();
+	//随机生成6位验证码，并将其通过流操作，转化为LPCTSTR格式
+	std::random_device rd;
+	std::mt19937 gen (rd ());
+	std::uniform_int_distribution<> dis (100000, 999999);
 
+#ifdef _UNICODE
+	std::wostringstream oss;
+#else
+	ostringstream oss;
+#endif
+
+	oss << dis (gen);
+	edit3->SetWindowTextW (oss.str ().c_str ());
 }
 
 

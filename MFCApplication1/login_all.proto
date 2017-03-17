@@ -27,6 +27,14 @@ message realuser
 	string user_bri=9;
 	string user_address=10;  	//详细地址
 }
+//用户注册信息
+message userreg
+{
+	string user_name=1;
+	string user_password_md5=2;
+	string user_phone=3;
+	string reg_code=4;
+}
 
 //Files Info 
 message FileInfo

@@ -14,6 +14,7 @@
 #include "boost/regex.hpp"
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/classification.hpp>
+#include <boost/thread.hpp>
 
 class Session : public boost::enable_shared_from_this<Session> 
 {
@@ -96,7 +97,7 @@ private:
 
 		std::cout << "base_name_msg:" << base_name_msg << std::endl;
 		std::cout << "basename:" << basename << std::endl;
-		std::cout << "msg_type:" << msg_type << std::endl;
+		std::cout << "msg_type:" << vstr[1] << std::endl;
 
 		std::cout << "Open file: " << basename << " (" << buffer_ << ")\n";
 
@@ -245,11 +246,11 @@ private:
 };
 
 
-
 int main ()
 {
 	std::cout << "Auto receive files and save then in current directory.\n";
 	asio::io_service io;
 	Tcp_server receiver (io, 9999);
+
 	io.run ();
 }

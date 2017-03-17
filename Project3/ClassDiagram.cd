@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Session">
+    <Position X="1.25" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Typedef Name="Session::TCP" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>源.cpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="Session::Error" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>源.cpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="Session::Pointer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>源.cpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="Session::Size_type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>源.cpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAgABAAAAEAAAQAgAAAAAgUgBgAAAAAAABFCAgAAUAA=</HashCode>
+      <FileName>源.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tcp_server">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Typedef Name="Tcp_server::TCP" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>源.cpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="Tcp_server::Error" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>源.cpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAQAAAAAAAQAAAAAAAAAAACAAAAAgAAAA=</HashCode>
+      <FileName>源.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

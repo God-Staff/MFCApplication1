@@ -179,6 +179,9 @@
       <Filter>Utility</Filter>
     </None>
     <None Include="About.MD" />
+    <None Include="login_all.proto">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\MFCApplication1.ico">

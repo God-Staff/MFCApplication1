@@ -3,9 +3,11 @@
 
 #include "stdafx.h"
 #include "MFCApplication1.h"
+#include "MFCApplication1Dlg.h"
 #include "do_ref.h"
 #include "afxdialogex.h"
 #include "city.hpp"
+#include "reg_info.h"
 
 // do_ref 对话框
 
@@ -80,13 +82,24 @@ END_MESSAGE_MAP ()
 void do_ref::OnBnClickedButton2 ()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	//生成登陆窗口,完成窗体间的切换
+	reg_info *tt = new reg_info ();
+	tt->Create (IDD_MFCAPPLICATION1_DIALOG2, this);
+	tt->ShowWindow (SW_SHOW);
+
+	CDialogEx::OnOK ();
 }
 
 
 //验证信息
 void do_ref::OnBnClickedButton1 ()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	//将数据发到Server端，并跳到登录界面
+	CMFCApplication1Dlg *tt = new CMFCApplication1Dlg ();
+	tt->Create (IDD_MFCAPPLICATION1_DIALOG, this);
+	tt->ShowWindow (SW_SHOW);
+
+	CDialogEx::OnOK ();
 }
 
 void do_ref::OnCbnSelchangeCombo1 ()

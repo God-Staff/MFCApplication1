@@ -6,6 +6,7 @@
 #include "reg_info.h"
 #include "afxdialogex.h"
 #include "do_ref.h"
+#include "reg.h"
 
 
 // reg_info 对话框
@@ -51,6 +52,10 @@ void reg_info::OnBnClickedCancel ()
 //返回登陆
 void reg_info::OnBnClickedOk ()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	//生成登陆窗口,完成窗体间的切换
+	reg *tt = new reg ();
+	tt->Create (IDD_MFCAPPLICATION1_DIALOG1, this);
+	tt->ShowWindow (SW_SHOW);
+
 	CDialogEx::OnOK ();
 }

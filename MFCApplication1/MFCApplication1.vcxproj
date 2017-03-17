@@ -249,6 +249,7 @@
     <None Include="About.MD" />
     <None Include="ClassDiagram.cd" />
     <None Include="config.proto" />
+    <None Include="login_all.proto" />
     <None Include="res\MFCApplication1.rc2" />
     <None Include="utility.cpp" />
   </ItemGroup>
