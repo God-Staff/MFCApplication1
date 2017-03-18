@@ -2,20 +2,21 @@ syntax = "proto3";
 
 package qiuwanli;
 
-enum Type {
-    DownFilePath    = 0;
-    ThreadNumUp     = 1;
-    ThreadNumDown   = 2;
-    FileUpSpeed     = 3;
-    FileDownSpeed   = 4;
-	  FilePath        = 5;
-}
 message Config
 {
-    string value=1;
-    Type type=2;
+    enum Type {
+        DownFilePath    = 0;
+        ThreadNumUp     = 1;
+        ThreadNumDown   = 2;
+        FileUpSpeed     = 3;
+        FileDownSpeed   = 4;
+        FilePath        = 5;
+    }
+	uint32 length=1;
+    string valueString=2;
+    Type type=3;
 }
 
 message ConfigFile {
-  repeated Config config = 1;
+    repeated Config config = 1;
 }

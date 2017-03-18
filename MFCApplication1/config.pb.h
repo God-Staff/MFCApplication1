@@ -52,30 +52,30 @@ void AddDescriptors();
 void InitDefaults();
 }  // namespace protobuf_config_2eproto
 
-enum Type {
-  DownFilePath = 0,
-  ThreadNumUp = 1,
-  ThreadNumDown = 2,
-  FileUpSpeed = 3,
-  FileDownSpeed = 4,
-  FilePath = 5,
-  Type_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
-  Type_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+enum Config_Type {
+  Config_Type_DownFilePath = 0,
+  Config_Type_ThreadNumUp = 1,
+  Config_Type_ThreadNumDown = 2,
+  Config_Type_FileUpSpeed = 3,
+  Config_Type_FileDownSpeed = 4,
+  Config_Type_FilePath = 5,
+  Config_Type_Config_Type_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  Config_Type_Config_Type_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
-bool Type_IsValid(int value);
-const Type Type_MIN = DownFilePath;
-const Type Type_MAX = FilePath;
-const int Type_ARRAYSIZE = Type_MAX + 1;
+bool Config_Type_IsValid(int value);
+const Config_Type Config_Type_Type_MIN = Config_Type_DownFilePath;
+const Config_Type Config_Type_Type_MAX = Config_Type_FilePath;
+const int Config_Type_Type_ARRAYSIZE = Config_Type_Type_MAX + 1;
 
-const ::google::protobuf::EnumDescriptor* Type_descriptor();
-inline const ::std::string& Type_Name(Type value) {
+const ::google::protobuf::EnumDescriptor* Config_Type_descriptor();
+inline const ::std::string& Config_Type_Name(Config_Type value) {
   return ::google::protobuf::internal::NameOfEnum(
-    Type_descriptor(), value);
+    Config_Type_descriptor(), value);
 }
-inline bool Type_Parse(
-    const ::std::string& name, Type* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<Type>(
-    Type_descriptor(), name, value);
+inline bool Config_Type_Parse(
+    const ::std::string& name, Config_Type* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<Config_Type>(
+    Config_Type_descriptor(), name, value);
 }
 // ===================================================================
 
@@ -144,33 +144,74 @@ class Config : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
 
   // nested types ----------------------------------------------------
 
+  typedef Config_Type Type;
+  static const Type DownFilePath =
+    Config_Type_DownFilePath;
+  static const Type ThreadNumUp =
+    Config_Type_ThreadNumUp;
+  static const Type ThreadNumDown =
+    Config_Type_ThreadNumDown;
+  static const Type FileUpSpeed =
+    Config_Type_FileUpSpeed;
+  static const Type FileDownSpeed =
+    Config_Type_FileDownSpeed;
+  static const Type FilePath =
+    Config_Type_FilePath;
+  static inline bool Type_IsValid(int value) {
+    return Config_Type_IsValid(value);
+  }
+  static const Type Type_MIN =
+    Config_Type_Type_MIN;
+  static const Type Type_MAX =
+    Config_Type_Type_MAX;
+  static const int Type_ARRAYSIZE =
+    Config_Type_Type_ARRAYSIZE;
+  static inline const ::google::protobuf::EnumDescriptor*
+  Type_descriptor() {
+    return Config_Type_descriptor();
+  }
+  static inline const ::std::string& Type_Name(Type value) {
+    return Config_Type_Name(value);
+  }
+  static inline bool Type_Parse(const ::std::string& name,
+      Type* value) {
+    return Config_Type_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
-  // string value = 1;
-  void clear_value();
-  static const int kValueFieldNumber = 1;
-  const ::std::string& value() const;
-  void set_value(const ::std::string& value);
+  // string valueString = 2;
+  void clear_valuestring();
+  static const int kValueStringFieldNumber = 2;
+  const ::std::string& valuestring() const;
+  void set_valuestring(const ::std::string& value);
   #if LANG_CXX11
-  void set_value(::std::string&& value);
+  void set_valuestring(::std::string&& value);
   #endif
-  void set_value(const char* value);
-  void set_value(const char* value, size_t size);
-  ::std::string* mutable_value();
-  ::std::string* release_value();
-  void set_allocated_value(::std::string* value);
+  void set_valuestring(const char* value);
+  void set_valuestring(const char* value, size_t size);
+  ::std::string* mutable_valuestring();
+  ::std::string* release_valuestring();
+  void set_allocated_valuestring(::std::string* valuestring);
 
-  // .qiuwanli.Type type = 2;
+  // uint32 length = 1;
+  void clear_length();
+  static const int kLengthFieldNumber = 1;
+  ::google::protobuf::uint32 length() const;
+  void set_length(::google::protobuf::uint32 value);
+
+  // .qiuwanli.Config.Type type = 3;
   void clear_type();
-  static const int kTypeFieldNumber = 2;
-  ::qiuwanli::Type type() const;
-  void set_type(::qiuwanli::Type value);
+  static const int kTypeFieldNumber = 3;
+  ::qiuwanli::Config_Type type() const;
+  void set_type(::qiuwanli::Config_Type value);
 
   // @@protoc_insertion_point(class_scope:qiuwanli.Config)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr value_;
+  ::google::protobuf::internal::ArenaStringPtr valuestring_;
+  ::google::protobuf::uint32 length_;
   int type_;
   mutable int _cached_size_;
   friend struct  protobuf_config_2eproto::TableStruct;
@@ -272,67 +313,81 @@ class ConfigFile : public ::google::protobuf::Message /* @@protoc_insertion_poin
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
 // Config
 
-// string value = 1;
-inline void Config::clear_value() {
-  value_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// uint32 length = 1;
+inline void Config::clear_length() {
+  length_ = 0u;
 }
-inline const ::std::string& Config::value() const {
-  // @@protoc_insertion_point(field_get:qiuwanli.Config.value)
-  return value_.GetNoArena();
+inline ::google::protobuf::uint32 Config::length() const {
+  // @@protoc_insertion_point(field_get:qiuwanli.Config.length)
+  return length_;
 }
-inline void Config::set_value(const ::std::string& value) {
+inline void Config::set_length(::google::protobuf::uint32 value) {
   
-  value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:qiuwanli.Config.value)
+  length_ = value;
+  // @@protoc_insertion_point(field_set:qiuwanli.Config.length)
+}
+
+// string valueString = 2;
+inline void Config::clear_valuestring() {
+  valuestring_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& Config::valuestring() const {
+  // @@protoc_insertion_point(field_get:qiuwanli.Config.valueString)
+  return valuestring_.GetNoArena();
+}
+inline void Config::set_valuestring(const ::std::string& value) {
+  
+  valuestring_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:qiuwanli.Config.valueString)
 }
 #if LANG_CXX11
-inline void Config::set_value(::std::string&& value) {
+inline void Config::set_valuestring(::std::string&& value) {
   
-  value_.SetNoArena(
+  valuestring_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:qiuwanli.Config.value)
+  // @@protoc_insertion_point(field_set_rvalue:qiuwanli.Config.valueString)
 }
 #endif
-inline void Config::set_value(const char* value) {
+inline void Config::set_valuestring(const char* value) {
   
-  value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:qiuwanli.Config.value)
+  valuestring_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:qiuwanli.Config.valueString)
 }
-inline void Config::set_value(const char* value, size_t size) {
+inline void Config::set_valuestring(const char* value, size_t size) {
   
-  value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  valuestring_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:qiuwanli.Config.value)
+  // @@protoc_insertion_point(field_set_pointer:qiuwanli.Config.valueString)
 }
-inline ::std::string* Config::mutable_value() {
+inline ::std::string* Config::mutable_valuestring() {
   
-  // @@protoc_insertion_point(field_mutable:qiuwanli.Config.value)
-  return value_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:qiuwanli.Config.valueString)
+  return valuestring_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* Config::release_value() {
-  // @@protoc_insertion_point(field_release:qiuwanli.Config.value)
+inline ::std::string* Config::release_valuestring() {
+  // @@protoc_insertion_point(field_release:qiuwanli.Config.valueString)
   
-  return value_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return valuestring_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void Config::set_allocated_value(::std::string* value) {
-  if (value != NULL) {
+inline void Config::set_allocated_valuestring(::std::string* valuestring) {
+  if (valuestring != NULL) {
     
   } else {
     
   }
-  value_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set_allocated:qiuwanli.Config.value)
+  valuestring_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), valuestring);
+  // @@protoc_insertion_point(field_set_allocated:qiuwanli.Config.valueString)
 }
 
-// .qiuwanli.Type type = 2;
+// .qiuwanli.Config.Type type = 3;
 inline void Config::clear_type() {
   type_ = 0;
 }
-inline ::qiuwanli::Type Config::type() const {
+inline ::qiuwanli::Config_Type Config::type() const {
   // @@protoc_insertion_point(field_get:qiuwanli.Config.type)
-  return static_cast< ::qiuwanli::Type >(type_);
+  return static_cast< ::qiuwanli::Config_Type >(type_);
 }
-inline void Config::set_type(::qiuwanli::Type value) {
+inline void Config::set_type(::qiuwanli::Config_Type value) {
   
   type_ = value;
   // @@protoc_insertion_point(field_set:qiuwanli.Config.type)
@@ -385,10 +440,10 @@ ConfigFile::config() const {
 namespace google {
 namespace protobuf {
 
-template <> struct is_proto_enum< ::qiuwanli::Type> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::qiuwanli::Config_Type> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::qiuwanli::Type>() {
-  return ::qiuwanli::Type_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::qiuwanli::Config_Type>() {
+  return ::qiuwanli::Config_Type_descriptor();
 }
 
 }  // namespace protobuf

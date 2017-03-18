@@ -18,5 +18,5 @@ message Config
 }
 
 message ConfigFile {
-    repeated Config config = 2;
+    repeated Config config = 1;
 }

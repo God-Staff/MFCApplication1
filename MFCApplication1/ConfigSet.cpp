@@ -7,8 +7,8 @@
 #include "afxdialogex.h"
 #include <fstream>
 #include "utility.hpp"
+#include "afxdialogex.h"
 #include <string>
-
 // ConfigSet 对话框
 
 IMPLEMENT_DYNAMIC(ConfigSet, CDialogEx)
@@ -99,72 +99,76 @@ END_MESSAGE_MAP()
 BOOL	ConfigSet::configInit ()
 {
 	qiuwanli::utilty utility;
-	LPCTSTR lpctstr;
 	qiuwanli::ConfigFile configfile;
 	//configFile = &configfile;
-	std::fstream input ("config", std::ios::in | std::ios::binary);
-	if (!input){
+	std::fstream input3 ("config", std::ios::in | std::ios::binary);
+	if (!input3){
 		MessageBox (L"配置文件打开失败！");
 		return FALSE;
 	}
 		
-	if (!configfile.ParseFromIstream(&input))
+	if (!configfile.ParseFromIstream(&input3))
 	{	//打开失败
 		MessageBox (L"配置文件加载失败！");
+		input3.close ();
 		return FALSE;
 	}
 	else 
 	{	//解析配置文件
-		for (int i = 0; i < (configfile.config_size()); i++)
+		for (int i = 0; i < configfile.config_size(); ++i)
 		{
-			auto config = configfile.config (i);
+			MessageBox (L"1234567890" + 1);
+			const qiuwanli::Config& config = configfile.config (i);
+			std::string value=config.valuestring ();
 
-			if (qiuwanli::Type::ThreadNumUp == config.type ()) 
+			if (qiuwanli::Config::Type::Config_Type_ThreadNumUp == config.type ()) 
 			{
-				box1->SetCurSel (atoi (config.value ().c_str ()));
-				MessageBox (L"2！");
+				box1->SetCurSel (atoi (value.c_str())+1);
+				//MessageBox (L"2！");
 			}
-			else if (qiuwanli::Type::ThreadNumDown == config.type ())
+			if (qiuwanli::Config_Type_ThreadNumDown== config.type ())
 			{
-				box2->SetCurSel (atoi (config.value ().c_str ()));
-				MessageBox (L"3！");
+				box2->SetCurSel (atoi (value.c_str ())+1);
+				//MessageBox (L"3！");
 			}
-			else if (qiuwanli::Type::FileUpSpeed == config.type ())
+			if (qiuwanli::Config_Type_FileUpSpeed == config.type ())
 			{
-				UploadSpeed->SetWindowText (utility.StringToWstring (config.value ().c_str()).c_str());
-				MessageBox (L"4！");
+				UploadSpeed->SetWindowText (utility.StringToWstring (value).c_str());
+				//MessageBox (utility.StringToWstring (config.valuestring ().c_str ()).c_str ());
 			}
-			else if (qiuwanli::Type::FileDownSpeed == config.type ())
+			if (qiuwanli::Config_Type_FileDownSpeed == config.type ())
 			{
-				downSpeed->SetWindowText (utility.StringToWstring (config.value ()).c_str ());
-				MessageBox (L"5！");
+				downSpeed->SetWindowText (utility.StringToWstring (value).c_str ());
+				//MessageBox (utility.StringToWstring (config.valuestring ()).c_str ());
 			}
-			else if (qiuwanli::Type::DownFilePath == config.type ())
+			if (qiuwanli::Config_Type_DownFilePath == config.type ())
 			{
 				downpath->SetReadOnly (FALSE);
 				//将string 转化为Wstring 再转化为 LPTSTR 
-				downpath->SetWindowText (utility.StringToWstring (config.value ()).c_str ());
+				downpath->SetWindowText (utility.StringToWstring (value).c_str ());
 				downpath->SetReadOnly (TRUE);
-				MessageBox (L"6！");
+				//MessageBox (utility.StringToWstring (config.valuestring ()).c_str ());
 			}
-			else if (qiuwanli::Type::FilePath == config.type ())
+			if (qiuwanli::Config_Type_FilePath == config.type ())
 			{
 				int j = m_ListControl->GetWindowedChildCount ();
 				
-#ifdef UNICODE
-				std::wstring stemp = utility.s2ws (config.value ()); // Temporary buffer is required
-				LPCWSTR result = stemp.c_str ();
-#else
-				LPCWSTR result = s.c_str ();
-#endif
+//#ifdef UNICODE
+//				std::wstring stemp = utility.s2ws (value); // Temporary buffer is required
+//				LPCWSTR result = stemp.c_str ();
+//#else
+//				LPCWSTR result = s.c_str ();
+//#endif
+				m_ListControl->InsertItem (j, utility.StringToWstring (value).c_str ());
 
-				m_ListControl->InsertItem (j, result);
-				j = m_ListControl->GetWindowedChildCount ();
-				m_ListControl->InsertItem (j, L"addddd");
-				MessageBox (L"7！");
+				MessageBox (utility.StringToWstring (value).c_str ());
 			}
+			//config.Clear ();
 		}
 
+		input3.close ();
+		ConfigSet::UpdateWindow ();
+		  
 		return TRUE;
 	}
 }

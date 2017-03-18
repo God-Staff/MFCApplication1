@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package qiuwanli;
+message MapFieldEntry {
+  uint32 key = 1;
+  string value = 2;
+}
+message setfiles
+{
+  repeated MapFieldEntry map_field = 20;
+}

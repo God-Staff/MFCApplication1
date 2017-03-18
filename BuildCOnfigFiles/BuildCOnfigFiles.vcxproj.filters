@@ -24,6 +24,9 @@
     <ClCompile Include="login_all.pb.cc">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="configfiles.pb.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.pb.h">
@@ -32,12 +35,18 @@
     <ClInclude Include="login_all.pb.h">
       <Filter>源文件</Filter>
     </ClInclude>
+    <ClInclude Include="configfiles.pb.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="config.proto">
       <Filter>源文件</Filter>
     </None>
     <None Include="login_all.proto">
+      <Filter>源文件</Filter>
+    </None>
+    <None Include="configfiles.proto">
       <Filter>源文件</Filter>
     </None>
   </ItemGroup>
