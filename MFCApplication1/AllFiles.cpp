@@ -79,6 +79,7 @@ BEGIN_MESSAGE_MAP(AllFiles, CDialogEx)
 	ON_COMMAND (ID_32789, &AllFiles::OnCopyFiles)
 	ON_COMMAND (ID_32790, &AllFiles::OnUploadFiles2CurrentPath)
 	ON_COMMAND (ID_32791, &AllFiles::OnCreateFolder2CurrentPath)
+	ON_NOTIFY (NM_DBLCLK, IDC_LIST5, &AllFiles::OnNMDblclkList5)
 END_MESSAGE_MAP()
 
 
@@ -109,7 +110,7 @@ END_MESSAGE_MAP()
 //	*pResult = 0;
 //}
 
-
+//启动右键菜单
 void AllFiles::OnNMRClickList5 (NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
@@ -206,4 +207,13 @@ void AllFiles::OnUploadFiles2CurrentPath ()
 void AllFiles::OnCreateFolder2CurrentPath ()
 {
 	// TODO: 在此添加命令处理程序代码
+}
+
+
+//左键双击响应事件(代表打开文件夹)
+void AllFiles::OnNMDblclkList5 (NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+	*pResult = 0;
 }

@@ -19,6 +19,12 @@ Main_UI::Main_UI(CWnd* pParent /*=NULL*/)
 
 Main_UI::~Main_UI()
 {
+	//当本页面结束时，调用析构函数，删除资源
+	allfiles->~AllFiles ();
+	filedownlog->~FileDownLog ();
+	mytabui->~mytab ();
+	mysetting->~ConfigSet ();
+	fileshared->~FriendShared ();
 }
 
 //初始化数据
@@ -67,6 +73,7 @@ BEGIN_MESSAGE_MAP(Main_UI, CDialogEx)
 	ON_STN_CLICKED (IDC_STATIC_pic_22, &Main_UI::OnStnClickedStaticpic22)
 	ON_STN_CLICKED (IDC_STATIC_pic_24, &Main_UI::OnStnClickedStaticpic24)
 	ON_STN_CLICKED (IDC_STATIC_pic_25, &Main_UI::OnStnClickedStaticpic25)
+	ON_BN_CLICKED (IDC_BUTTON1, &Main_UI::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -171,4 +178,12 @@ void Main_UI::swithTable (int i)
 		}
 	}
 	change_table = i;
+}
+
+
+//退出
+void Main_UI::OnBnClickedButton1 ()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	Main_UI::OnOK ();
 }

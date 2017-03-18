@@ -109,6 +109,7 @@ BEGIN_MESSAGE_MAP(FriendShared, CDialogEx)
 	ON_COMMAND (ID_32792, &FriendShared::OnDelectSharedURL)
 	ON_COMMAND (ID_32793, &FriendShared::OnSendUrl2Friends)
 	ON_COMMAND (ID_32794, &FriendShared::OnAddSharedUrl)
+	ON_NOTIFY (HDN_ITEMDBLCLICK, 0, &FriendShared::OnHdnItemdblclickList8)
 END_MESSAGE_MAP()
 
 
@@ -300,4 +301,12 @@ void FriendShared::OnAddSharedUrl ()
 		}
 	}
 
+}
+
+//修改好友备注
+void FriendShared::OnHdnItemdblclickList8 (NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMHEADER phdr = reinterpret_cast<LPNMHEADER>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+	*pResult = 0;
 }

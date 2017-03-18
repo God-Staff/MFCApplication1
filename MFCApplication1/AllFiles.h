@@ -37,6 +37,7 @@ public:
 	afx_msg void OnCopyFiles ();
 	afx_msg void OnUploadFiles2CurrentPath ();
 	afx_msg void OnCreateFolder2CurrentPath ();
+	afx_msg void OnNMDblclkList5 (NMHDR *pNMHDR, LRESULT *pResult);
 };
 
 

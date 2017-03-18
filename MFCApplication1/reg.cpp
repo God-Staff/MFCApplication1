@@ -147,11 +147,12 @@ void reg::OnEnKillfocusEdit23 ()
 	CString ps1,ps2;
 	edit2->GetWindowText (ps1);
 	edit3->GetWindowText (ps2);
-	if (!ps1.Compare(ps2))
+	if (ps1.Compare(ps2))
 	{
 		edit2->SetWindowText (L"");
 		edit2->SetCueBanner (L"前后两次密码不同", TRUE);
 		edit3->SetWindowText (L"");
 		edit3->SetCueBanner (L"请重新输入密码", TRUE);
 	}
+	UpdateWindow ();
 }

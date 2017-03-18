@@ -47,6 +47,7 @@ public:
 
 	void swithTable (int i);
 
+	afx_msg void OnBnClickedButton1 ();
 };
 
 #endif // MAIN_UI_H

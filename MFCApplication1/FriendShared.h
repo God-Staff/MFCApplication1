@@ -39,6 +39,7 @@ public:
 	afx_msg void OnDelectSharedURL ();
 	afx_msg void OnSendUrl2Friends ();
 	afx_msg void OnAddSharedUrl ();
+	afx_msg void OnHdnItemdblclickList8 (NMHDR *pNMHDR, LRESULT *pResult);
 };
 #endif // FRIENDSHARED_H
 
