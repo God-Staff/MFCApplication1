@@ -27,7 +27,7 @@ BOOL reg::OnInitDialog ()
 {
 	CDialogEx::OnInitDialog ();
 
-	//
+	//初始化，并绑定指针
 	edit1 = (CEdit*)GetDlgItem (IDC_EDIT21);
 	edit1->SetLimitText (20);
 	edit1->SetCueBanner (L"请输入用户名", TRUE);
@@ -85,7 +85,7 @@ void reg::OnBnClickedCancel ()
 		}
 		output.close ();
 
-		asio::io_service io;
+		boost::asio::io_service io;
 		try {
 			qiuwanli::utilty s;
 			s.sender (io, "127.0.0.1", 9999, "userreg", "996\0");
@@ -123,7 +123,7 @@ void reg::OnBnClickedOk ()
 	reg::ShowWindow (FALSE);
 }
 
-//重新获取验证码
+
 void reg::OnBnClickedCancel2 ()
 {
 	//随机生成6位验证码，并将其通过流操作，转化为LPCTSTR格式
@@ -141,7 +141,7 @@ void reg::OnBnClickedCancel2 ()
 	edit5->SetWindowTextW (oss.str ().c_str ());
 }
 
-//验证密码正确性
+
 void reg::OnEnKillfocusEdit23 ()
 {
 	CString ps1,ps2;

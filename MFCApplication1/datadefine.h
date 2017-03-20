@@ -42,9 +42,6 @@ enum class filetype
 	mkv
 };
 
-//´æ´¢ÁÙÊ±µÄMD5Öµ
-//char buffer[128];
-
 enum { max_length = 1024 };
 
 #endif // !_DATADEFINE_H_

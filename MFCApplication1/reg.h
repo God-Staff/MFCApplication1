@@ -29,9 +29,13 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
+	//验证用户注册信息，用户名以及密码的有效性
 	afx_msg void OnBnClickedCancel ();
+	//当用户不想注册时，返回到登录界面
 	afx_msg void OnBnClickedOk ();
+	//随机生成6位数字代替“重新获取验证码”
 	afx_msg void OnBnClickedCancel2 ();
+	//当第二次输入密码完成时,验证密码的有效性和一致性
 	afx_msg void OnEnKillfocusEdit23 ();
 };
 

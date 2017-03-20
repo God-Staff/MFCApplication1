@@ -21,7 +21,6 @@
 #define new DEBUG_NEW
 #endif
 
-
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 class CAboutDlg : public CDialogEx
 {
@@ -124,19 +123,17 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	//并作一些初始化设置
 	edit1 = (CEdit*)GetDlgItem (IDC_EDIT11);
 	edit1->SetLimitText (20);
-	//edit1->SetWindowText (L"用户名");
 	edit1->SetFocus ();
 	edit1->SetCueBanner (L"用户名", TRUE);
 
 	edit2 = (CEdit*)GetDlgItem (IDC_EDIT12);
 	edit2->SetLimitText (16);
-	//edit2->SetFocus ();
 	edit2->SetCueBanner (L"密码", TRUE);
-	//edit2->SetWindowText (L"密码");
 
 	edit3 = (CEdit*)GetDlgItem (IDC_EDIT13);
 	edit3->SetLimitText (6);
-	//edit3->SetWindowText (L"验证码");
+	edit2->SetCueBanner (L"验证码", TRUE);
+
 
 	//boost::asio::io_service io;
 	//unsigned int seconds = 15;  // 设定超时时间，客户端必须在这个时间内周期性地调用 reset函数
@@ -168,9 +165,7 @@ void CMFCApplication1Dlg::OnSysCommand(UINT nID, LPARAM lParam)
 	{
 		CAboutDlg dlgAbout;
 		dlgAbout.DoModal();
-	}
-	else
-	{
+	}else{
 		CDialogEx::OnSysCommand(nID, lParam);
 	}
 }
@@ -236,63 +231,41 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 	//验证结果,可以使用枚举类型
 	size_t CheckResult=0;	
 
-//	try{
-//		qiuwanli::user userlogin;
-//		
-//		std::string s = CT2A (User_ID);
-//		userlogin.set_user_id (s);
-//		s = CT2A (User_Password);
-//		userlogin.set_user_password_md5 (s);
-//		userlogin.set_user_type ("haha");
-//		s = CT2A (User_Code);
-//		userlogin.set_login_code (s);
-//		userlogin.set_user_client_uuid ("123456789012");
-//		userlogin.set_user_name ("LOL");
-//
-//		//char b[4096];
-//		//std::string s;
-//		//将对象序列化到文件流
-//		std::fstream output ("login", std::ios::out | std::ios::trunc | std::ios::binary);
-//		if (!userlogin.SerializeToOstream (&output)) {
-//			//将对象序列化为string-->char
-//			//userlogin.SerializePartialToString(&s);
-//			//strcpy (b, s.c_str ());
-//			std::cerr << "Failed to write address book." << std::endl;
-//		}
-//		//userlogin.SerializePartialToOstream(&output);
-//		output.close ();
-//
-//		asio::io_service io;
-//		//::sendfile ("login");
-//		try { 
-//			qiuwanli::utilty s;
-//			s.sender (io, "127.0.0.1", 9999, "login","1001\0");
-//}
-//		catch (std::exception& err) {
-//			std::cerr << err.what () << "\n";
-//		}
-//	}
-//	catch (const std::exception& e)
-//	{
-//		std::cout << "ERROE:" << e.what () << std::endl;
-//	}
+	try{
+		qiuwanli::user userlogin;
+		
+		std::string s = CT2A (User_ID);
+		userlogin.set_user_id (s);
+		s = CT2A (User_Password);
+		userlogin.set_user_password_md5 (s);
+		userlogin.set_user_type ("haha");
+		s = CT2A (User_Code);
+		userlogin.set_login_code (s);
+		userlogin.set_user_client_uuid ("123456789012");
 
-	//std::wstring str_user = L"root";
-	//std::wstring str_password = L"root";
-	//std::wstring str_code = L"1234";
-	////若用户ID相同则...
-	//if (!str_user.compare (User_ID.GetString()))
-	//{
-	//	CheckResult = 2;
-	//}
-	//else if (str_password.compare(User_Password.GetString ()))
-	//{
-	//	CheckResult = 4;
-	//}
-	//else if (str_code.compare (User_Code.GetString ()))
-	//{
-	//	CheckResult = 8;
-	//}
+		//将对象序列化到文件流
+		std::fstream output ("login", std::ios::out | std::ios::trunc | std::ios::binary);
+		if (!userlogin.SerializeToOstream (&output)) {
+			std::cerr << "Failed to write address book." << std::endl;
+		}
+		output.close ();
+
+		boost::asio::io_service io_ser;
+		try { 
+			qiuwanli::utilty s;
+			s.sender (io_ser, "127.0.0.1", 9999, "login","1001\0");
+}
+		catch (std::exception& err) {
+			std::cerr << err.what () << "\n";
+		}
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << "ERROE:" << e.what () << std::endl;
+	}
+
+	//接收服务端送来的信息
+
 
 	/************************************************************************/
 	/* CODE         //一系列登录验证                                        */
@@ -300,7 +273,7 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 
 
 	//成功验证，跳转到网盘对话框
-	CheckResult = 2;
+	//CheckResult = 2;
 	if (CheckResult==2)
 	{
 		//密码正确，进入网盘
@@ -334,10 +307,6 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 		//更新验证码图片
 		// TODO
 	}
-
-	// TODO: 在此添加控件通知处理程序代码
-	//CDialogEx::OnOK ();
-	//CMFCApplication1Dlg::ShowWindow (FALSE);
 }
 
 
@@ -375,7 +344,6 @@ void CMFCApplication1Dlg::ListPeople (const qiuwanli::user& user_file)
 
 void CMFCApplication1Dlg::OnBnClickedCancel ()
 {
-	//GetDlgItem (IDC_EDIT2);
 	reg *tt = new reg ();
 	tt->Create (IDD_MFCAPPLICATION1_DIALOG1, this);
 	tt->ShowWindow (SW_SHOW);
@@ -396,10 +364,9 @@ void CMFCApplication1Dlg::OnKillfocusEdit1 ()
 	}
 }
 
-//刷新验证码
+
 void CMFCApplication1Dlg::OnStnClickedStaticPic ()
 {
-	//随机生成6位验证码，并将其通过流操作，转化为LPCTSTR格式
 	std::random_device rd;
 	std::mt19937 gen (rd ());
 	std::uniform_int_distribution<> dis (100000, 999999);

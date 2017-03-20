@@ -22,6 +22,7 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
+	//用户同意注册信息的相关事宜
 	afx_msg void OnBnClickedCancel ();
 	afx_msg void OnBnClickedOk ();
 };

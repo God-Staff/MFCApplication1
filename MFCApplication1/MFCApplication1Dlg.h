@@ -29,6 +29,7 @@ public:
 
 // 实现
 protected:
+	//控件指针，便于操作
 	HICON m_hIcon;
 	CEdit* edit1 = nullptr;
 	CEdit* edit2 = nullptr;
@@ -50,17 +51,24 @@ protected:
 	//void getUserAsio ();
 
 	// 生成的消息映射函数
+
+	//重载父类的 CDialogEx::OnInitDialog()函数
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
+	//先获取PC的主板序列号和MAC地址或者是CPU编号，再生成唯一的UUID
 	std::string getUuid ();
+	//用户登录
 	afx_msg void OnBnClickedOk ();
+	//注册账号
 	afx_msg void OnBnClickedCancel ();
+	//当账号输入完成时，从服务端查询用户信息，并作相应处理
 	afx_msg void OnKillfocusEdit1 ();
-	//afx_msg void OnClickPic (CCmdUI *pCmdUI);
+	//刷新验证码
+	//随机生成6位验证码，并将其通过流操作，转化为LPCTSTR格式
 	afx_msg void OnStnClickedStaticPic ();
 };
 

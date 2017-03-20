@@ -6,14 +6,14 @@
 
 
 /**
-* »ñµÃÎÄ¼şµÄ¾ø¶ÔÂ·¾¶£¬±£´æÎªÎÄ±¾¸ñÊ½(ZH_CN±àÂë´ı½â¾ö)
-* ¼ÆËãÎÄ¼şµÄMD5ºÍÎÄ¼ş´óĞ¡
-* @param 	p 		ÎÄ¼şÂ·¾¶
-* @param	file 	ÎÄ¼şÖ¸Õë
+* è·å¾—æ–‡ä»¶çš„ç»å¯¹è·¯å¾„ï¼Œä¿å­˜ä¸ºæ–‡æœ¬æ ¼å¼(ZH_CNç¼–ç å¾…è§£å†³)
+* è®¡ç®—æ–‡ä»¶çš„MD5å’Œæ–‡ä»¶å¤§å°
+* @param 	p 		æ–‡ä»¶è·¯å¾„
+* @param	file 	æ–‡ä»¶æŒ‡é’ˆ
 */
 void pathAll (boost::filesystem::path p, boost::filesystem::ofstream & file)
 {
-	//try µ±·ÃÎÊµ½ÎŞ·¨·ÃÎÊµÄÄ¿Â¼Ê±£¬Ìø¹ı//
+	//try å½“è®¿é—®åˆ°æ— æ³•è®¿é—®çš„ç›®å½•æ—¶ï¼Œè·³è¿‡//
 	try
 	{
 		if (exists (p))
@@ -35,7 +35,7 @@ void pathAll (boost::filesystem::path p, boost::filesystem::ofstream & file)
 					else
 					{
 						std::cout << "    " << x.path () << '\n';
-						//»ñÈ¡ÎÄ¼şÂ·¾¶£¬½«ÎÄ¼şµÄSizeºÍMD5Öµ¼ÆËã³öÀ´²¢±£´æÏÂÀ´
+						//è·å–æ–‡ä»¶è·¯å¾„ï¼Œå°†æ–‡ä»¶çš„Sizeå’ŒMD5å€¼è®¡ç®—å‡ºæ¥å¹¶ä¿å­˜ä¸‹æ¥
 						getFileMD5 (x.path ().string ().c_str (), buffer);
 						file << "name:" << x.path ().filename () << std::endl << "Size:" << file_size (x) << "		MD5:" << buffer << std::endl;
 					}

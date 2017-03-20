@@ -107,7 +107,6 @@ void do_ref::OnBnClickedButton2 ()
 //验证信息
 void do_ref::OnBnClickedButton1 ()
 {
-
 	qiuwanli::realuser real;
 	CString User;
 	edit1->GetWindowText (User);
@@ -148,7 +147,7 @@ void do_ref::OnBnClickedButton1 ()
 		}
 		output.close ();
 
-		asio::io_service io;
+		boost::asio::io_service io;
 		try {
 			qiuwanli::utilty s;
 			s.sender (io, "127.0.0.1", 9999, "userreal", "998\0");
