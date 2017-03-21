@@ -119,6 +119,7 @@
     <ClInclude Include="login_all.pb.h" />
     <ClInclude Include="sqlite3\sqlite3.h" />
     <ClInclude Include="sqlite3\sqlite3ext.h" />
+    <ClInclude Include="sqliteInterface.hpp" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +127,7 @@
     <ClCompile Include="login_all.pb.cc" />
     <ClCompile Include="sqlite3\shell.c" />
     <ClCompile Include="sqlite3\sqlite3.c" />
+    <ClCompile Include="sqliteInterface.cpp" />
     <ClCompile Include="源.cpp" />
   </ItemGroup>
   <ItemGroup>

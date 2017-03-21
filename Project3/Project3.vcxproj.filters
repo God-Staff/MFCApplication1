@@ -36,6 +36,9 @@
     <ClInclude Include="stdafx.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="sqliteInterface.hpp">
+      <Filter>Sqlite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="源.cpp">
@@ -51,6 +54,9 @@
       <Filter>Sqlite</Filter>
     </ClCompile>
     <ClCompile Include="sqlite3\sqlite3.c">
+      <Filter>Sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="sqliteInterface.cpp">
       <Filter>Sqlite</Filter>
     </ClCompile>
   </ItemGroup>
