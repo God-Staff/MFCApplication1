@@ -88,6 +88,7 @@ BOOL FriendShared::OnInitDialog ()
 	m_ListContro2->SetItemText (0, 3, L"7*24");
 	m_ListContro2->SetItemText (0, 4, L"所有人");
 
+	//解析数据好友和分享链接数据
 
 	return TRUE;
 }
@@ -308,5 +309,6 @@ void FriendShared::OnHdnItemdblclickList8 (NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMHEADER phdr = reinterpret_cast<LPNMHEADER>(pNMHDR);
 	// TODO: 在此添加控件通知处理程序代码
+
 	*pResult = 0;
 }

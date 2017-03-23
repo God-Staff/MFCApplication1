@@ -73,7 +73,7 @@ BOOL FileDownLog::OnInitDialog ()
 		pmyListCtrl->InsertColumn (i, &lvcolumn);
 	}
 
-	//add data
+	//解析文件下载记录（DownLog），填充数据
 	pmyListCtrl->InsertItem (0, L"qq");
 	pmyListCtrl->SetItemText (0, 1, L"mima");
 	pmyListCtrl->InsertItem (1, L"qq");
@@ -145,24 +145,26 @@ void FileDownLog::OnNMRClickList9 (NMHDR *pNMHDR, LRESULT *pResult)
 
 
 //下载记录的右键响应事件
+
+//清空下载列表
 void FileDownLog::OnClearDownloadLogList ()
 {
 	// TODO: 在此添加命令处理程序代码
 }
 
-
+//重新下载选中文件
 void FileDownLog::OnRetryDownloadFiles ()
 {
 	// TODO: 在此添加命令处理程序代码
 }
 
-
+//删除选中记录
 void FileDownLog::OnDelectChosedFileslog ()
 {
 	// TODO: 在此添加命令处理程序代码
 }
 
-
+//删除选中文件
 void FileDownLog::OnDelectChosedFiles ()
 {
 	// TODO: 在此添加命令处理程序代码

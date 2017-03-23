@@ -166,7 +166,7 @@ message BufferBlock
 //Buffer缓冲池 
 message BufferBlockPool
 {
-	uint32 PoolMaxSize=1；
+	uint32 PoolMaxSize=1;
 	uint32 PoolSize=2;
 	repeated BufferBlock buffer=3;
 }

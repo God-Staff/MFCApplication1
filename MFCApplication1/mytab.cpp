@@ -190,42 +190,44 @@ void mytab::OnNMRClickList2 (NMHDR *pNMHDR, LRESULT *pResult)
 
 
 //下载list的右键响应事件
+
+//全部开始下载
 void mytab::OnAllFliesStartDownload ()
 {
 	// TODO: 在此添加命令处理程序代码
 }
 
-
+//全部暂停
 void mytab::OnAllFilesDowning2Pause ()
 {
 	// TODO: 在此添加命令处理程序代码
 }
 
-
+//移除所有下载
 void mytab::OnRemoveAllDowningFlies ()
 {
 	// TODO: 在此添加命令处理程序代码
 }
 
-
+//开始下载选中文件
 void mytab::OnStartChosedFiles2Downing ()
 {
 	// TODO: 在此添加命令处理程序代码
 }
 
-
+//暂停选中文件
 void mytab::OnPusedChosedFilesDowning ()
 {
 	// TODO: 在此添加命令处理程序代码
 }
 
-
+//移除选中文件
 void mytab::OnDelectChosedFilesFromList ()
 {
 	// TODO: 在此添加命令处理程序代码
 }
 
-
+//提高选中文件的优先度
 void mytab::OnChangePriority4Files ()
 {
 	// TODO: 在此添加命令处理程序代码

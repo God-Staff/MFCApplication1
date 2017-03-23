@@ -52,9 +52,7 @@ BOOL AllFiles::OnInitDialog ()
 		pmyListCtrl->InsertColumn (i, &lvcolumn);
 	}
 
-	//add data
-	pmyListCtrl->InsertItem (0, L"qq");
-	pmyListCtrl->SetItemText (0, 1, L"mima");
+	//解析文件数据（allFiles）填充报表
 
 	return TRUE;
 }
@@ -66,9 +64,6 @@ void AllFiles::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(AllFiles, CDialogEx)
-	/*ON_NOTIFY (NM_RCLICK, IDC_LIST4, &AllFiles::OnNMRClickList4)*/
-	//ON_NOTIFY (LVN_ITEMCHANGED, IDC_LIST4, &AllFiles::OnLvnItemchangedList4)
-	//ON_NOTIFY (LVN_ITEMCHANGED, IDC_LIST5, &AllFiles::OnLvnItemchangedList5)
 	ON_NOTIFY (NM_RCLICK, IDC_LIST5, &AllFiles::OnNMRClickList5)
 	ON_COMMAND (ID_32783, &AllFiles::OnCreateUrl2Shared)
 	ON_COMMAND (ID_32784, &AllFiles::OnDelectChosedFiles)
@@ -84,31 +79,6 @@ END_MESSAGE_MAP()
 
 
 // AllFiles 消息处理程序
-
-//
-//void AllFiles::OnNMRClickList4 (NMHDR *pNMHDR, LRESULT *pResult)
-//{
-//	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-//	// TODO: 在此添加控件通知处理程序代码
-//
-//	*pResult = 0;
-//}
-//
-//
-//void AllFiles::OnLvnItemchangedList4 (NMHDR *pNMHDR, LRESULT *pResult)
-//{
-//	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
-//	// TODO: 在此添加控件通知处理程序代码
-//	*pResult = 0;
-//}
-//
-//
-//void AllFiles::OnLvnItemchangedList5 (NMHDR *pNMHDR, LRESULT *pResult)
-//{
-//	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
-//	// TODO: 在此添加控件通知处理程序代码
-//	*pResult = 0;
-//}
 
 //启动右键菜单
 void AllFiles::OnNMRClickList5 (NMHDR *pNMHDR, LRESULT *pResult)
@@ -141,7 +111,6 @@ void AllFiles::OnNMRClickList5 (NMHDR *pNMHDR, LRESULT *pResult)
 		if (nSelItem >= 0 && nSelItem < pmyListCtrl->GetItemCount ())
 		{
 			CString sFullPath = pmyListCtrl->GetItemText (nSelItem, 1);
-			//MessageBox(sFullPath ); //显示当前选中的路径
 			kSelectedItem.push_back (sFullPath);
 		}
 
@@ -150,63 +119,64 @@ void AllFiles::OnNMRClickList5 (NMHDR *pNMHDR, LRESULT *pResult)
 	//在指定位置显示弹出菜单
 	pSubMenu->TrackPopupMenu (TPM_LEFTALIGN, oPoint.x, oPoint.y, this);
 
-
 	*pResult = 0;
 }
 
-
 //文件列表的右键响应事件
+
+//选中文件列表生成分享链接
 void AllFiles::OnCreateUrl2Shared ()
 {
 	// TODO: 在此添加命令处理程序代码
 }
 
-
+//删除本地文件
 void AllFiles::OnDelectChosedFiles ()
 {
 	// TODO: 在此添加命令处理程序代码
 }
 
-
+//文件或文件夹及其子目录的移动
 void AllFiles::OnMoveChosedFiles ()
 {
 	// TODO: 在此添加命令处理程序代码
 }
 
-
+//粘贴文件或文件夹及其子目录
 void AllFiles::OnPasteFile2HerePath ()
 {
 	// TODO: 在此添加命令处理程序代码
 }
 
-
+//下载文件
 void AllFiles::OnDownloadFiles ()
 {
 	// TODO: 在此添加命令处理程序代码
 }
 
-
+//文件或文件夹属性
 void AllFiles::OnCheckFilesProperty ()
 {
 	// TODO: 在此添加命令处理程序代码
 }
 
-
+//复制
 void AllFiles::OnCopyFiles ()
 {
 	// TODO: 在此添加命令处理程序代码
 }
 
-
+//上传
 void AllFiles::OnUploadFiles2CurrentPath ()
 {
 	// TODO: 在此添加命令处理程序代码
 }
 
-
+//创建文件夹（非根节点）
 void AllFiles::OnCreateFolder2CurrentPath ()
 {
-	// TODO: 在此添加命令处理程序代码
+	//创建窗体，输入文件夹名称
+	
 }
 
 
@@ -215,5 +185,7 @@ void AllFiles::OnNMDblclkList5 (NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 	// TODO: 在此添加控件通知处理程序代码
+
+
 	*pResult = 0;
 }
