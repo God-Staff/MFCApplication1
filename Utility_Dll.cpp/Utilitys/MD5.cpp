@@ -9,9 +9,13 @@
 void byteReverse (unsigned char *buf, unsigned longs);
 
 #ifndef ASM_MD5
-/*
-* Note: this code is harmless on little-endian machines.
-*/
+
+/**
+ * @brief      Note: this code is harmless on little-endian machines.
+ *
+ * @param      buf    The buffer
+ * @param[in]  longs  The longs
+ */
 void byteReverse (unsigned char *buf, unsigned longs)
 {
 	uint32 t;
@@ -32,10 +36,12 @@ static void putu32 (uint32 data, unsigned char *addr) {
 	addr[3] = (unsigned char)(data >> 24);
 }
 
-/*
-* Start MD5 accumulation.  Set bit count to 0 and buffer to mysterious
-* initialization constants.
-*/
+/**
+ * @brief     Start MD5 accumulation.  Set bit count to 0 and
+ *            buffer to mysteriousinitialization constants.
+ *
+ * @param      ctx   The context
+ */
 void MD5Init (struct MD5Context *ctx) {
 	ctx->buf[0] = 0x67452301;
 	ctx->buf[1] = 0xefcdab89;
@@ -46,10 +52,14 @@ void MD5Init (struct MD5Context *ctx) {
 	ctx->bits[1] = 0;
 }
 
-/*
-* Update context to reflect the concatenation of another buffer full
-* of bytes.
-*/
+/**
+ * @brief      Update context to reflect the concatenation of 
+ *             another buffer fullof bytes.
+ *
+ * @param      ctx   The context
+ * @param      buf   The buffer
+ * @param[in]  len   The length
+ */
 void MD5Update (struct MD5Context *ctx, unsigned char const *buf, unsigned len) {
 	uint32 t;
 
@@ -61,7 +71,6 @@ void MD5Update (struct MD5Context *ctx, unsigned char const *buf, unsigned len) 
 	ctx->bits[1] += len >> 29;
 
 	t = (t >> 3) & 0x3f; /* Bytes already in shsInfo->data */
-
 						 /* Handle any leading odd-sized chunks */
 
 	if (t) {
@@ -93,10 +102,13 @@ void MD5Update (struct MD5Context *ctx, unsigned char const *buf, unsigned len) 
 	memcpy (ctx->in, buf, len);
 }
 
-/*
-* Final wrapup - pad to 64-byte boundary with the bit pattern
-* 1 0* (64-bit count of bits processed, MSB-first)
-*/
+/**
+ * @brief     Final wrapup - pad to 64-byte boundary with the 
+ *            bit pattern 1 0* (64-bit count of bits processed, MSB-first)
+ *
+ * @param      digest  The digest
+ * @param      ctx     The context
+ */
 void MD5Final (unsigned char digest[16], struct MD5Context *ctx) {
 	unsigned count;
 	unsigned char *p;
@@ -153,11 +165,14 @@ void MD5Final (unsigned char digest[16], struct MD5Context *ctx) {
 #define MD5STEP(f, w, x, y, z, data, s) \
 	( w += f(x, y, z) + data,  w = w<<s | w>>(32-s),  w += x )
 
-/*
-* The core of the MD5 algorithm, this alters an existing MD5 hash to
-* reflect the addition of 16 longwords of new data.  MD5Update blocks
-* the data and converts bytes into longwords for this routine.
-*/
+/**
+ * @brief      The core of the MD5 algorithm, this alters an existing MD5 hash to
+ *             reflect the addition of 16 longwords of new data.  MD5Update blocks
+ *             the data and converts bytes into longwords for this routine.
+ *
+ * @param      buf   The buffer
+ * @param      in    { parameter_description }
+ */
 void MD5Transform (uint32 buf[4], uint32 const in[16]) {
 	register uint32 a, b, c, d;
 
@@ -240,9 +255,15 @@ void MD5Transform (uint32 buf[4], uint32 const in[16]) {
 	buf[3] += d;
 }
 
-/*
-* get MD5 of a byte buffer
-*/
+/**
+ * @brief      get MD5 of a byte buffer
+ *
+ * @param[in]  src     The source
+ * @param[in]  length  The length
+ * @param      md5     The md 5
+ *
+ * @return     The bytes md 5.
+ */
 int getBytesMD5 (const unsigned char* src, unsigned int length, char* md5) {
 	unsigned char i = 0;
 	unsigned char md5Bytes[16] = { 0 };
@@ -262,16 +283,26 @@ int getBytesMD5 (const unsigned char* src, unsigned int length, char* md5) {
 	return 0;
 }
 
-/*
-* get MD5 for a string
-*/
+/**
+ * @brief      get MD5 for a string
+ *
+ * @param[in]  src   The source
+ * @param      md5   The md 5
+ *
+ * @return     The string md 5.
+ */
 int getStringMD5 (const char* src, char* md5) {
 	return getBytesMD5 ((unsigned char*)src, strlen ((char*)src), md5);
 }
 
 /**
-* get MD5 of a file
-*/
+ * @brief      get MD5 of a file
+ *
+ * @param[in]  path  The path
+ * @param      md5   The md 5
+ *
+ * @return     The file md 5.
+ */
 int getFileMD5 (const char* path, char* md5) {
 	FILE* fp = NULL;
 	unsigned char buffer[MD5_FILE_BUFFER_LEN] = { 0 };

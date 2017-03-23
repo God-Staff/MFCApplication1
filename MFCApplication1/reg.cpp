@@ -88,7 +88,7 @@ void reg::OnBnClickedCancel ()
 		boost::asio::io_service io;
 		try {
 			qiuwanli::utilty s;
-			s.sender (io, "127.0.0.1", 9999, "userreg", "996\0");
+			//s.sender (io, "127.0.0.1", 9999, "userreg", "996\0");
 		}
 		catch (std::exception& err) {
 			std::cerr << err.what () << "\n";

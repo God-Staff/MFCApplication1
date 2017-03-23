@@ -6,7 +6,14 @@ client_sender//www.cnblogs.com/flyinghearts
 #include <boost/shared_ptr.hpp>
 #include "file_info.h"
 
-
+/**
+ * @brief      发送文件
+ *
+ * @param      io          The i/o
+ * @param[in]  ip_address  The ip address
+ * @param[in]  port        The port
+ * @param[in]  filename    The filename
+ */
 void sender(asio::io_service& io, const char* ip_address, unsigned port, const char* filename)
 {
   typedef asio::ip::tcp TCP;
@@ -63,6 +70,14 @@ void sender(asio::io_service& io, const char* ip_address, unsigned port, const c
     << "speed: " <<  speed << " MB/s\n\n"; 
 }
 
+/**
+ * @brief      主函数
+ *
+ * @param[in]  args  The arguments
+ * @param      argc  The argc
+ *
+ * @return     { description_of_the_return_value }
+ */
 int main(int args, char* argc[])
 {
   if (args < 3) {

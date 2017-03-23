@@ -87,12 +87,6 @@
     <ClInclude Include="config.pb.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="utility.hpp">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="fileinfo.hpp">
-      <Filter>Utility</Filter>
-    </ClInclude>
     <ClInclude Include="headinclude.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -108,7 +102,13 @@
     <ClInclude Include="checkNet.hpp">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\MD5.hpp">
+    <ClInclude Include="fileinfo.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="MD5.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility.hpp">
       <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
@@ -164,7 +164,10 @@
     <ClCompile Include="client.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\MD5.cpp">
+    <ClCompile Include="MD5.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="utility.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
   </ItemGroup>
@@ -181,9 +184,6 @@
       <Filter>资源文件</Filter>
     </None>
     <None Include="ClassDiagram.cd" />
-    <None Include="utility.cpp">
-      <Filter>Utility</Filter>
-    </None>
     <None Include="About.MD" />
     <None Include="login_all.proto">
       <Filter>资源文件</Filter>

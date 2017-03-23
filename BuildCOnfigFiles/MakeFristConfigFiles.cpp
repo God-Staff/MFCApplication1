@@ -27,7 +27,7 @@ void makesetfiles ()
 	ff.add_config ()->set_valuestring ("100Mbps");
 	//ff.add_config ()->Clear ();
 	ff.add_config ()->set_type (qiuwanli::Type::FileDownSpeed);
-	ff.add_config ()->set_valuestring ("100Mbps");
+	ff.add_config ()->set_valuestring ("10Mbps");
 	//ff.add_config ()->Clear ();
 
 	if (!ff.SerializeToOstream (&output1)) {

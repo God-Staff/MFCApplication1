@@ -253,7 +253,7 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 		boost::asio::io_service io_ser;
 		try { 
 			qiuwanli::utilty s;
-			s.sender (io_ser, "127.0.0.1", 9999, "login","1001\0");
+			//s.sender (io_ser, "127.0.0.1", 9999, "login","1001\0");
 }
 		catch (std::exception& err) {
 			std::cerr << err.what () << "\n";
@@ -273,7 +273,7 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 
 
 	//成功验证，跳转到网盘对话框
-	//CheckResult = 2;
+	CheckResult = 2;
 	if (CheckResult==2)
 	{
 		//密码正确，进入网盘

@@ -207,6 +207,7 @@
     <ClInclude Include="login_all.pb.h" />
     <ClInclude Include="Main_Tab.h" />
     <ClInclude Include="Main_UI.h" />
+    <ClInclude Include="MD5.hpp" />
     <ClInclude Include="MFCApplication1.h" />
     <ClInclude Include="MFCApplication1Dlg.h" />
     <ClInclude Include="mytab.h" />
@@ -217,7 +218,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="utility.hpp" />
-    <ClInclude Include="Utility\MD5.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="addFriends.cpp" />
@@ -231,6 +231,7 @@
     <ClCompile Include="login_all.pb.cc" />
     <ClCompile Include="Main_Tab.cpp" />
     <ClCompile Include="Main_UI.cpp" />
+    <ClCompile Include="MD5.cpp" />
     <ClCompile Include="MFCApplication1.cpp" />
     <ClCompile Include="MFCApplication1Dlg.cpp" />
     <ClCompile Include="mytab.cpp" />
@@ -242,7 +243,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Utility\MD5.cpp" />
+    <ClCompile Include="utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MFCApplication1.rc" />
@@ -253,7 +254,6 @@
     <None Include="config.proto" />
     <None Include="login_all.proto" />
     <None Include="res\MFCApplication1.rc2" />
-    <None Include="utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\bitmap1.bmp" />

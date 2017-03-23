@@ -15,7 +15,6 @@
 #include <windows.h>  
 #include <boost/lexical_cast.hpp>
 #include <boost/uuid/uuid_io.hpp>
-#include <boost/filesystem.hpp>
 #include "fileinfo.hpp"
 #include "MD5.hpp"
 

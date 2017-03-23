@@ -1,0 +1,132 @@
+syntax = "proto3";
+
+package qiuwanli;
+
+//用户个人信息  
+message user
+{
+	string user_id=1; 
+	string user_name=2;
+	string user_password_md5=3;
+ 	string user_client_UUID=4;
+	string login_code=5;
+	bytes  user_type=6;
+}
+
+//用户实名认证信息
+message realuser
+{
+	string user_id=1;
+	string user_name_real=2;
+	string user_idcard=3;
+	string user_live_address=4;	//籍贯
+	string user_phone=5;
+	string user_qq=6;
+	string user_mirchat=7;
+	string user_email=8;
+	string user_bri=9;
+	string user_address=10;  	//详细地址
+}
+//用户注册信息
+message userreg
+{
+	string user_name=1;
+	string user_password_md5=2;
+	string user_phone=3;
+	string reg_code=4;
+}
+
+//Files Info 
+message FileInfo
+{
+	string filename=1;
+	uint32 filesize=2;
+	string filemd5_1=3;
+	string filemd5_2=4;
+	uint64 folecreatedate=5;	//20170212 175033
+	bytes filetype=6;
+	uint32 filepathid=7;		//文件目录对应的ID便于重建原始目录结构
+}
+
+//file block  info
+message FileBlockInfo
+{
+	string file_id=1;
+	uint32 fileblock_num=2;
+	string file_CRC=3;
+}
+
+//for user login log
+//用于记录用户的登录信息，便于安全验证以及检查用户异常信息
+message loginIpLog
+{
+	string user_id=1;
+	uint32 loginip=2;
+	uint64 logindate=3;			//20170212 175033
+	string user_client_UUID=4;	
+}
+
+//用于记录用户操作的，可进行操作回退
+message log
+{
+	string user_id=1;
+	uint64 log_date=2;
+	string log_info=3;
+	bytes  log_type=4;
+	string user_client_UUID=5;	
+}
+
+//所有文件列表对应的查询表
+message allfiles
+{
+	string user_id=1;
+	uint32 files_ip=2;
+	string shared_id=3;
+	uint32 filesblock_num=4;
+	uint32 filesblock_start=5;
+}
+
+//分享链接
+message shared
+{
+	string shared_url=1;		//
+	string shared_ps=2;			//默认为空
+	uint64 shared_time=3;		//
+	uint32 shared_timelenth=4;	//
+	bytes  shared_types=5;		//
+}
+
+/////////
+//将一个文件夹下面的小文件合并为文件信息和文件数据两个数据块//
+//file small files info table
+//命名：文件目录块 pathid.path 
+message files_small
+{
+	string file_small_name=1;
+	uint32 file_small_create_time=2;
+	uint32 file_small_start=3;
+	uint32 file_small_length=4;
+}
+
+//file small files date block
+//命名：文件数据块 pathid.data 
+message files_small_block
+{
+	bytes files_small_blocks=1;
+}
+
+
+//文件夹目录，文件传输时，先将文件夹的目录结构传送过去，建立对应的目录
+
+message filespath
+{
+	string path=1;
+	bytes  pathtypes=2;
+	uint32 pathid=3;
+}
+//path1  1 
+//    path2  2
+//	  path3  2
+//	  	path4  3
+//path5  1
+//...

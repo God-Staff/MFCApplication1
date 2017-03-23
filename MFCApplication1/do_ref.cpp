@@ -149,8 +149,8 @@ void do_ref::OnBnClickedButton1 ()
 
 		boost::asio::io_service io;
 		try {
-			qiuwanli::utilty s;
-			s.sender (io, "127.0.0.1", 9999, "userreal", "998\0");
+			//qiuwanli::utilty sss;
+			//sss.sender (io, "127.0.0.1", 9999, "userreal", "998");
 		}
 		catch (std::exception& err) {
 			std::cerr << err.what () << "\n";

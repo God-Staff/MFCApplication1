@@ -54,7 +54,11 @@ _declspec(dllexport) void pathAll (boost::filesystem::path p, boost::filesystem:
 	}
 }
 
-//dir
+/**
+ * @brief      µ¼³öº¯Êý
+ *
+ * @param[in]  <unnamed>  { parameter_description }
+ */
 _declspec(dllexport) int mainl (int argc, char* argv[])
 {
 	if (argc < 1)

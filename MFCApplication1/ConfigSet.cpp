@@ -119,51 +119,65 @@ BOOL	ConfigSet::configInit ()
 	{	//解析配置文件
 		for (int i = 0; i < configfile.config_size(); ++i)
 		{
-			MessageBox (L"1234567890" + 1);
 			const qiuwanli::Config& config = configfile.config (i);
 			std::string value=config.valuestring ();
 
-			if (qiuwanli::Config::Type::Config_Type_ThreadNumUp == config.type ()) 
+			switch (config.type ())
 			{
-				box1->SetCurSel (atoi (value.c_str())+1);
-				//MessageBox (L"2！");
-			}
-			if (qiuwanli::Config_Type_ThreadNumDown== config.type ())
-			{
-				box2->SetCurSel (atoi (value.c_str ())+1);
-				//MessageBox (L"3！");
-			}
-			if (qiuwanli::Config_Type_FileUpSpeed == config.type ())
-			{
-				UploadSpeed->SetWindowText (utility.StringToWstring (value).c_str());
-				//MessageBox (utility.StringToWstring (config.valuestring ().c_str ()).c_str ());
-			}
-			if (qiuwanli::Config_Type_FileDownSpeed == config.type ())
-			{
-				downSpeed->SetWindowText (utility.StringToWstring (value).c_str ());
-				//MessageBox (utility.StringToWstring (config.valuestring ()).c_str ());
-			}
-			if (qiuwanli::Config_Type_DownFilePath == config.type ())
-			{
-				downpath->SetReadOnly (FALSE);
-				//将string 转化为Wstring 再转化为 LPTSTR 
-				downpath->SetWindowText (utility.StringToWstring (value).c_str ());
-				downpath->SetReadOnly (TRUE);
-				//MessageBox (utility.StringToWstring (config.valuestring ()).c_str ());
-			}
-			if (qiuwanli::Config_Type_FilePath == config.type ())
-			{
-				int j = m_ListControl->GetWindowedChildCount ();
+				case qiuwanli::Type::ThreadNumUp:
+				{
+					box1->SetCurSel (atoi (value.c_str())+1);
+					MessageBox (L"Config_Type_ThreadNumUp");
+				}
+					break;
+				case qiuwanli::Type::ThreadNumDown:
+				{
+					box2->SetCurSel (atoi (value.c_str ()) + 1);
+					MessageBox (L"Config_Type_ThreadNumDown");
+				}
+				break;
+				case qiuwanli::Type::FileUpSpeed :
+				{
+					UploadSpeed->SetWindowText (utility.StringToWstring (value).c_str());
+					//MessageBox (utility.StringToWstring (config.valuestring ().c_str ()).c_str ());
+					MessageBox (L"Config_Type_FileUpSpeed");
+				}
+				break;
+				case qiuwanli::Type::FileDownSpeed:
+				{
+					downSpeed->SetWindowText (utility.StringToWstring (value).c_str ());
+					//MessageBox (utility.StringToWstring (config.valuestring ()).c_str ());
+					MessageBox (L"Config_Type_FileDownSpeed");
+				}break;
+				case qiuwanli::Type::DownFilePath :
+				{
+					downpath->SetReadOnly (FALSE);
+					//将string 转化为Wstring 再转化为 LPTSTR 
+					downpath->SetWindowText (utility.StringToWstring (value).c_str ());
+					downpath->SetReadOnly (TRUE);
+					//MessageBox (utility.StringToWstring (config.valuestring ()).c_str ());
+					MessageBox (L"Config_Type_DownFilePath");
+				}
+				break;
+				case qiuwanli::Type::FilePath :
+				{
+					int j = m_ListControl->GetWindowedChildCount ();
 				
-//#ifdef UNICODE
-//				std::wstring stemp = utility.s2ws (value); // Temporary buffer is required
-//				LPCWSTR result = stemp.c_str ();
-//#else
-//				LPCWSTR result = s.c_str ();
-//#endif
-				m_ListControl->InsertItem (j, utility.StringToWstring (value).c_str ());
+	//#ifdef UNICODE
+	//				std::wstring stemp = utility.s2ws (value); // Temporary buffer is required
+	//				LPCWSTR result = stemp.c_str ();
+	//#else
+	//				LPCWSTR result = s.c_str ();
+	//#endif
+					m_ListControl->InsertItem (j, utility.StringToWstring (value).c_str ());
 
-				MessageBox (utility.StringToWstring (value).c_str ());
+					MessageBox (L"Config_Type_FilePath");
+				}
+				break;
+
+			default:  
+				MessageBox (L"Config______Others");
+				break;
 			}
 			//config.Clear ();
 		}

@@ -2,7 +2,7 @@
 #include <string.h>		/* for memcpy() */
 #include <stdio.h>
 #include "md5.hpp"
-#include "../stdafx.h"
+#include "stdafx.h"
 
 #ifndef HIGHFIRST
 #define byteReverse(buf, len)	/* Nothing */

@@ -23,6 +23,9 @@ public:
 
 	TCP::socket& socket () { return socket_; }
 
+	/**
+	 * @brief      Destroys the object.
+	 */
 	~Session ()
 	{
 		if (fp_) fclose (fp_);
@@ -35,6 +38,9 @@ public:
 			<< "speed: " << speed << " MB/s\n\n";
 	}
 
+	/**
+	 * @brief      { function_description }
+	 */
 	void start ()
 	{
 		clock_ = clock ();
@@ -47,6 +53,11 @@ public:
 private:
 	Session (asio::io_service& io) : socket_ (io), fp_ (NULL), total_bytes_writen_ (0) { }
 
+	/**
+	 * @brief      { function_description }
+	 *
+	 * @param[in]  error  The error
+	 */
 	void handle_header (const Error& error)
 	{
 		if (error) return print_asio_error (error);
@@ -60,6 +71,11 @@ private:
 			boost::bind (&Session::handle_file, shared_from_this (), asio::placeholders::error));
 	}
 
+	/**
+	 * @brief      { function_description }
+	 *
+	 * @param[in]  error  The error
+	 */
 	void handle_file (const Error& error)
 	{
 		if (error) return print_asio_error (error);
@@ -77,6 +93,9 @@ private:
 		receive_file_content ();
 	}
 
+	/**
+	 * @brief      { function_description }
+	 */
 	void receive_file_content ()
 	{
 		socket_.async_receive (asio::buffer (buffer_, k_buffer_size),
@@ -84,6 +103,12 @@ private:
 				asio::placeholders::bytes_transferred));
 	}
 
+	/**
+	 * @brief      { function_description }
+	 *
+	 * @param[in]  error              The error
+	 * @param[in]  bytes_transferred  The bytes transferred
+	 */
 	void handle_write (const Error& error, size_t bytes_transferred)
 	{
 		if (error) {
@@ -122,6 +147,9 @@ public:
 	static void print_asio_error (const Error& error) { std::cerr << error.message () << "\n"; }
 
 private:
+	/**
+	 * @brief      Starts an accept.
+	 */
 	void start_accept ()
 	{
 		Session::Pointer session = Session::create (acceptor_.get_io_service ());
@@ -129,6 +157,12 @@ private:
 			boost::bind (&Tcp_server::handle_accept, this, session, asio::placeholders::error));
 	}
 
+	/**
+	 * @brief      { function_description }
+	 *
+	 * @param[in]  session  The session
+	 * @param[in]  error    The error
+	 */
 	void handle_accept (Session::Pointer session, const Error& error)
 	{
 		if (error) return print_asio_error (error);

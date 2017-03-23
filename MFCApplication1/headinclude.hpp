@@ -18,12 +18,11 @@
 #include "mytab.h"
 #include "utility.hpp"
 #include "targetver.h"
-#include "stdafx.h"
-#include "resource.h"
 #include "reg_info.h"
 #include "reg.h"
 
-#include "uuid.hpp"
-
+#include <boost/asio.hpp>
+#include <boost/bind.hpp>
+#include <boost/filesystem.hpp>
 
 #endif //_INCLUDE_HPP_
