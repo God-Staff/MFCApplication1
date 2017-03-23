@@ -70,7 +70,8 @@ BOOL ConfigSet::OnInitDialog ()
 	if (!configInit ())
 		return 0;
 
-	MessageBox (L"配置文件");
+	MessageBox (L"配置文件 加载成功！");
+
 	return TRUE;
 }
 
@@ -81,7 +82,6 @@ void ConfigSet::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(ConfigSet, CDialogEx)
-	//ON_BN_CLICKED (IDC_BUTTON1, &ConfigSet::OnBnClickedButton1)
 	ON_NOTIFY (NM_RCLICK, IDC_LIST6, &ConfigSet::OnNMRClickList6)
 	ON_COMMAND (ID_32806, &ConfigSet::OnAddFilesPath)
 	ON_COMMAND (ID_32807, &ConfigSet::OnDelectFilesPath)
@@ -89,8 +89,6 @@ BEGIN_MESSAGE_MAP(ConfigSet, CDialogEx)
 	ON_CBN_SELCHANGE (IDC_COMBO1, &ConfigSet::OnCbnSelchangeCombo1)
 	ON_CBN_SELCHANGE (IDC_COMBO2, &ConfigSet::OnCbnSelchangeCombo2)
 	ON_BN_CLICKED (IDC_BUTTON2, &ConfigSet::OnBnClickedButton2)
-	//ON_BN_CLICKED (IDC_BUTTON3, &ConfigSet::OnBnClickedButton3)
-	//ON_BN_CLICKED (IDC_BUTTON4, &ConfigSet::OnBnClickedButton4)
 	ON_EN_CHANGE (IDC_EDIT42, &ConfigSet::OnEnChangeEdit42)
 	ON_EN_CHANGE (IDC_EDIT43, &ConfigSet::OnEnChangeEdit43)
 END_MESSAGE_MAP()
@@ -102,7 +100,6 @@ BOOL	ConfigSet::configInit ()
 {
 	qiuwanli::utilty utility;
 	qiuwanli::ConfigFile configfile;
-	//configFile = &configfile;
 	std::fstream input3 ("config", std::ios::in | std::ios::binary);
 	if (!input3){
 		MessageBox (L"配置文件打开失败！");
@@ -117,69 +114,43 @@ BOOL	ConfigSet::configInit ()
 	}
 	else 
 	{	//解析配置文件
-		for (int i = 0; i < configfile.config_size(); ++i)
+		for (int i = 0; i < configfile.config_size(); ++i,++i)
 		{
 			const qiuwanli::Config& config = configfile.config (i);
-			std::string value=config.valuestring ();
+			const qiuwanli::Config& config1 = configfile.config (i + 1);
+			std::string value = config1.valuestring ();
 
-			switch (config.type ())
+			switch ((qiuwanli::Type)config.type ())
 			{
 				case qiuwanli::Type::ThreadNumUp:
-				{
-					box1->SetCurSel (atoi (value.c_str())+1);
-					MessageBox (L"Config_Type_ThreadNumUp");
-				}
+					box1->SetCurSel (atoi (value.c_str()-1));
 					break;
 				case qiuwanli::Type::ThreadNumDown:
-				{
-					box2->SetCurSel (atoi (value.c_str ()) + 1);
-					MessageBox (L"Config_Type_ThreadNumDown");
-				}
-				break;
+					box2->SetCurSel (atoi (value.c_str ()-1));
+					break;
 				case qiuwanli::Type::FileUpSpeed :
-				{
 					UploadSpeed->SetWindowText (utility.StringToWstring (value).c_str());
-					//MessageBox (utility.StringToWstring (config.valuestring ().c_str ()).c_str ());
-					MessageBox (L"Config_Type_FileUpSpeed");
-				}
-				break;
+					break;
 				case qiuwanli::Type::FileDownSpeed:
-				{
 					downSpeed->SetWindowText (utility.StringToWstring (value).c_str ());
-					//MessageBox (utility.StringToWstring (config.valuestring ()).c_str ());
-					MessageBox (L"Config_Type_FileDownSpeed");
-				}break;
+					break;
 				case qiuwanli::Type::DownFilePath :
 				{
 					downpath->SetReadOnly (FALSE);
 					//将string 转化为Wstring 再转化为 LPTSTR 
 					downpath->SetWindowText (utility.StringToWstring (value).c_str ());
 					downpath->SetReadOnly (TRUE);
-					//MessageBox (utility.StringToWstring (config.valuestring ()).c_str ());
-					MessageBox (L"Config_Type_DownFilePath");
 				}
-				break;
+					break;
 				case qiuwanli::Type::FilePath :
 				{
 					int j = m_ListControl->GetWindowedChildCount ();
-				
-	//#ifdef UNICODE
-	//				std::wstring stemp = utility.s2ws (value); // Temporary buffer is required
-	//				LPCWSTR result = stemp.c_str ();
-	//#else
-	//				LPCWSTR result = s.c_str ();
-	//#endif
 					m_ListControl->InsertItem (j, utility.StringToWstring (value).c_str ());
-
-					MessageBox (L"Config_Type_FilePath");
 				}
-				break;
-
+					break;
 			default:  
-				MessageBox (L"Config______Others");
 				break;
 			}
-			//config.Clear ();
 		}
 
 		input3.close ();
@@ -190,8 +161,55 @@ BOOL	ConfigSet::configInit ()
 }
 
 
+//获取所有设置，并重写到配置文件：config
 BOOL	ConfigSet::updateConfig ()
 {
+	CString downDir;
+	CString downSpeedUp;
+	CString downSpeedDown;
+	CString upThread;	
+	CString downThread;
+	CString downPathDir;
+
+	downpath->GetWindowText(downDir);
+	downSpeed->GetWindowText (downSpeedDown);
+	UploadSpeed->GetWindowText (downSpeedUp);
+	int threadUpLim = box1->GetCurSel ();
+	int threadDownLim = box2->GetCurSel();
+	int maxList=m_ListControl->GetItemCount();
+
+	qiuwanli::utilty utut;
+	std::fstream output1 ("config", std::ios::out | std::ios::trunc | std::ios::binary);
+	qiuwanli::ConfigFile ff;
+	for (int i=0;i<maxList;++i)
+	{
+		downPathDir = "";
+		downPathDir=m_ListControl->GetItemText (i, 0);
+		ff.add_config ()->set_type (qiuwanli::Type::FilePath);
+		ff.add_config ()->set_valuestring (CT2A (downPathDir));
+	}
+
+
+	ff.add_config ()->set_type (qiuwanli::Type::DownFilePath);
+	ff.add_config ()->set_valuestring (CT2A (downDir));
+
+	ff.add_config ()->set_type (qiuwanli::Type::ThreadNumDown);
+	ff.add_config ()->set_valuestring (std::to_string(threadDownLim));
+
+	ff.add_config ()->set_type (qiuwanli::Type::ThreadNumUp);
+	ff.add_config ()->set_valuestring (std::to_string (threadUpLim));
+
+	ff.add_config ()->set_type (qiuwanli::Type::FileUpSpeed);
+	ff.add_config ()->set_valuestring (CT2A (downSpeedUp));
+
+	ff.add_config ()->set_type (qiuwanli::Type::FileDownSpeed);
+	ff.add_config ()->set_valuestring (CT2A (downSpeedDown));
+
+	if (!ff.SerializeToOstream (&output1)) {
+		std::cerr << "Failed to write Config:" << std::endl;
+	}
+	ff.Clear ();
+	output1.close ();
 
 	return TRUE;
 }
@@ -229,11 +247,12 @@ void ConfigSet::OnNMRClickList6 (NMHDR *pNMHDR, LRESULT *pResult)
 			//MessageBox(sFullPath ); //显示当前选中的路径
 			kSelectedItem.push_back (sFullPath);
 		}
-
 	}
 
 	//在指定位置显示弹出菜单
 	pSubMenu->TrackPopupMenu (TPM_LEFTALIGN, oPoint.x, oPoint.y, this);
+	
+	updateConfig ();
 
 	*pResult = 0;
 }
@@ -242,8 +261,6 @@ void ConfigSet::OnNMRClickList6 (NMHDR *pNMHDR, LRESULT *pResult)
 //Config 右键响应事件
 void ConfigSet::OnAddFilesPath ()
 {
-	// TODO: 在此添加命令处理程序代码
-	
 	//获取列表的行数，便于在尾部添加新增路径
 	int i = m_ListControl->GetWindowedChildCount ();
 
@@ -278,14 +295,13 @@ void ConfigSet::OnAddFilesPath ()
 	//MessageBox (strFolderPath);
 
 	//将文件路径写入到配置文件
-	//TODO:
+	updateConfig ();
 }
 
 
 void ConfigSet::OnDelectFilesPath ()
 {
 	//删除选中的Path
-
 	POSITION pos = m_ListControl->GetFirstSelectedItemPosition ();
 	if (pos == NULL)
 		TRACE0 ("No items were selected!\n");
@@ -299,30 +315,28 @@ void ConfigSet::OnDelectFilesPath ()
 	}
 
 	//将文件路径写入到配置文件
-	//TODO:
+	updateConfig ();
 }
 
 
 void ConfigSet::OnUpdateFilePathList ()
 {
 	// 更新AllFiles的文件列表或者是上传文件
-	
+	updateConfig ();
 }
 
 
 void ConfigSet::OnCbnSelchangeCombo1 ()
 {
 	//并行上传设置数量改变时执行变更,将变更数据保存到配置文件
-	box1->GetCurSel ();
-
+	updateConfig ();
 }
 
 
 void ConfigSet::OnCbnSelchangeCombo2 ()
 {
 	//并行下载设置数量改变时执行变更
-	box2->GetCurSel ();
-	
+	updateConfig ();
 }
 
 
@@ -360,6 +374,9 @@ void ConfigSet::OnBnClickedButton2 ()
 	downpath->SetReadOnly (FALSE);
 	downpath->SetWindowTextW (szFolderPath);
 	downpath->SetReadOnly (TRUE);
+	
+	//更新配置文件
+	updateConfig ();
 }
 
 
@@ -372,7 +389,7 @@ void ConfigSet::OnEnChangeEdit42 ()
 	// 函数并调用 CRichEditCtrl().SetEventMask()，
 	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
 
-	// TODO:  在此添加控件通知处理程序代码
+	updateConfig ();
 }
 
 
@@ -383,5 +400,5 @@ void ConfigSet::OnEnChangeEdit43 ()
 	// 函数并调用 CRichEditCtrl().SetEventMask()，
 	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
 
-	// TODO:  在此添加控件通知处理程序代码
+	updateConfig ();
 }

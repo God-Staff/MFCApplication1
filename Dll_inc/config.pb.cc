@@ -38,7 +38,6 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Config, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Config, length_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Config, valuestring_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Config, type_),
   ~0u,  // no _has_bits_
@@ -50,7 +49,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
 
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 0, -1, sizeof(Config)},
-  { 7, -1, sizeof(ConfigFile)},
+  { 6, -1, sizeof(ConfigFile)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -103,16 +102,16 @@ void InitDefaults() {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\014config.proto\022\010qiuwanli\"K\n\006Config\022\016\n\006le"
-      "ngth\030\001 \001(\r\022\023\n\013valueString\030\002 \001(\t\022\034\n\004type\030"
-      "\003 \001(\0162\016.qiuwanli.Type\".\n\nConfigFile\022 \n\006c"
-      "onfig\030\002 \003(\0132\020.qiuwanli.Config*n\n\004Type\022\020\n"
-      "\014DownFilePath\020\000\022\017\n\013ThreadNumUp\020\001\022\021\n\rThre"
-      "adNumDown\020\002\022\017\n\013FileUpSpeed\020\003\022\021\n\rFileDown"
-      "Speed\020\004\022\014\n\010FilePath\020\005b\006proto3"
+      "\n\014config.proto\022\010qiuwanli\";\n\006Config\022\023\n\013va"
+      "lueString\030\002 \001(\t\022\034\n\004type\030\003 \001(\0162\016.qiuwanli"
+      ".Type\".\n\nConfigFile\022 \n\006config\030\001 \003(\0132\020.qi"
+      "uwanli.Config*n\n\004Type\022\020\n\014DownFilePath\020\000\022"
+      "\017\n\013ThreadNumUp\020\001\022\021\n\rThreadNumDown\020\002\022\017\n\013F"
+      "ileUpSpeed\020\003\022\021\n\rFileDownSpeed\020\004\022\014\n\010FileP"
+      "ath\020\005b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 269);
+      descriptor, 253);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "config.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -153,7 +152,6 @@ bool Type_IsValid(int value) {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int Config::kLengthFieldNumber;
 const int Config::kValueStringFieldNumber;
 const int Config::kTypeFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -175,16 +173,13 @@ Config::Config(const Config& from)
   if (from.valuestring().size() > 0) {
     valuestring_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.valuestring_);
   }
-  ::memcpy(&length_, &from.length_,
-    reinterpret_cast<char*>(&type_) -
-    reinterpret_cast<char*>(&length_) + sizeof(type_));
+  type_ = from.type_;
   // @@protoc_insertion_point(copy_constructor:qiuwanli.Config)
 }
 
 void Config::SharedCtor() {
   valuestring_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&length_, 0, reinterpret_cast<char*>(&type_) -
-    reinterpret_cast<char*>(&length_) + sizeof(type_));
+  type_ = 0;
   _cached_size_ = 0;
 }
 
@@ -223,8 +218,7 @@ Config* Config::New(::google::protobuf::Arena* arena) const {
 void Config::Clear() {
 // @@protoc_insertion_point(message_clear_start:qiuwanli.Config)
   valuestring_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&length_, 0, reinterpret_cast<char*>(&type_) -
-    reinterpret_cast<char*>(&length_) + sizeof(type_));
+  type_ = 0;
 }
 
 bool Config::MergePartialFromCodedStream(
@@ -237,19 +231,6 @@ bool Config::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // uint32 length = 1;
-      case 1: {
-        if (tag == 8u) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &length_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
       // string valueString = 2;
       case 2: {
         if (tag == 18u) {
@@ -303,11 +284,6 @@ failure:
 void Config::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:qiuwanli.Config)
-  // uint32 length = 1;
-  if (this->length() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->length(), output);
-  }
-
   // string valueString = 2;
   if (this->valuestring().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -331,11 +307,6 @@ void Config::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:qiuwanli.Config)
-  // uint32 length = 1;
-  if (this->length() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->length(), target);
-  }
-
   // string valueString = 2;
   if (this->valuestring().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -366,13 +337,6 @@ size_t Config::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->valuestring());
-  }
-
-  // uint32 length = 1;
-  if (this->length() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::UInt32Size(
-        this->length());
   }
 
   // .qiuwanli.Type type = 3;
@@ -411,9 +375,6 @@ void Config::MergeFrom(const Config& from) {
 
     valuestring_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.valuestring_);
   }
-  if (from.length() != 0) {
-    set_length(from.length());
-  }
   if (from.type() != 0) {
     set_type(from.type());
   }
@@ -443,7 +404,6 @@ void Config::Swap(Config* other) {
 }
 void Config::InternalSwap(Config* other) {
   valuestring_.Swap(&other->valuestring_);
-  std::swap(length_, other->length_);
   std::swap(type_, other->type_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -455,20 +415,6 @@ void Config::InternalSwap(Config* other) {
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // Config
-
-// uint32 length = 1;
-void Config::clear_length() {
-  length_ = 0u;
-}
-::google::protobuf::uint32 Config::length() const {
-  // @@protoc_insertion_point(field_get:qiuwanli.Config.length)
-  return length_;
-}
-void Config::set_length(::google::protobuf::uint32 value) {
-  
-  length_ = value;
-  // @@protoc_insertion_point(field_set:qiuwanli.Config.length)
-}
 
 // string valueString = 2;
 void Config::clear_valuestring() {
@@ -611,9 +557,9 @@ bool ConfigFile::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .qiuwanli.Config config = 2;
-      case 2: {
-        if (tag == 18u) {
+      // repeated .qiuwanli.Config config = 1;
+      case 1: {
+        if (tag == 10u) {
           DO_(input->IncrementRecursionDepth());
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
                 input, add_config()));
@@ -648,10 +594,10 @@ failure:
 void ConfigFile::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:qiuwanli.ConfigFile)
-  // repeated .qiuwanli.Config config = 2;
+  // repeated .qiuwanli.Config config = 1;
   for (unsigned int i = 0, n = this->config_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->config(i), output);
+      1, this->config(i), output);
   }
 
   // @@protoc_insertion_point(serialize_end:qiuwanli.ConfigFile)
@@ -661,11 +607,11 @@ void ConfigFile::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:qiuwanli.ConfigFile)
-  // repeated .qiuwanli.Config config = 2;
+  // repeated .qiuwanli.Config config = 1;
   for (unsigned int i = 0, n = this->config_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        2, this->config(i), false, target);
+        1, this->config(i), false, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:qiuwanli.ConfigFile)
@@ -676,7 +622,7 @@ size_t ConfigFile::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:qiuwanli.ConfigFile)
   size_t total_size = 0;
 
-  // repeated .qiuwanli.Config config = 2;
+  // repeated .qiuwanli.Config config = 1;
   {
     unsigned int count = this->config_size();
     total_size += 1UL * count;
@@ -751,7 +697,7 @@ void ConfigFile::InternalSwap(ConfigFile* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // ConfigFile
 
-// repeated .qiuwanli.Config config = 2;
+// repeated .qiuwanli.Config config = 1;
 int ConfigFile::config_size() const {
   return config_.size();
 }

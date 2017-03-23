@@ -30,15 +30,19 @@ void outf1 ()
 	}
 	else {	//½âÎöÅäÖÃÎÄ¼ş
 		std::cout <<"Size:"<< configfile.config_size () << std::endl;
-		for (int i = 1; i < configfile.config_size(); ++i,++i)
+		for (int i = 0; i < configfile.config_size(); ++i,++i)
 		{
 			const qiuwanli::Config& config = configfile.config (i);
-			std::string value = config.valuestring ();
+			const qiuwanli::Config& config1 = configfile.config (i+1);
+			std::string value = config1.valuestring ();
 
 			switch ((qiuwanli::Type)config.type ())
 			{
 			case qiuwanli::Type::ThreadNumUp:
+			{
+
 				std::cout << "ThreadNumUp:" << std::endl << atoi (value.c_str ()) << std::endl;
+			}		
 				break;
 			case qiuwanli::Type::ThreadNumDown:
 				std::cout << "ThreadNumDown:" << std::endl << atoi (value.c_str ()) << std::endl;

@@ -5,6 +5,7 @@
 #include "config.pb.h"
 
 
+//生成config配置文件
 void makesetfiles ()
 {
 	//ConfigSet File
@@ -13,26 +14,29 @@ void makesetfiles ()
 
 	ff.add_config ()->set_type (qiuwanli::Type::DownFilePath);
 	ff.add_config ()->set_valuestring ("C:\\Users\\God-S\\Downloads");
-	//ff.add_config ()->Clear ();
+
 	ff.add_config ()->set_type (qiuwanli::Type::FilePath);
 	ff.add_config ()->set_valuestring ("C:\\Users\\God-S\\Favorites");
-	//ff.add_config ()->Clear ();
+
+	ff.add_config ()->set_type (qiuwanli::Type::FilePath);
+	ff.add_config ()->set_valuestring ("C:\\Users\\God-S");
+
 	ff.add_config ()->set_type (qiuwanli::Type::ThreadNumDown);
 	ff.add_config ()->set_valuestring ("2");
-	//ff.add_config ()->Clear ();
+
 	ff.add_config ()->set_type (qiuwanli::Type::ThreadNumUp);
 	ff.add_config ()->set_valuestring ("3");
-	//ff.add_config ()->Clear ();
+
 	ff.add_config ()->set_type (qiuwanli::Type::FileUpSpeed);
 	ff.add_config ()->set_valuestring ("100Mbps");
-	//ff.add_config ()->Clear ();
+
 	ff.add_config ()->set_type (qiuwanli::Type::FileDownSpeed);
 	ff.add_config ()->set_valuestring ("10Mbps");
-	//ff.add_config ()->Clear ();
 
 	if (!ff.SerializeToOstream (&output1)) {
 		std::cerr << "Failed to write Config:" << std::endl;
 	}
+	ff.Clear ();
 	output1.close ();
 }
 
@@ -45,18 +49,30 @@ void setfiles ()
 	qiuwanli::setfiles setfile;
 	setfile.add_map_field ()->set_key (12);
 	setfile.add_map_field ()->set_value ("123");
-
+	if (!setfile.SerializeToOstream (&output1)) {
+		std::cerr << "Failed to write Config:" << std::endl;
+	}
+	setfile.Clear ();
 	setfile.add_map_field ()->set_key (123);
 	setfile.add_map_field ()->set_value ("1233");
-
+	if (!setfile.SerializeToOstream (&output1)) {
+		std::cerr << "Failed to write Config:" << std::endl;
+	}
+	setfile.Clear ();
 
 	setfile.add_map_field ()->set_key (1234);
 	setfile.add_map_field ()->set_value ("12334");
-
+	if (!setfile.SerializeToOstream (&output1)) {
+		std::cerr << "Failed to write Config:" << std::endl;
+	}
+	setfile.Clear ();
 
 	setfile.add_map_field ()->set_key (12345);
 	setfile.add_map_field ()->set_value ("123354");
-
+	if (!setfile.SerializeToOstream (&output1)) {
+		std::cerr << "Failed to write Config:" << std::endl;
+	}
+	setfile.Clear ();
 
 	setfile.add_map_field ()->set_key (123456);
 	setfile.add_map_field ()->set_value ("1233456");

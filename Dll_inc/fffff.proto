@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package qiuwanli;
+
+message ConfigFile {
+    repeated string config = 1;
+}

@@ -160,12 +160,6 @@ class Config : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
   ::std::string* release_valuestring();
   void set_allocated_valuestring(::std::string* valuestring);
 
-  // uint32 length = 1;
-  void clear_length();
-  static const int kLengthFieldNumber = 1;
-  ::google::protobuf::uint32 length() const;
-  void set_length(::google::protobuf::uint32 value);
-
   // .qiuwanli.Type type = 3;
   void clear_type();
   static const int kTypeFieldNumber = 3;
@@ -177,7 +171,6 @@ class Config : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr valuestring_;
-  ::google::protobuf::uint32 length_;
   int type_;
   mutable int _cached_size_;
   friend struct  protobuf_config_2eproto::TableStruct;
@@ -251,10 +244,10 @@ class ConfigFile : public ::google::protobuf::Message /* @@protoc_insertion_poin
 
   // accessors -------------------------------------------------------
 
-  // repeated .qiuwanli.Config config = 2;
+  // repeated .qiuwanli.Config config = 1;
   int config_size() const;
   void clear_config();
-  static const int kConfigFieldNumber = 2;
+  static const int kConfigFieldNumber = 1;
   const ::qiuwanli::Config& config(int index) const;
   ::qiuwanli::Config* mutable_config(int index);
   ::qiuwanli::Config* add_config();
@@ -278,20 +271,6 @@ class ConfigFile : public ::google::protobuf::Message /* @@protoc_insertion_poin
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
 // Config
-
-// uint32 length = 1;
-inline void Config::clear_length() {
-  length_ = 0u;
-}
-inline ::google::protobuf::uint32 Config::length() const {
-  // @@protoc_insertion_point(field_get:qiuwanli.Config.length)
-  return length_;
-}
-inline void Config::set_length(::google::protobuf::uint32 value) {
-  
-  length_ = value;
-  // @@protoc_insertion_point(field_set:qiuwanli.Config.length)
-}
 
 // string valueString = 2;
 inline void Config::clear_valuestring() {
@@ -363,7 +342,7 @@ inline void Config::set_type(::qiuwanli::Type value) {
 
 // ConfigFile
 
-// repeated .qiuwanli.Config config = 2;
+// repeated .qiuwanli.Config config = 1;
 inline int ConfigFile::config_size() const {
   return config_.size();
 }
