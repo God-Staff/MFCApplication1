@@ -29,7 +29,7 @@ public:
 	void print ();
 
 private:
-	asio::detail::mutex mutex_;
+	boost::asio::detail::mutex mutex_;
 	size_t total_bytes_written_;
 	size_t total_bytes_read_;
 };
@@ -37,21 +37,21 @@ private:
 class session
 {
 public:
-	session (asio::io_service& ios, size_t block_size, stats& s);
+	session (boost::asio::io_service& ios, size_t block_size, stats& s);
 	~session ();
 
-	void start (asio::ip::tcp::resolver::iterator endpoint_iterator);
+	void start (boost::asio::ip::tcp::resolver::iterator endpoint_iterator);
 	void stop ();
 
 private:
-	void handle_connect (const asio::error_code& err);
-	void handle_read (const asio::error_code& err, size_t length);
-	void handle_write (const asio::error_code& err, size_t length);
+	void handle_connect (const boost::system::error_code& err);
+	void handle_read (const boost::system::error_code& err, size_t length);
+	void handle_write (const boost::system::error_code& err, size_t length);
 	void close_socket ();
 
 private:
-	asio::io_service::strand strand_;
-	asio::ip::tcp::socket socket_;
+	boost::asio::io_service::strand strand_;
+	boost::asio::ip::tcp::socket socket_;
 	size_t block_size_;
 	char* read_data_;
 	size_t read_data_length_;
@@ -67,21 +67,22 @@ private:
 class client
 {
 public:
-	client (asio::io_service& ios,
-		const asio::ip::tcp::resolver::iterator endpoint_iterator,
+	client (boost::asio::io_service& ios,
+		const boost::asio::ip::tcp::resolver::iterator endpoint_iterator,
 		size_t block_size, size_t session_count, int timeout);
 
 	~client ();
 	void handle_timeout ();
 
 private:
-	asio::io_service& io_service_;
-	asio::deadline_timer stop_timer_;
+	boost::asio::io_service& io_service_;
+	boost::asio::deadline_timer stop_timer_;
 	std::list<session*> sessions_;
 	stats stats_;
 };
 
-#endif//CLIENT__
+#endif //CLIENT__
+
 //
 //int main (int argc, char* argv[])
 //{
