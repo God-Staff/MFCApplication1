@@ -6,7 +6,7 @@
 #include "afxdialogex.h"
 #include "reg_info.h"
 #include "resource.h"
-#include "login_all.pb.h"
+#include "MyDataStruct.pb.h"
 #include "string"
 #include "utility.hpp"
 #include "MFCApplication1Dlg.h"
@@ -88,7 +88,7 @@ void reg::OnBnClickedCancel ()
 		boost::asio::io_service io;
 		try {
 			qiuwanli::utilty s;
-			//s.sender (io, "127.0.0.1", 9999, "userreg", "996\0");
+			s.sender (io, "127.0.0.1", 9999, "userreg", "996");
 		}
 		catch (std::exception& err) {
 			std::cerr << err.what () << "\n";

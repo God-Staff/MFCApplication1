@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "login_all.pb.h"
+#include "MyDataStruct.pb.h"
 #include "configfiles.pb.h"
 #include "config.pb.h"
 
@@ -40,44 +40,18 @@ void makesetfiles ()
 	output1.close ();
 }
 
+//Éú³ÉDownLogFile
 void setfiles ()
 {
-	std::fstream output1 ("config.ini", std::ios::out | std::ios::trunc | std::ios::binary);
+	std::fstream output1 ("downlog", std::ios::out | std::ios::trunc | std::ios::binary);
 	if (!output1)
 		return;
 
-	qiuwanli::setfiles setfile;
-	setfile.add_map_field ()->set_key (12);
-	setfile.add_map_field ()->set_value ("123");
-	if (!setfile.SerializeToOstream (&output1)) {
-		std::cerr << "Failed to write Config:" << std::endl;
-	}
-	setfile.Clear ();
-	setfile.add_map_field ()->set_key (123);
-	setfile.add_map_field ()->set_value ("1233");
-	if (!setfile.SerializeToOstream (&output1)) {
-		std::cerr << "Failed to write Config:" << std::endl;
-	}
-	setfile.Clear ();
-
-	setfile.add_map_field ()->set_key (1234);
-	setfile.add_map_field ()->set_value ("12334");
-	if (!setfile.SerializeToOstream (&output1)) {
-		std::cerr << "Failed to write Config:" << std::endl;
-	}
-	setfile.Clear ();
-
-	setfile.add_map_field ()->set_key (12345);
-	setfile.add_map_field ()->set_value ("123354");
-	if (!setfile.SerializeToOstream (&output1)) {
-		std::cerr << "Failed to write Config:" << std::endl;
-	}
-	setfile.Clear ();
-
-	setfile.add_map_field ()->set_key (123456);
-	setfile.add_map_field ()->set_value ("1233456");
-
-	if (!setfile.SerializeToOstream (&output1)) {
+	qiuwanli::FileDownLogFile down;
+	down.add_filelog ()->set_downtime ("");
+	
+	
+	if (!down.SerializeToOstream (&output1)) {
 		std::cerr << "Failed to write Config:" << std::endl;
 	}
 

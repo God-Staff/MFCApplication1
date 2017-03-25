@@ -5,9 +5,6 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/bind.hpp>
 
-using namespace boost::asio;
-using boost::system::error_code;
-
 struct File_info {
 	typedef unsigned long long Size_type;
 	Size_type filesize;

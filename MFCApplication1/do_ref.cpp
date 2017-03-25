@@ -107,7 +107,7 @@ void do_ref::OnBnClickedButton2 ()
 //验证信息
 void do_ref::OnBnClickedButton1 ()
 {
-	qiuwanli::realuser real;
+	qiuwanli::RealUsers real;
 	CString User;
 	edit1->GetWindowText (User);
 	real.set_user_id (CT2A (User));
@@ -149,8 +149,8 @@ void do_ref::OnBnClickedButton1 ()
 
 		boost::asio::io_service io;
 		try {
-			//qiuwanli::utilty sss;
-			//sss.sender (io, "127.0.0.1", 9999, "userreal", "998");
+			qiuwanli::utilty sss;
+			sss.sender (io, "127.0.0.1", 9999, "userreal", "998");
 		}
 		catch (std::exception& err) {
 			std::cerr << err.what () << "\n";

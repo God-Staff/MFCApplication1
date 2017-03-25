@@ -8,9 +8,9 @@
 #include "mytab.h"
 #include "reg.h"
 #include "FriendShared.h"
-#include "login_all.pb.h"
+#include "MyDataStruct.pb.h"
 #include "datadefine.h"
-#include "client.hpp"
+//#include "client.hpp"
 #include "utility.hpp"
 #include "checkNet.hpp"
 #include <sstream>
@@ -232,7 +232,7 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 	size_t CheckResult=0;	
 
 	try{
-		qiuwanli::user userlogin;
+		qiuwanli::Users userlogin;
 		
 		std::string s = CT2A (User_ID);
 		userlogin.set_user_id (s);
@@ -253,7 +253,7 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 		boost::asio::io_service io_ser;
 		try { 
 			qiuwanli::utilty s;
-			//s.sender (io_ser, "127.0.0.1", 9999, "login","1001\0");
+			s.sender (io_ser, "127.0.0.1", 9999, "login","1001\0");
 }
 		catch (std::exception& err) {
 			std::cerr << err.what () << "\n";
@@ -310,7 +310,7 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 }
 
 
-void CMFCApplication1Dlg::ListPeople (const qiuwanli::user& user_file)
+void CMFCApplication1Dlg::ListPeople (const qiuwanli::Users& user_file)
 {
 	//for (int i = 0; i < user_file.size; i++)
 	//{

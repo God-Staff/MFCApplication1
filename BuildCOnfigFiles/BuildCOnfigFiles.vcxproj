@@ -69,7 +69,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>D:\Vcpkg\installed\x86-windows\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Vcpkg\installed\x86-windows\bin;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -113,18 +116,18 @@
   <ItemGroup>
     <ClCompile Include="config.pb.cc" />
     <ClCompile Include="configfiles.pb.cc" />
-    <ClCompile Include="login_all.pb.cc" />
     <ClCompile Include="MakeFristConfigFiles.cpp" />
+    <ClCompile Include="MyDataStruct.pb.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.pb.h" />
     <ClInclude Include="configfiles.pb.h" />
-    <ClInclude Include="login_all.pb.h" />
+    <ClInclude Include="MyDataStruct.pb.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config.proto" />
     <None Include="configfiles.proto" />
-    <None Include="login_all.proto" />
+    <None Include="MyDataStruct.proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

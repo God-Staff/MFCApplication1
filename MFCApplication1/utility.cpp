@@ -72,7 +72,7 @@ namespace qiuwanli{
 
 		//去掉中间的空格 \r \n  
 		int j = 0;
-		for (int i = 0; i < strlen (szBuffer); i++)
+		for (int i = 0; i < strlen(szBuffer); i++)
 		{
 			if (szBuffer[i] != ' ' && szBuffer[i] != '\n' && szBuffer[i] != '\r')
 			{

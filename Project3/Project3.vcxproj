@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\local\vcpkg\packages\asio_x86-windows\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\local\vcpkg\packages\asio_x86-windows\share;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Vcpkg\installed\x86-windows\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Vcpkg\installed\x86-windows\lib32-msvc-14.0;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -94,6 +94,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -117,17 +118,10 @@
     <ClInclude Include="config.pb.h" />
     <ClInclude Include="fileinfo.hpp" />
     <ClInclude Include="login_all.pb.h" />
-    <ClInclude Include="sqlite3\sqlite3.h" />
-    <ClInclude Include="sqlite3\sqlite3ext.h" />
-    <ClInclude Include="sqliteInterface.hpp" />
-    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="config.pb.cc" />
     <ClCompile Include="login_all.pb.cc" />
-    <ClCompile Include="sqlite3\shell.c" />
-    <ClCompile Include="sqlite3\sqlite3.c" />
-    <ClCompile Include="sqliteInterface.cpp" />
     <ClCompile Include="源.cpp" />
   </ItemGroup>
   <ItemGroup>
