@@ -2,6 +2,7 @@
 #define ALLFILES_H
 
 #include "datadefine.h"
+#include "MyDataStruct.pb.h"
 
 // AllFiles ¶Ô»°¿ò
 

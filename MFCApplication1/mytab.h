@@ -21,7 +21,7 @@ protected:
 	CListCtrl* pmyListCtrl;
 	virtual BOOL OnInitDialog ();
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV Ö§³Ö
-
+	BOOL UpdateDownLogList ();
 	DECLARE_MESSAGE_MAP()
 public:
 	CListBox m_list;

@@ -55,12 +55,7 @@ BOOL mytab::OnInitDialog ()
 
 
 	//add data
-	pmyListCtrl->InsertItem (0, L"qq");
-	pmyListCtrl->SetItemText (0, 1, L"mima");
-	pmyListCtrl->InsertItem (1, L"qq");
-	pmyListCtrl->SetItemText (1, 1, L"mima");
-	pmyListCtrl->InsertItem (2, L"qq");
-	pmyListCtrl->SetItemText (2, 1, L"mima");
+
 
 
 
@@ -231,4 +226,40 @@ void mytab::OnDelectChosedFilesFromList ()
 void mytab::OnChangePriority4Files ()
 {
 	// TODO: 在此添加命令处理程序代码
+}
+
+//初始化历史记录，或刷新文件列表
+BOOL	mytab::UpdateDownLogList ()
+{
+	qiuwanli::utilty utility;
+	qiuwanli::FileDownLogFiles log;
+	std::fstream input ("downlog", std::ios::in | std::ios::binary);
+	if (!input) {
+		MessageBox (L"配置文件打开失败！");
+		return FALSE;
+	}
+
+	if (!log.ParseFromIstream (&input))
+	{	//打开失败
+		MessageBox (L"配置文件加载失败！");
+		input.close ();
+		return FALSE;
+	}
+	else
+	{	//解析配置文件
+		for (int i = 0; i < log.filedownlog_size (); ++i)
+		{
+			const qiuwanli::FileDowningLog& downlog = log.filedownlog (i);
+
+			pmyListCtrl->InsertItem (i, utility.StringToWstring (downlog.filename ()).c_str ());
+			pmyListCtrl->SetItemText (i, 1, utility.StringToWstring (downlog.filesha512 ()).c_str ());
+			pmyListCtrl->SetItemText (i, 2, utility.StringToWstring (downlog.filesize ()).c_str ());
+			pmyListCtrl->SetItemText (i, 3, utility.StringToWstring (downlog.downtime ()).c_str ());
+			pmyListCtrl->SetItemText (i, 4, utility.StringToWstring (downlog.downingstatus ()).c_str ());
+		}
+
+		input.close ();
+		//FileDownLog::UpdateWindow ();
+		return TRUE;
+	}
 }

@@ -7,6 +7,8 @@
 #include <string>
 #include <fstream>
 
+#include "MyDataStruct.pb.h"
+#include "utility.hpp"
 
 //枚举tab类型，便于切换
 //enum class tabtype
@@ -42,5 +44,9 @@ enum class filetype
 };
 
 enum { max_length = 1024 };
+
+//设置最大可选中的Item数量 
+const static int max_select_item = 1000;
+
 
 #endif // !_DATADEFINE_H_

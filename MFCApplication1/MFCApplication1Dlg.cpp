@@ -230,38 +230,30 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 	
 	//验证结果,可以使用枚举类型
 	size_t CheckResult=0;	
-
-	try{
-		qiuwanli::Users userlogin;
+	qiuwanli::Users userlogin;
 		
-		std::string s = CT2A (User_ID);
-		userlogin.set_user_id (s);
-		s = CT2A (User_Password);
-		userlogin.set_user_password_md5 (s);
-		userlogin.set_user_type ("haha");
-		s = CT2A (User_Code);
-		userlogin.set_login_code (s);
-		userlogin.set_user_client_uuid ("123456789012");
+	std::string s = CT2A (User_ID);
+	userlogin.set_user_id (s);
+	s = CT2A (User_Password);
+	userlogin.set_user_password_md5 (s);
+	userlogin.set_user_type ("haha");
+	s = CT2A (User_Code);
+	userlogin.set_login_code (s);
+	userlogin.set_user_client_uuid ("123456789012");
 
-		//将对象序列化到文件流
-		std::fstream output ("login", std::ios::out | std::ios::trunc | std::ios::binary);
-		if (!userlogin.SerializeToOstream (&output)) {
-			std::cerr << "Failed to write address book." << std::endl;
-		}
-		output.close ();
-
-		boost::asio::io_service io_ser;
-		try { 
-			qiuwanli::utilty s;
-			//s.sender (io_ser, "127.0.0.1", 9999, "login","1001\0");
-}
-		catch (std::exception& err) {
-			std::cerr << err.what () << "\n";
-		}
+	//将对象序列化到文件流
+	std::fstream output ("login", std::ios::out | std::ios::trunc | std::ios::binary);
+	if (!userlogin.SerializeToOstream (&output)) {
+		std::cerr << "Failed to write address book." << std::endl;
 	}
-	catch (const std::exception& e)
-	{
-		std::cout << "ERROE:" << e.what () << std::endl;
+	output.close ();
+	
+	boost::asio::io_service io_ser;
+	try { 
+		qiuwanli::utilty s;
+		//s.sender (io_ser, "127.0.0.1", 9999, "login","1001\0");
+}		catch (std::exception& err) {
+		std::cerr << err.what () << "\n";
 	}
 
 	//接收服务端送来的信息
@@ -282,10 +274,8 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 		tt1->ShowWindow (SW_SHOW);
 
 		CMFCApplication1Dlg::ShowWindow (FALSE);
-	}
-	else	//验证失败
-	{
-		//尽享相应的数据清理
+	} else	{//验证失败
+		//共享相应的数据清理
 		if (CheckResult == 4)//账号错误
 		{
 			edit1->SetWindowText (L"用户名错误");
@@ -308,39 +298,6 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 		// TODO
 	}
 }
-
-
-void CMFCApplication1Dlg::ListPeople (const qiuwanli::user& user_file)
-{
-	//for (int i = 0; i < user_file.size; i++)
-	//{
-	//	const tutorial::Person& person = address_book.person (i);
-
-	//	cout << "Person ID: " << person.id () << endl;
-	//	cout << "  Name: " << person.name () << endl;
-	//	if (person.has_email ()) {
-	//		cout << "  E-mail address: " << person.email () << endl;
-	//	}
-
-	//	for (int j = 0; j < person.phone_size (); j++) {
-	//		const tutorial::Person::PhoneNumber& phone_number = person.phones (j);
-
-	//		switch (phone_number.type ()) {
-	//		case tutorial::Person::MOBILE:
-	//			cout << "  Mobile phone #: ";
-	//			break;
-	//		case tutorial::Person::HOME:
-	//			cout << "  Home phone #: ";
-	//			break;
-	//		case tutorial::Person::WORK:
-	//			cout << "  Work phone #: ";
-	//			break;
-	//		}
-	//		cout << phone_number.number () << endl;
-	//	}
-	//}
-}
-
 
 void CMFCApplication1Dlg::OnBnClickedCancel ()
 {

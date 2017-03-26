@@ -141,6 +141,10 @@ message AllFiles
 	string pathList=1;		//从中解析多个文件夹的绝对路径
 	repeated Path4FilesOrDir filespath=2;
 }
+//message AllFileList
+//{
+//	repeated AllFiles allfilelist=1;
+//}
 //文件信息
 message FileInfo
 {

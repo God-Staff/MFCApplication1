@@ -36,7 +36,7 @@ protected:
 	CEdit* edit3 = nullptr;
 
 	//用户登录信息类，创建个实例
-	qiuwanli::user	*user_login = nullptr;
+	qiuwanli::Users	*user_login = nullptr;
 
 	////定义指针便于操作
 	//asio::io_service *io_service=nullptr;
@@ -47,7 +47,6 @@ protected:
 	//std::fstream *net_user=nullptr;
 
 	//从文件中解析对象
-	void ListPeople (const qiuwanli::user& user_file);
 	//void getUserAsio ();
 
 	// 生成的消息映射函数

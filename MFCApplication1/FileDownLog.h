@@ -20,19 +20,21 @@ public:
 #endif
 
 protected:
-
+	BOOL UpdateDownLogList ();
+	//void OnKeydownListFile (NMHDR * pNMHDR, LRESULT * pResult);
 	CListCtrl* pmyListCtrl;
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV Ö§³Ö
 	virtual BOOL OnInitDialog ();
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnLvnItemchangedList2 (NMHDR *pNMHDR, LRESULT *pResult);
+	//afx_msg void OnLvnItemchangedList2 (NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnLvnItemchangedList9 (NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMRClickList9 (NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnClearDownloadLogList ();
 	afx_msg void OnRetryDownloadFiles ();
 	afx_msg void OnDelectChosedFileslog ();
 	afx_msg void OnDelectChosedFiles ();
+	afx_msg void OnLvnKeydownList9 (NMHDR *pNMHDR, LRESULT *pResult);
 };
 #endif // FILEDOWNLOG_H
 

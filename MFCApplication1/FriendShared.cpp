@@ -48,10 +48,6 @@ BOOL FriendShared::OnInitDialog ()
 		m_ListControl->InsertColumn (i, &lvcolumn);
 	}
 
-	//add data
-	m_ListControl->InsertItem (0, L"卦卦");
-	m_ListControl->SetItemText (0, 1, L"邱万利");
-
 	///////////////////////////////////
 	//初始化列表2
 	m_ListContro2 = (CListCtrl*)GetDlgItem (IDC_LIST7);
@@ -82,13 +78,8 @@ BOOL FriendShared::OnInitDialog ()
 		m_ListContro2->InsertColumn (i, &lvcolumn2);
 	}
 
-	m_ListContro2->InsertItem (0, L"https://isharedyou.club/ABCUD234");
-	m_ListContro2->SetItemText (0, 1, L"567890");
-	m_ListContro2->SetItemText (0, 2, L"2017-03-12");
-	m_ListContro2->SetItemText (0, 3, L"7*24");
-	m_ListContro2->SetItemText (0, 4, L"所有人");
-
 	//解析数据好友和分享链接数据
+	UpdateDownLogList ();
 
 	return TRUE;
 }
@@ -311,4 +302,68 @@ void FriendShared::OnHdnItemdblclickList8 (NMHDR *pNMHDR, LRESULT *pResult)
 	// TODO: 在此添加控件通知处理程序代码
 
 	*pResult = 0;
+}
+
+
+
+BOOL	FriendShared::UpdateDownLogList ()
+{
+	qiuwanli::utilty utility;
+	qiuwanli::FriednList friends;
+	qiuwanli::FileShared sharedlist;
+
+	std::fstream input ("friendlist", std::ios::in | std::ios::binary);
+	if (!input) {
+		MessageBox (L"配置文件打开失败！");
+		return FALSE;
+	}
+
+	if (!friends.ParseFromIstream (&input))
+	{	//打开失败
+		MessageBox (L"配置文件加载失败！");
+		input.close ();
+		return FALSE;
+	} else
+	{	//解析配置文件
+		for (int i = 0; i < friends.friend__size(); ++i)
+		{
+			const qiuwanli::MyFriend& myfriend = friends.friend_(i);
+
+			m_ListControl->InsertItem (i, utility.StringToWstring (myfriend.friendid ()).c_str ());
+			m_ListControl->SetItemText (i, 1, utility.StringToWstring (myfriend.name ()).c_str ());
+		}
+
+		input.close ();
+		return TRUE;
+	}
+
+	input.open ("sharedlist", std::ios::in | std::ios::binary);
+	if (!input) {
+		MessageBox (L"sharedlist 配置文件打开失败！");
+		return FALSE;
+	}
+
+	if (!sharedlist.ParseFromIstream (&input))
+	{	//打开失败
+		MessageBox (L" sharedlist 配置文件加载失败！");
+		input.close ();
+		return FALSE;
+	}
+	else
+	{	//解析配置文件
+		for (int i = 0; i < sharedlist.sharedlog_size(); ++i)
+		{
+			const qiuwanli::FilesSharedLog& shared = sharedlist.sharedlog(i);
+
+			m_ListContro2->InsertItem (i, utility.StringToWstring (shared.shared_url ()).c_str ());
+			m_ListContro2->SetItemText (i, 1, utility.StringToWstring (shared.shared_ps()).c_str ());
+			m_ListContro2->SetItemText (i, 2, utility.StringToWstring (shared.shared_types()).c_str ());
+			m_ListContro2->SetItemText (i, 3, utility.StringToWstring (std::to_string(shared.shared_time ())).c_str ());
+			m_ListContro2->SetItemText (i, 4, utility.StringToWstring (std::to_string (shared.shared_timelenth())).c_str ());
+		}
+
+		input.close ();
+		return TRUE;
+	}
+
 }

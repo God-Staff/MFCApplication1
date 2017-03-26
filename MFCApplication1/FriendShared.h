@@ -23,7 +23,7 @@ public:
 protected:
 	CListCtrl*  m_ListControl;
 	CListCtrl*  m_ListContro2;
-
+	BOOL UpdateDownLogList ();
 	virtual BOOL FriendShared::OnInitDialog ();
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV Ö§³Ö
 

@@ -125,7 +125,7 @@ BOOL	ConfigSet::configInit ()
 					box1->SetCurSel (atoi (value.c_str()-1));
 					break;
 				case qiuwanli::Type::ThreadNumDown:
-					box2->SetCurSel (atoi (value.c_str ()-1));
+					box2->SetCurSel (atoi (value.c_str()-1));
 					break;
 				case qiuwanli::Type::FileUpSpeed :
 					UploadSpeed->SetWindowText (utility.StringToWstring (value).c_str());
@@ -288,11 +288,8 @@ void ConfigSet::OnAddFilesPath ()
 	{
 		::CoTaskMemFree (lpidlBrowse);
 	}
-	///////
 
 	m_ListControl->InsertItem (i, strFolderPath);
-	//MessageBox (strFolderPath);
-
 	//将文件路径写入到配置文件
 	updateConfig ();
 }
