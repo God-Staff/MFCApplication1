@@ -8,7 +8,7 @@
 #include "mytab.h"
 #include "reg.h"
 #include "FriendShared.h"
-#include "login_all.pb.h"
+#include "MyDataStruct.pb.h"
 #include "datadefine.h"
 #include "client.hpp"
 #include "utility.hpp"
@@ -232,7 +232,7 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 	size_t CheckResult=0;	
 
 	try{
-		qiuwanli::user userlogin;
+		qiuwanli::Users userlogin;
 		
 		std::string s = CT2A (User_ID);
 		userlogin.set_user_id (s);

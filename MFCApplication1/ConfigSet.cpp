@@ -114,11 +114,10 @@ BOOL	ConfigSet::configInit ()
 	}
 	else 
 	{	//½âÎöÅäÖÃÎÄ¼ş
-		for (int i = 0; i < configfile.config_size(); ++i,++i)
+		for (int i = 0; i < configfile.config_size(); ++i)
 		{
 			const qiuwanli::Config& config = configfile.config (i);
-			const qiuwanli::Config& config1 = configfile.config (i + 1);
-			std::string value = config1.valuestring ();
+			std::string value = config.valuestring ();
 
 			switch ((qiuwanli::Type)config.type ())
 			{

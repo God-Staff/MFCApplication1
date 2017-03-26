@@ -112,14 +112,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="config.pb.cc" />
-    <ClCompile Include="configfiles.pb.cc" />
-    <ClCompile Include="login_all.pb.cc" />
+    <ClCompile Include="MyDataStruct.pb.cc" />
     <ClCompile Include="源.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.pb.h" />
-    <ClInclude Include="configfiles.pb.h" />
-    <ClInclude Include="login_all.pb.h" />
+    <ClInclude Include="MyDataStruct.pb.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MyDataStruct.proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

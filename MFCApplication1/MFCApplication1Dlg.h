@@ -6,7 +6,7 @@
 
 #include "Main_UI.h"
 #include "datadefine.h"
-#include "login_all.pb.h"
+#include "MyDataStruct.pb.h"
 #include <fstream>
 //调用外部EXE
 #include <shellapi.h>

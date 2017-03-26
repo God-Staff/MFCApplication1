@@ -204,12 +204,12 @@
     <ClInclude Include="FriendShared.h" />
     <ClInclude Include="handler_allocator.hpp" />
     <ClInclude Include="headinclude.hpp" />
-    <ClInclude Include="login_all.pb.h" />
     <ClInclude Include="Main_Tab.h" />
     <ClInclude Include="Main_UI.h" />
     <ClInclude Include="MD5.hpp" />
     <ClInclude Include="MFCApplication1.h" />
     <ClInclude Include="MFCApplication1Dlg.h" />
+    <ClInclude Include="MyDataStruct.pb.h" />
     <ClInclude Include="mytab.h" />
     <ClInclude Include="reg.h" />
     <ClInclude Include="reg_info.h" />
@@ -228,12 +228,12 @@
     <ClCompile Include="do_ref.cpp" />
     <ClCompile Include="FileDownLog.cpp" />
     <ClCompile Include="FriendShared.cpp" />
-    <ClCompile Include="login_all.pb.cc" />
     <ClCompile Include="Main_Tab.cpp" />
     <ClCompile Include="Main_UI.cpp" />
     <ClCompile Include="MD5.cpp" />
     <ClCompile Include="MFCApplication1.cpp" />
     <ClCompile Include="MFCApplication1Dlg.cpp" />
+    <ClCompile Include="MyDataStruct.pb.cc" />
     <ClCompile Include="mytab.cpp" />
     <ClCompile Include="reg.cpp" />
     <ClCompile Include="reg_info.cpp" />
@@ -252,7 +252,7 @@
     <None Include="About.MD" />
     <None Include="ClassDiagram.cd" />
     <None Include="config.proto" />
-    <None Include="login_all.proto" />
+    <None Include="MyDataStruct.proto" />
     <None Include="res\MFCApplication1.rc2" />
   </ItemGroup>
   <ItemGroup>

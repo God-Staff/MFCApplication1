@@ -1,0 +1,217 @@
+syntax = "proto3";
+
+package qiuwanli;
+
+//用户个人信息  
+message Users
+{
+	string user_id=1; 
+	string user_name=2;
+	string user_password_md5=3;
+ 	string user_client_UUID=4;
+	string login_code=5;
+	bytes  user_type=6;
+}
+message ServerUser
+{
+	repeated Users user=1;
+}
+//用户实名认证信息
+message RealUsers 
+{
+	string user_id=1;
+	string user_name_real=2;
+	string user_idcard=3;
+	string user_live_address=4;	//籍贯
+	string user_phone=5;
+	string user_qq=6;
+	string user_mirchat=7;
+	string user_email=8;
+	string user_bri=9;
+	string user_address=10;  	//详细地址
+}
+message ServerRealUser
+{
+	repeated RealUsers realuer=1;
+}
+//用户注册信息
+message userreg 
+{
+	string user_name=1;
+	string user_password_md5=2;
+	string user_phone=3;
+	string reg_code=4;
+}
+
+
+//for user login log
+//用于记录用户的登录信息，便于安全验证以及检查用户异常信息(Servers 端)
+message LoginIpLogs 
+{
+	string user_id=1;
+	uint32 loginip=2;
+	uint64 logindate=3;			//20170212 175033
+	string user_client_UUID=4;	
+}
+//服务端记录异常信息
+message ServerLoginIPLog
+{
+	repeated LoginIpLogs loginliplog=1;
+}
+
+//用于记录用户操作的，可进行操作回退，系统日志
+message Logs 
+{
+	string user_id=1;
+	uint64 log_date=2;
+	string log_info=3;
+	bytes  log_type=4;
+	string user_client_UUID=5;	
+}
+//用于记录个人日志，每月保存为一个文件
+message AllLog
+{
+	string logdate=1;
+	repeated Logs log=2;
+}
+
+//分享和好友
+//分享链接
+message FilesSharedLog
+{
+	string shared_url=1;		//
+	string shared_ps=2;			//默认为空
+	uint64 shared_time=3;		//
+	uint32 shared_timelenth=4;	//
+	bytes  shared_types=5;		//
+}
+message MyFriend
+{
+	string friendID=1;
+	string name=2;
+	string status=3;
+}
+message FileShared 
+{
+    repeated FilesSharedLog sharedlog = 1;
+}
+message FriednList 
+{
+    repeated MyFriend friend = 1;
+}
+
+//文件下载记录
+message FileDownLog
+{
+	string filename=1;
+	string filepath=2;
+	string downtime=3;
+	string filesize=4;
+	string status=5;	//文件下载后，是否还存在
+}
+message FileDownLogFile
+{
+	repeated FileDownLog filelog=1;
+}
+
+//正在下载的文件
+message FileDowningLog
+{
+	string filename=1;
+	string filesize=2;
+	string downtime=3;
+	string Downingstatus=4;
+	string filesha512=5;
+}
+message FileDownLogFiles
+{
+	repeated FileDowningLog FileDownLog=1;
+}
+
+//所有文件记录
+//文件夹目录，文件传输时，先将文件夹的目录结构传送过去，建立对应的目录
+message Path4FilesOrDir
+{
+	bytes  pathtypes=2;	 //文件路径深度，末位的的 0 表示Dir 1表示为File
+	string pathOrName=1;	//文件名或者是路径名称
+	uint32 fileId=3;		//	若为文件择优对应的ID，便于文件目录重建和文件查找
+}
+message AllFiles
+{
+	string pathList=1;		//从中解析多个文件夹的绝对路径
+	repeated Path4FilesOrDir filespath=2;
+}
+//文件信息
+message FileInfo
+{
+	string fileId=1;		//文件名包含后缀
+	uint32 filesize=2;
+	string filemd5_1=3;
+	string filemd5_2=4;
+	uint64 filecreatedate=5;	//20170212 175033
+	uint32 filepathid=7;		//文件目录对应的ID便于重建原始目录结构
+}
+message FileInfoFile 
+{
+	repeated FileInfo info=1;
+}
+
+//内存数据块 大小64K
+message BufferBlock
+{
+	uint32 maxsize=1;
+	uint32 currsize=2;
+	bytes bufferdata=3;
+}
+//Buffer缓冲池 
+message BufferBlockPool
+{
+	uint32 PoolMaxSize=1;
+	uint32 PoolSize=2;
+	repeated BufferBlock buffer=3;
+}
+
+//文件块，用于断点续传
+message FileBlockInfo
+{
+	string file_id=1;
+	uint32 fileblock_num=2;
+	string file_CRC=3;
+}
+message filetemp
+{
+	FileBlockInfo fileinfo=1;
+	bytes BitMap=2;				//用于保存文件存储块所对应的位图信息，1 表示数据完整可用，0 代表其他情况
+	string NowStatus=3;			//0表示位图全空，1表示正在使用 2表示数据已下载完整，3表示正确性验证出错，4表示数据完整
+}
+
+
+
+//所有文件列表对应的查询表
+message allfiles 
+{
+	string user_id=1;
+	uint32 files_ip=2;
+	string shared_id=3;
+	uint32 filesblock_num=4;
+	uint32 filesblock_start=5;
+}
+
+/////////
+//将一个文件夹下面的小文件合并为文件信息和文件数据两个数据块//
+//file small files info table
+//命名：文件目录块 pathid.path 
+message files_small 
+{
+	string file_small_name=1;
+	uint32 file_small_create_time=2;
+	uint32 file_small_start=3;
+	uint32 file_small_length=4;
+}
+
+//file small files date block
+//命名：文件数据块 pathid.data 
+message files_small_block
+{
+	bytes files_small_blocks=1;
+}

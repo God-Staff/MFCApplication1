@@ -6,7 +6,7 @@
 #include "afxdialogex.h"
 #include "reg_info.h"
 #include "resource.h"
-#include "login_all.pb.h"
+#include "MyDataStruct.pb.h"
 #include "string"
 #include "utility.hpp"
 #include "MFCApplication1Dlg.h"

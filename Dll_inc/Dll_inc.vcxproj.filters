@@ -21,22 +21,21 @@
     <ClCompile Include="config.pb.cc">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="configfiles.pb.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="login_all.pb.cc">
-      <Filter>源文件</Filter>
+    <ClCompile Include="MyDataStruct.pb.cc">
+      <Filter>头文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.pb.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="configfiles.pb.h">
+    <ClInclude Include="MyDataStruct.pb.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="login_all.pb.h">
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MyDataStruct.proto">
       <Filter>头文件</Filter>
-    </ClInclude>
+    </None>
   </ItemGroup>
 </Project>
