@@ -18,7 +18,8 @@
 #include <boost/filesystem.hpp>
 #include "fileinfo.hpp"
 #include "MD5.hpp"
-
+#include "MyDataStruct.pb.h"
+#include "config.pb.h"
 namespace qiuwanli
 {
 class utilty 
@@ -37,7 +38,7 @@ public:
 	//获取CPU序列号
 	std::string  getCPU ();
 	//生成UUID
-	std::string getUuid (std::string ip_cpu);
+	std::string getUuid ();
 	//发送文件
 	void sendFile () ;
 	//发送文件列表
@@ -49,7 +50,7 @@ public:
 	void sender (boost::asio::io_service &io, const char*	ip_address, unsigned	port, const char* filename, const char* msg_type);
 	
 	std::wstring StringToWstring (const std::string& str);
-	bool WCharStringToUTF8String (const std::wstring &wstr, std::string &u8str);
+	std::string & WStringToUTF8String (const std::wstring &wstr);
 
 	bool UTF8StringToWCharString (const std::string &u8str, std::wstring &wstr);
 	std::wstring s2ws (const std::string& s);

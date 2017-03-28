@@ -9,6 +9,7 @@
 #include "utility.hpp"
 #include "afxdialogex.h"
 #include <string>
+#include "MyDataStruct.pb.h"
 // ConfigSet 对话框
 
 IMPLEMENT_DYNAMIC(ConfigSet, CDialogEx)
@@ -122,10 +123,10 @@ BOOL	ConfigSet::configInit ()
 			switch ((qiuwanli::Type)config.type ())
 			{
 				case qiuwanli::Type::ThreadNumUp:
-					box1->SetCurSel (atoi (value.c_str()-1));
+					box1->SetCurSel (atoi (value.c_str()));
 					break;
 				case qiuwanli::Type::ThreadNumDown:
-					box2->SetCurSel (atoi (value.c_str()-1));
+					box2->SetCurSel (atoi (value.c_str()));
 					break;
 				case qiuwanli::Type::FileUpSpeed :
 					UploadSpeed->SetWindowText (utility.StringToWstring (value).c_str());
@@ -163,12 +164,16 @@ BOOL	ConfigSet::configInit ()
 //获取所有设置，并重写到配置文件：config
 BOOL	ConfigSet::updateConfig ()
 {
+	qiuwanli::BufInterface bufinterface;
 	CString downDir;
 	CString downSpeedUp;
 	CString downSpeedDown;
 	CString upThread;	
 	CString downThread;
 	CString downPathDir;
+
+	//强制类型转换CString --> string //
+	std::wstring_convert<std::codecvt_utf8<wchar_t>> conv;
 
 	downpath->GetWindowText(downDir);
 	downSpeed->GetWindowText (downSpeedDown);
@@ -184,25 +189,14 @@ BOOL	ConfigSet::updateConfig ()
 	{
 		downPathDir = "";
 		downPathDir=m_ListControl->GetItemText (i, 0);
-		ff.add_config ()->set_type (qiuwanli::Type::FilePath);
-		ff.add_config ()->set_valuestring (CT2A (downPathDir));
+		bufinterface.MakeConfigFile (ff.add_config (), qiuwanli::Type::FilePath, conv.to_bytes (downPathDir));
 	}
 
-
-	ff.add_config ()->set_type (qiuwanli::Type::DownFilePath);
-	ff.add_config ()->set_valuestring (CT2A (downDir));
-
-	ff.add_config ()->set_type (qiuwanli::Type::ThreadNumDown);
-	ff.add_config ()->set_valuestring (std::to_string(threadDownLim));
-
-	ff.add_config ()->set_type (qiuwanli::Type::ThreadNumUp);
-	ff.add_config ()->set_valuestring (std::to_string (threadUpLim));
-
-	ff.add_config ()->set_type (qiuwanli::Type::FileUpSpeed);
-	ff.add_config ()->set_valuestring (CT2A (downSpeedUp));
-
-	ff.add_config ()->set_type (qiuwanli::Type::FileDownSpeed);
-	ff.add_config ()->set_valuestring (CT2A (downSpeedDown));
+	bufinterface.MakeConfigFile (ff.add_config (), qiuwanli::Type::DownFilePath, conv.to_bytes (downDir));
+	bufinterface.MakeConfigFile (ff.add_config (), qiuwanli::Type::ThreadNumDown, std::to_string (threadDownLim));
+	bufinterface.MakeConfigFile (ff.add_config (), qiuwanli::Type::ThreadNumUp, std::to_string (threadUpLim));
+	bufinterface.MakeConfigFile (ff.add_config (), qiuwanli::Type::FileUpSpeed, conv.to_bytes (downSpeedUp));
+	bufinterface.MakeConfigFile (ff.add_config (), qiuwanli::Type::FileDownSpeed, conv.to_bytes (downSpeedDown));
 
 	if (!ff.SerializeToOstream (&output1)) {
 		std::cerr << "Failed to write Config:" << std::endl;

@@ -134,7 +134,6 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	edit3->SetLimitText (6);
 	edit2->SetCueBanner (L"验证码", TRUE);
 
-
 	//boost::asio::io_service io;
 	//unsigned int seconds = 15;  // 设定超时时间，客户端必须在这个时间内周期性地调用 reset函数
 	//HeartBeatService t(&io, seconds);
@@ -251,6 +250,7 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 	boost::asio::io_service io_ser;
 	try { 
 		qiuwanli::utilty s;
+		//MessageBox (s.StringToWstring (s.getUuid ()).c_str ());
 		//s.sender (io_ser, "127.0.0.1", 9999, "login","1001\0");
 }		catch (std::exception& err) {
 		std::cerr << err.what () << "\n";

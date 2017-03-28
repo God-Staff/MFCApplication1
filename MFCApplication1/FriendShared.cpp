@@ -81,6 +81,7 @@ BOOL FriendShared::OnInitDialog ()
 	//解析数据好友和分享链接数据
 	UpdateDownLogList ();
 
+	FriendShared::UpdateWindow ();
 	return TRUE;
 }
 
@@ -312,16 +313,18 @@ BOOL	FriendShared::UpdateDownLogList ()
 	qiuwanli::FriednList friends;
 	qiuwanli::FileShared sharedlist;
 
-	std::fstream input ("friendlist", std::ios::in | std::ios::binary);
-	if (!input) {
+	std::fstream FriendListin ("FriendList", std::ios::in | std::ios::binary);
+	std::fstream FileSharedLogin ("FileSharedLog", std::ios::in | std::ios::binary);
+
+	if (!FriendListin) {
 		MessageBox (L"配置文件打开失败！");
 		return FALSE;
 	}
 
-	if (!friends.ParseFromIstream (&input))
+	if (!friends.ParseFromIstream (&FriendListin))
 	{	//打开失败
 		MessageBox (L"配置文件加载失败！");
-		input.close ();
+		FriendListin.close ();
 		return FALSE;
 	} else
 	{	//解析配置文件
@@ -332,21 +335,17 @@ BOOL	FriendShared::UpdateDownLogList ()
 			m_ListControl->InsertItem (i, utility.StringToWstring (myfriend.friendid ()).c_str ());
 			m_ListControl->SetItemText (i, 1, utility.StringToWstring (myfriend.name ()).c_str ());
 		}
-
-		input.close ();
-		return TRUE;
 	}
 
-	input.open ("sharedlist", std::ios::in | std::ios::binary);
-	if (!input) {
+	if (!FileSharedLogin) {
 		MessageBox (L"sharedlist 配置文件打开失败！");
 		return FALSE;
 	}
 
-	if (!sharedlist.ParseFromIstream (&input))
+	if (!sharedlist.ParseFromIstream (&FileSharedLogin))
 	{	//打开失败
 		MessageBox (L" sharedlist 配置文件加载失败！");
-		input.close ();
+		FileSharedLogin.close ();
 		return FALSE;
 	}
 	else
@@ -361,9 +360,9 @@ BOOL	FriendShared::UpdateDownLogList ()
 			m_ListContro2->SetItemText (i, 3, utility.StringToWstring (std::to_string(shared.shared_time ())).c_str ());
 			m_ListContro2->SetItemText (i, 4, utility.StringToWstring (std::to_string (shared.shared_timelenth())).c_str ());
 		}
-
-		input.close ();
-		return TRUE;
 	}
 
+	FriendListin.close ();
+	FileSharedLogin.close ();
+	return TRUE;
 }

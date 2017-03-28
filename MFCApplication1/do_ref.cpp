@@ -107,7 +107,7 @@ void do_ref::OnBnClickedButton2 ()
 //验证信息
 void do_ref::OnBnClickedButton1 ()
 {
-	qiuwanli::realuser real;
+	qiuwanli::RealUsers real;
 	CString User;
 	edit1->GetWindowText (User);
 	real.set_user_id (CT2A (User));

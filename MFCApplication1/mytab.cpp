@@ -53,52 +53,10 @@ BOOL mytab::OnInitDialog ()
 		pmyListCtrl->InsertColumn (i, &lvcolumn);
 	}
 
-
 	//add data
+	UpdateDownLogList ();
 
-
-
-
-	//ifstream input ("manager.dat");     //这是我自己需要的读文件操作
-	//Manager manager;
-
-	//input.read ((char *)&manager, sizeof (manager));
-
-	//while (input)
-	//{
-	//	i = 0;
-	//	CString strText;
-	//	if (manager.tag == '#')
-	//	{
-
-	//		strText.Format (TEXT ("%d"), manager.number);
-
-	//		// Insert the item, select every other item.
-	//		pmyListCtrl->InsertItem (LVIF_TEXT | LVIF_STATE, i, strText,
-	//			(i % 2) == 0 ? LVIS_SELECTED : 0, LVIS_SELECTED, 0, 0);
-
-	//		// Initialize the text of the subitems.
-
-
-	//		strText.Format ("%s", manager.name);          //这里就是要往里面输入的数据，注意坐标
-	//		pmyListCtrl->SetItemText (i, 1, strText);
-
-	//		strText.Format ("%s", manager.sex);
-	//		pmyListCtrl->SetItemText (i, 2, strText);
-
-	//		strText.Format ("%d", manager.age);
-	//		pmyListCtrl->SetItemText (i, 3, strText);
-
-	//		strText.Format ("%d", manager.year);
-	//		pmyListCtrl->SetItemText (i, 4, strText);
-
-	//	}
-	//	input.read ((char *)&manager, sizeof (manager));
-	//};
-	//input.close ();
-
-	return TRUE; // return TRUE unless you set the focus to a control
-				 // EXCEPTION: OCX Property Pages should return FALSE
+	return TRUE; 
 }
 
 void mytab::DoDataExchange(CDataExchange* pDX)
@@ -233,21 +191,21 @@ BOOL	mytab::UpdateDownLogList ()
 {
 	qiuwanli::utilty utility;
 	qiuwanli::FileDownLogFiles log;
-	std::fstream input ("downlog", std::ios::in | std::ios::binary);
-	if (!input) {
+	std::fstream downinglogin ("downinglog", std::ios::in | std::ios::binary);
+	if (!downinglogin) {
 		MessageBox (L"配置文件打开失败！");
 		return FALSE;
 	}
 
-	if (!log.ParseFromIstream (&input))
+	if (!log.ParseFromIstream (&downinglogin))
 	{	//打开失败
 		MessageBox (L"配置文件加载失败！");
-		input.close ();
+		downinglogin.close ();
 		return FALSE;
 	}
 	else
 	{	//解析配置文件
-		for (int i = 0; i < log.filedownlog_size (); ++i)
+		for (int i = 0; i < log.filedownlog_size(); ++i)
 		{
 			const qiuwanli::FileDowningLog& downlog = log.filedownlog (i);
 
@@ -257,9 +215,8 @@ BOOL	mytab::UpdateDownLogList ()
 			pmyListCtrl->SetItemText (i, 3, utility.StringToWstring (downlog.downtime ()).c_str ());
 			pmyListCtrl->SetItemText (i, 4, utility.StringToWstring (downlog.downingstatus ()).c_str ());
 		}
-
-		input.close ();
-		//FileDownLog::UpdateWindow ();
-		return TRUE;
 	}
+
+	downinglogin.close ();
+	return TRUE;
 }

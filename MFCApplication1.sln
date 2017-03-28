@@ -25,6 +25,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ThreadPool", "ThreadPool\Th
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boost_timer", "boost_timer\boost_timer.vcxproj", "{40C5CC9F-242D-4505-B5E6-F53F3D993BAB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GetUUID", "GetUUID\GetUUID.vcxproj", "{5EC621BD-0150-44BB-A942-21F0F12314F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -121,6 +123,14 @@ Global
 		{40C5CC9F-242D-4505-B5E6-F53F3D993BAB}.Release|x64.Build.0 = Release|x64
 		{40C5CC9F-242D-4505-B5E6-F53F3D993BAB}.Release|x86.ActiveCfg = Release|Win32
 		{40C5CC9F-242D-4505-B5E6-F53F3D993BAB}.Release|x86.Build.0 = Release|Win32
+		{5EC621BD-0150-44BB-A942-21F0F12314F2}.Debug|x64.ActiveCfg = Debug|x64
+		{5EC621BD-0150-44BB-A942-21F0F12314F2}.Debug|x64.Build.0 = Debug|x64
+		{5EC621BD-0150-44BB-A942-21F0F12314F2}.Debug|x86.ActiveCfg = Debug|Win32
+		{5EC621BD-0150-44BB-A942-21F0F12314F2}.Debug|x86.Build.0 = Debug|Win32
+		{5EC621BD-0150-44BB-A942-21F0F12314F2}.Release|x64.ActiveCfg = Release|x64
+		{5EC621BD-0150-44BB-A942-21F0F12314F2}.Release|x64.Build.0 = Release|x64
+		{5EC621BD-0150-44BB-A942-21F0F12314F2}.Release|x86.ActiveCfg = Release|Win32
+		{5EC621BD-0150-44BB-A942-21F0F12314F2}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

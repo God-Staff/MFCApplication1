@@ -20,6 +20,7 @@ public:
 #endif
 
 protected:
+	bool updateList ();
 	virtual BOOL OnInitDialog ();
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV Ö§³Ö
 	CListCtrl* pmyListCtrl;

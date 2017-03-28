@@ -5,7 +5,7 @@
 #include "MFCApplication1.h"
 #include "AllFiles.h"
 #include "afxdialogex.h"
-
+#include "utility.hpp"
 // AllFiles 对话框
 
 IMPLEMENT_DYNAMIC(AllFiles, CDialogEx)
@@ -53,6 +53,7 @@ BOOL AllFiles::OnInitDialog ()
 	}
 
 	//解析文件数据（allFiles）填充报表
+	updateList ();
 
 	return TRUE;
 }
@@ -191,67 +192,34 @@ void AllFiles::OnNMDblclkList5 (NMHDR *pNMHDR, LRESULT *pResult)
 }
 
 //更新文件列表
-bool updateList ()
+bool AllFiles::updateList ()
 {
-	//qiuwanli:: utility;
+	qiuwanli::utilty uu;
 	qiuwanli::AllFiles allfilesList;
-	std::fstream input3 ("config", std::ios::in | std::ios::binary);
-	if (!input3) {
-		MessageBox (L"配置文件打开失败！");
+	std::fstream allfilein ("MakePath4FileOrDir", std::ios::in | std::ios::binary);
+	if (!allfilein) {
+		MessageBox(L"配置文件打开失败！");
 		return FALSE;
 	}
 
-	if (!allfilesList.ParseFromIstream (&input3))
-	{	//打开失败
+	if (!allfilesList.ParseFromIstream (&allfilein))
+	{
 		MessageBox (L"配置文件加载失败！");
-		input3.close ();
+		allfilein.close ();
 		return FALSE;
 	}
 	else
 	{	//解析配置文件
-		for (int i = 0; i < allfilesList.filespath_size; ++i)
+		for (int i = 0; i < allfilesList.filespath_size(); ++i)
 		{
-			const qiuwanli::Config& config = configfile.config (i);
-			std::string value = config.valuestring ();
+			qiuwanli::Path4FilesOrDir ff = allfilesList.filespath (i);
+			
+			pmyListCtrl->InsertItem (i, uu.StringToWstring (ff.pathorname ()).c_str ());
+			pmyListCtrl->SetItemText (i, 1, uu.StringToWstring (ff.pathtypes ()).c_str ());
 
-			switch ((qiuwanli::Type)config.type ())
-			{
-			case qiuwanli::Type::ThreadNumUp:
-				box1->SetCurSel (atoi (value.c_str () - 1));
-				break;
-			case qiuwanli::Type::ThreadNumDown:
-				box2->SetCurSel (atoi (value.c_str () - 1));
-				break;
-			case qiuwanli::Type::FileUpSpeed:
-				UploadSpeed->SetWindowText (utility.StringToWstring (value).c_str ());
-				break;
-			case qiuwanli::Type::FileDownSpeed:
-				downSpeed->SetWindowText (utility.StringToWstring (value).c_str ());
-				break;
-			case qiuwanli::Type::DownFilePath:
-			{
-				downpath->SetReadOnly (FALSE);
-				//将string 转化为Wstring 再转化为 LPTSTR 
-				downpath->SetWindowText (utility.StringToWstring (value).c_str ());
-				downpath->SetReadOnly (TRUE);
-			}
-			break;
-			case qiuwanli::Type::FilePath:
-			{
-				int j = m_ListControl->GetWindowedChildCount ();
-				m_ListControl->InsertItem (j, utility.StringToWstring (value).c_str ());
-			}
-			break;
-			default:
-				break;
-			}
 		}
-
-		input3.close ();
-		ConfigSet::UpdateWindow ();
-
-		return true;
 	}
-
+	
+	allfilein.close ();
 	return true;
 }

@@ -111,6 +111,9 @@
     <ClInclude Include="MyDataStruct.pb.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ProtoInterface.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MFCApplication1.cpp">
@@ -169,6 +172,9 @@
     </ClCompile>
     <ClCompile Include="MyDataStruct.pb.cc">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtoInterface.cpp">
+      <Filter>Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

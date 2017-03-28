@@ -4,7 +4,7 @@
 #include "datadefine.h"
 #include "config.pb.h"
 #include "utility.hpp"
-
+#include "ProtoInterface.hpp"
 // ConfigSet ¶Ô»°¿ò
 
 class ConfigSet : public CDialogEx

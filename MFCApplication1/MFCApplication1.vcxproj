@@ -211,6 +211,7 @@
     <ClInclude Include="MFCApplication1Dlg.h" />
     <ClInclude Include="MyDataStruct.pb.h" />
     <ClInclude Include="mytab.h" />
+    <ClInclude Include="ProtoInterface.hpp" />
     <ClInclude Include="reg.h" />
     <ClInclude Include="reg_info.h" />
     <ClInclude Include="Resource.h" />
@@ -235,6 +236,7 @@
     <ClCompile Include="MFCApplication1Dlg.cpp" />
     <ClCompile Include="MyDataStruct.pb.cc" />
     <ClCompile Include="mytab.cpp" />
+    <ClCompile Include="ProtoInterface.cpp" />
     <ClCompile Include="reg.cpp" />
     <ClCompile Include="reg_info.cpp" />
     <ClCompile Include="stdafx.cpp">

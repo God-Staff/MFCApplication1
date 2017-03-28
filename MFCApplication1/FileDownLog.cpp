@@ -76,17 +76,10 @@ BOOL FileDownLog::OnInitDialog ()
 
 	//解析文件下载记录（DownLog），填充数据
 	UpdateDownLogList ();
+	updownlog ();
 
 	return TRUE;
 }
-
-
-//void FileDownLog::OnLvnItemchangedList2 (NMHDR *pNMHDR, LRESULT *pResult)
-//{
-//	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
-//	// TODO: 在此添加控件通知处理程序代码
-//	*pResult = 0;
-//}
 
 
 void FileDownLog::OnLvnItemchangedList9 (NMHDR *pNMHDR, LRESULT *pResult)
@@ -146,11 +139,13 @@ void FileDownLog::OnNMRClickList9 (NMHDR *pNMHDR, LRESULT *pResult)
 void FileDownLog::OnClearDownloadLogList ()
 {
 	//删除downlog文件，并重新加载下载完成列表
-	if (remove ("downlog") != 0)
-		MessageBox (L"downlog Delect Fail");
+	//以覆盖方式重新打开，即为清空是文件数据
+	std::fstream output1 ("downlog", std::ios::out | std::ios::trunc | std::ios::binary);
+	output1.close ();
 
 	//更新显示下载记录
 	UpdateDownLogList ();
+	updownlog ();
 }
 
 //重新下载选中文件
@@ -162,12 +157,18 @@ void FileDownLog::OnRetryDownloadFiles ()
 
 }
 
-//删除选中记录
+//删除选中记录,
 void FileDownLog::OnDelectChosedFileslog ()
 {
 	int i = 0;
 	int n = 0;
 	int to_delete[max_select_item];
+
+	CString pathstring;
+	CString namestring;
+	CString size;
+	CString downtime;
+	CString status;
 
 	POSITION  pos = pmyListCtrl->GetFirstSelectedItemPosition ();
 	if (pos == NULL)
@@ -175,15 +176,35 @@ void FileDownLog::OnDelectChosedFileslog ()
 	else
 		while (pos)
 			to_delete[i++] = pmyListCtrl->GetNextSelectedItem (pos);
+
 	unsigned int  count = pmyListCtrl->GetSelectedCount ();
 
 	n = pmyListCtrl->GetSelectedCount ();//被选择总数；
 	int k = 0;
+
+	std::vector <downlogstruct> del;
+	std::wstring_convert<std::codecvt_utf8<wchar_t>> conv;
+	std::string delfile;
 	for (i = 0; i < n; i++)
 	{
-		pmyListCtrl->DeleteItem (to_delete[i] - k);//依依删除；
+		//获取对应的文件名和路径名称
+		pathstring = pmyListCtrl->GetItemText (to_delete[i] - k, 0);
+		namestring = pmyListCtrl->GetItemText (to_delete[i] - k, 1);
+		size = pmyListCtrl->GetItemText (to_delete[i] - k, 2);
+		downtime = pmyListCtrl->GetItemText (to_delete[i] - k, 3);
+		status = pmyListCtrl->GetItemText (to_delete[i] - k, 4);
+
+
+		//将要删除的记录添加到待删除列表，便于统计完成时一次性删除
+		del.push_back (std::move(downlogstruct (
+			conv.to_bytes (namestring), conv.to_bytes (pathstring), conv.to_bytes (size),
+			conv.to_bytes (downtime), conv.to_bytes (status)))
+		);
 		k++;
 	}
+
+	mergeLog (del);
+	updownlog ();
 }
 
 //删除选中文件
@@ -192,46 +213,118 @@ void FileDownLog::OnDelectChosedFiles ()
 	int i = 0;
 	int n = 0;
 	int to_delete[max_select_item];
-	CString pathstring{};
-	CString namestring{};
+	
+	CString pathstring;
+	CString namestring;
+	CString size;
+	CString downtime;
+	CString status;
 	POSITION  pos = pmyListCtrl->GetFirstSelectedItemPosition ();
 	if (pos == NULL)
 		MessageBox (L"请选择记录");
 	else
 		while (pos)
 			to_delete[i++] = pmyListCtrl->GetNextSelectedItem (pos);
+
 	unsigned int  count = pmyListCtrl->GetSelectedCount ();
 
 	n = pmyListCtrl->GetSelectedCount ();//被选择总数；
 	int k = 0;
+
+	std::vector <downlogstruct> del;
+	std::wstring_convert<std::codecvt_utf8<wchar_t>> conv;
+	std::string delfile;
 	for (i = 0; i < n; i++)
 	{
 		//获取对应的文件名和路径名称
 		pathstring = pmyListCtrl->GetItemText (to_delete[i] - k, 0);
-		namestring = pmyListCtrl->GetItemText (to_delete[i] - k, 1);
+		namestring = pmyListCtrl->GetItemText (to_delete[i] - k, 1);		
+		size = pmyListCtrl->GetItemText (to_delete[i] - k, 2);
+		downtime = pmyListCtrl->GetItemText (to_delete[i] - k, 3);
+		status = pmyListCtrl->GetItemText (to_delete[i] - k, 4);
+
+
+		//将要删除的记录添加到待删除列表，便于统计完成时一次性删除
+		del.push_back (std::move (downlogstruct(
+			conv.to_bytes(namestring), conv.to_bytes (pathstring), conv.to_bytes (size), 
+			conv.to_bytes (downtime), conv.to_bytes (status)
+		)));
 
 		//将字符串连接，产出对应文件
-		if (remove ("") != 0)
-			MessageBox (L"** 文件删除失败！");
+		delfile=conv.to_bytes (pathstring)+"\\"+ conv.to_bytes (namestring);
+		if (remove (delfile.c_str()) != 0)
+			MessageBox (L"文件删除失败！");
 		k++;
 	}
+
+	//从中间层删除数据，并将MFC显示更新
+	mergeLog (del);
+	updownlog ();
 }
 
+//将数据;久化
+void wirteToFile ()
+{
+	std::fstream tofile ("downlog", std::ios::out | std::ios::trunc | std::ios::binary);
+	if (!tofile)
+		return;
+	qiuwanli::FileDownLogFile downlog;
+	qiuwanli::BufInterface buf;
+	//downlogstruct item;
 
+	for (auto iter = downLogRecode.begin(); iter != downLogRecode.end (); ++iter)
+	{
+		//item = *iter;
+		buf.MakeDownlog (
+			downlog.add_filelog (),iter->str1, iter->str2, iter->str3,
+			iter->str4, iter->str5);
+	}
+
+	if (!downlog.SerializeToOstream (&tofile)) {
+		std::cerr << "Failed to write Downlog:" << std::endl;
+	}
+	tofile.close ();
+}
+
+//将要删除的记录添在统计完成时一次性删除//
+void FileDownLog::mergeLog (std::vector <downlogstruct> & del)
+{
+	auto iter1 = del.begin ();
+	auto iter21 = downLogRecode.begin ();
+	auto iter22 = downLogRecode.begin ();
+	for (;;)
+	{
+		for (iter21=iter22;iter21!=downLogRecode.end();++iter21)
+		{
+			if (iter1->str1==iter21->str1 && iter1->str2==iter21->str2)
+			{
+				downLogRecode.erase (iter21);
+				iter22 = (--iter21);
+			}
+		}
+		++iter1;
+		if (iter1==del.end())
+			break;
+	}
+	
+	wirteToFile ();
+	updownlog ();
+}
+
+//将数据在入到内存
 BOOL	FileDownLog::UpdateDownLogList ()
 {
-	qiuwanli::utilty utility;
 	qiuwanli::FileDownLogFile log;
-	std::fstream input ("downlog", std::ios::in | std::ios::binary);
-	if (!input) {
+	std::fstream filedownlogin ("downlog", std::ios::in | std::ios::binary);
+	if (!filedownlogin) {
 		MessageBox (L"配置文件打开失败！");
 		return FALSE;
 	}
 
-	if (!log.ParseFromIstream (&input))
+	if (!log.ParseFromIstream (&filedownlogin))
 	{	//打开失败
 		MessageBox (L"配置文件加载失败！");
-		input.close ();
+		filedownlogin.close ();
 		return FALSE;
 	}
 	else
@@ -239,56 +332,88 @@ BOOL	FileDownLog::UpdateDownLogList ()
 		for (int i = 0; i < log.filelog_size(); ++i)
 		{
 			const qiuwanli::FileDownLog& downlog =log.filelog(i);
-
-			pmyListCtrl->InsertItem (i, utility.StringToWstring(downlog.filename ()).c_str());
-			pmyListCtrl->SetItemText (i, 1, utility.StringToWstring (downlog.filepath ()).c_str ());
-			pmyListCtrl->SetItemText (i, 2, utility.StringToWstring (downlog.filesize ()).c_str ());
-			pmyListCtrl->SetItemText (i, 3, utility.StringToWstring (downlog.downtime ()).c_str ());
-			pmyListCtrl->SetItemText (i, 4, utility.StringToWstring (downlog.status ()).c_str ());
+			downLogRecode.push_back (std::move(
+				downlogstruct (downlog.filename(), downlog.filepath (),
+					downlog.filesize (), downlog.downtime (), downlog.status ()))
+			);
 		}
-
-		input.close ();
-		//FileDownLog::UpdateWindow ();
-		return TRUE;
 	}
+
+	filedownlogin.close ();
+	return TRUE;
 }
 
+//更新list显示数据
+void FileDownLog::updownlog ()
+{
+	qiuwanli::utilty utility;
+	int i = 0;
+	for (auto iter=downLogRecode.begin(); iter !=downLogRecode.end(); ++iter)
+	{
+		pmyListCtrl->InsertItem (i, utility.StringToWstring (iter->str1).c_str ());
+		pmyListCtrl->SetItemText (i, 1, utility.StringToWstring (iter->str2).c_str ());
+		pmyListCtrl->SetItemText (i, 2, utility.StringToWstring (iter->str3).c_str ());
+		pmyListCtrl->SetItemText (i, 3, utility.StringToWstring (iter->str4).c_str ());
+		pmyListCtrl->SetItemText (i, 4, utility.StringToWstring (iter->str5).c_str ());
+		++i;
+	}
+
+	FileDownLog::UpdateWindow ();
+}
+
+//
+void FileDownLog::addDownlogItem (downlogstruct& add)
+{
+	downLogRecode.push_back (add);
+	updownlog ();
+}
+
+//下载记录移除接口
+void FileDownLog::removeDownlogItem (downlogstruct& add)
+{
+	for (auto iter=downLogRecode.begin();iter!=downLogRecode.end();++iter)
+	{
+		if (iter->str1.compare (add.str1) && iter->str2.compare (add.str2))
+			downLogRecode.erase (iter);
+	}
+
+	updownlog ();
+}
 //获取多选对应列表的起始位置
 //选中文件时，按住del按键，删除
-void FileDownLog::OnLvnKeydownList9 (NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMLVKEYDOWN pLVKeyDow = reinterpret_cast<LPNMLVKEYDOWN>(pNMHDR);
-	// TODO: 在此添加控件通知处理程序代码
-	int i = 0;
-	int n = 0;
-	int to_delete[65535];
-
-	if (pLVKeyDow->wVKey == VK_DELETE)
-	{
-		POSITION  pos = pmyListCtrl->GetFirstSelectedItemPosition ();
-		if (pos == NULL)
-		{
-			TRACE0 ("No  items were selected!/n");
-		}
-		else
-		{
-			while (pos)
-			{
-				to_delete[i++] = pmyListCtrl->GetNextSelectedItem (pos);
-			}
-		}
-		n = pmyListCtrl->GetSelectedCount ();//被选择总数；
-		int k = 0;
-		for (i = 0; i < n; i++)
-		{
-			pmyListCtrl->DeleteItem (to_delete[i] - k);//依依删除；
-			k++;
-		}
-	}
-
-	*pResult = 0;
-}
-
+//void FileDownLog::OnLvnKeydownList9 (NMHDR *pNMHDR, LRESULT *pResult)
+//{
+//	LPNMLVKEYDOWN pLVKeyDow = reinterpret_cast<LPNMLVKEYDOWN>(pNMHDR);
+//	// TODO: 在此添加控件通知处理程序代码
+//	int i = 0;
+//	int n = 0;
+//	int to_delete[65535];
+//
+//	if (pLVKeyDow->wVKey == VK_DELETE)
+//	{
+//		POSITION  pos = pmyListCtrl->GetFirstSelectedItemPosition ();
+//		if (pos == NULL)
+//		{
+//			TRACE0 ("No  items were selected!/n");
+//		}
+//		else
+//		{
+//			while (pos)
+//			{
+//				to_delete[i++] = pmyListCtrl->GetNextSelectedItem (pos);
+//			}
+//		}
+//		n = pmyListCtrl->GetSelectedCount ();//被选择总数；
+//		int k = 0;
+//		for (i = 0; i < n; i++)
+//		{
+//			pmyListCtrl->DeleteItem (to_delete[i] - k);//依依删除；
+//			k++;
+//		}
+//	}
+//
+//	*pResult = 0;
+//}
 
 //删除选中的列表记录
 //void FileDownLog::OnLvnKeydownList9 (NMHDR *pNMHDR, LRESULT *pResult)
