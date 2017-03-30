@@ -15,6 +15,7 @@
 #include "checkNet.hpp"
 #include <sstream>
 #include <random>
+#include <cstring>
 #include "Main_UI.h"
 
 #ifdef _DEBUG
@@ -207,9 +208,32 @@ HCURSOR CMFCApplication1Dlg::OnQueryDragIcon()
 std::string CMFCApplication1Dlg::getUuid ()
 {
 	std::string uuidPC{};
-	/*uuidxx::uuid uu= uuidxx::uuid::Generate ();
-	uuidPC = uu.ToString (true).c_str ();
-	std::cout << "UUID:" << uuidPC << std::endl;*/
+	unsigned long s1, s2;
+	char sel='1';
+	CString MyCpuid;
+
+	__asm {
+		mov eax, 01h
+		xor edx, edx
+		cpuid
+		mov s1,edx
+		mov s2,eax
+	}
+
+	std::string cpu1= std::to_string (s1) + std::to_string (s2);
+
+	__asm {
+		mov eax, 03h
+		xor ecx, ecx
+		xor edx, edx
+		cpuid
+		mov s1,edx
+		mov s2,ecx
+	}
+	cpu1 = cpu1+std::to_string (s1) + std::to_string (s2);
+	
+	MyCpuid = cpu1.c_str();
+	MessageBox (MyCpuid);
 	return uuidPC;
 }
 
@@ -294,8 +318,8 @@ void CMFCApplication1Dlg::OnBnClickedOk ()
 			edit3->SetWindowText (L"");
 			edit3->SetFocus ();
 		}
-		//更新验证码图片
-		// TODO
+		//更新验证码图片，随机生成随机数
+		OnStnClickedStaticPic ();
 	}
 }
 

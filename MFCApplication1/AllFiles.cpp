@@ -177,7 +177,8 @@ void AllFiles::OnUploadFiles2CurrentPath ()
 void AllFiles::OnCreateFolder2CurrentPath ()
 {
 	//创建窗体，输入文件夹名称
-	
+	std::string ss;
+//	std::mkdir (ss);
 }
 
 
@@ -194,6 +195,7 @@ void AllFiles::OnNMDblclkList5 (NMHDR *pNMHDR, LRESULT *pResult)
 //更新文件列表
 bool AllFiles::updateList ()
 {
+
 	qiuwanli::utilty uu;
 	qiuwanli::AllFiles allfilesList;
 	std::fstream allfilein ("MakePath4FileOrDir", std::ios::in | std::ios::binary);
@@ -206,7 +208,12 @@ bool AllFiles::updateList ()
 	{
 		MessageBox (L"配置文件加载失败！");
 		allfilein.close ();
-		return FALSE;
+		//文件记录解析失败后，解析配置文件，获取文件路径
+		//重写记录
+		//TODO:
+
+		//重写记录后，再次打开文件进行解析
+		updateList ();
 	}
 	else
 	{	//解析配置文件

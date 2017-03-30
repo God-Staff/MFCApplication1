@@ -19,7 +19,7 @@ int main ()
 	boost::uuids::uuid dns_namespace_uuid;
 	boost::uuids::name_generator gen (dns_namespace_uuid);
 	boost::uuids::uuid u = gen (std::to_string (dd[0]));
-	std::string uuid=boost::lexical_cast<std::string>(u);
+	std::string uuid = boost::lexical_cast<std::string>(u);
 	std::cout << uuid;
 	return 0;
 }

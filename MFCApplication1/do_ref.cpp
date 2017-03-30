@@ -94,7 +94,6 @@ END_MESSAGE_MAP ()
 //取消
 void do_ref::OnBnClickedButton2 ()
 {
-	// TODO: 在此添加控件通知处理程序代码
 	//生成登陆窗口,完成窗体间的切换
 	reg_info *tt = new reg_info ();
 	tt->Create (IDD_MFCAPPLICATION1_DIALOG2, this);
@@ -182,12 +181,10 @@ void do_ref::OnCbnSelchangeCombo1 ()
 	Box2->ResetContent ();
 
 	int ii = Box1->GetCurSel ();
-	//int ii = Box1->GetEditSel ();
 	std::cout << ii << std::endl;
 	//遍历填充数据 省份//
 	for (int i = 0; i < city_num[ii]; ++i)
 	{
 		Box2->InsertString (i, city_info[ii][i].c_str ());
 	}
-	//Box2->UpdateWindow ();
 }

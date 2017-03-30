@@ -35,12 +35,10 @@ BEGIN_MESSAGE_MAP(FileDownLog, CDialogEx)
 	ON_COMMAND (ID_32796, &FileDownLog::OnRetryDownloadFiles)
 	ON_COMMAND (ID_32797, &FileDownLog::OnDelectChosedFileslog)
 	ON_COMMAND (ID_32798, &FileDownLog::OnDelectChosedFiles)
-	ON_NOTIFY (LVN_KEYDOWN, IDC_LIST9, &FileDownLog::OnLvnKeydownList9)
+//	ON_NOTIFY (LVN_KEYDOWN, IDC_LIST9, &FileDownLog::OnLvnKeydownList9)
 END_MESSAGE_MAP()
 
-
 // FileDownLog 消息处理程序
-
 
 BOOL FileDownLog::OnInitDialog ()
 {
@@ -263,7 +261,7 @@ void FileDownLog::OnDelectChosedFiles ()
 }
 
 //将数据;久化
-void wirteToFile ()
+void FileDownLog::wirteToFile ()
 {
 	std::fstream tofile ("downlog", std::ios::out | std::ios::trunc | std::ios::binary);
 	if (!tofile)
@@ -275,9 +273,7 @@ void wirteToFile ()
 	for (auto iter = downLogRecode.begin(); iter != downLogRecode.end (); ++iter)
 	{
 		//item = *iter;
-		buf.MakeDownlog (
-			downlog.add_filelog (),iter->str1, iter->str2, iter->str3,
-			iter->str4, iter->str5);
+		buf.MakeDownlog (downlog.add_filelog (),iter->str1, iter->str2, iter->str3,iter->str4, iter->str5);
 	}
 
 	if (!downlog.SerializeToOstream (&tofile)) {
@@ -347,6 +343,8 @@ BOOL	FileDownLog::UpdateDownLogList ()
 void FileDownLog::updownlog ()
 {
 	qiuwanli::utilty utility;
+	//先清空记录，再填充数据
+	pmyListCtrl->DeleteAllItems ();
 	int i = 0;
 	for (auto iter=downLogRecode.begin(); iter !=downLogRecode.end(); ++iter)
 	{
@@ -379,73 +377,3 @@ void FileDownLog::removeDownlogItem (downlogstruct& add)
 
 	updownlog ();
 }
-//获取多选对应列表的起始位置
-//选中文件时，按住del按键，删除
-//void FileDownLog::OnLvnKeydownList9 (NMHDR *pNMHDR, LRESULT *pResult)
-//{
-//	LPNMLVKEYDOWN pLVKeyDow = reinterpret_cast<LPNMLVKEYDOWN>(pNMHDR);
-//	// TODO: 在此添加控件通知处理程序代码
-//	int i = 0;
-//	int n = 0;
-//	int to_delete[65535];
-//
-//	if (pLVKeyDow->wVKey == VK_DELETE)
-//	{
-//		POSITION  pos = pmyListCtrl->GetFirstSelectedItemPosition ();
-//		if (pos == NULL)
-//		{
-//			TRACE0 ("No  items were selected!/n");
-//		}
-//		else
-//		{
-//			while (pos)
-//			{
-//				to_delete[i++] = pmyListCtrl->GetNextSelectedItem (pos);
-//			}
-//		}
-//		n = pmyListCtrl->GetSelectedCount ();//被选择总数；
-//		int k = 0;
-//		for (i = 0; i < n; i++)
-//		{
-//			pmyListCtrl->DeleteItem (to_delete[i] - k);//依依删除；
-//			k++;
-//		}
-//	}
-//
-//	*pResult = 0;
-//}
-
-//删除选中的列表记录
-//void FileDownLog::OnLvnKeydownList9 (NMHDR *pNMHDR, LRESULT *pResult)
-//{
-//	LPNMLVKEYDOWN pLVKeyDow = reinterpret_cast<LPNMLVKEYDOWN>(pNMHDR);
-//	// TODO: 在此添加控件通知处理程序代码
-//	int i = 0;
-//	int n = 0;
-//	int to_delete[65535];
-//
-//	if (pLVKeyDow->wVKey == VK_DELETE)
-//	{
-//		POSITION  pos = pmyListCtrl->GetFirstSelectedItemPosition ();
-//		if (pos == NULL)
-//		{
-//			TRACE0 ("No  items were selected!/n");
-//		}
-//		else
-//		{
-//			while (pos)
-//			{
-//				to_delete[i++] = pmyListCtrl->GetNextSelectedItem (pos);
-//			}
-//		}
-//		n = pmyListCtrl->GetSelectedCount ();//被选择总数；
-//		int k = 0;
-//		for (i = 0; i < n; i++)
-//		{
-//			pmyListCtrl->DeleteItem (to_delete[i] - k);//依依删除；
-//			k++;
-//		}
-//	}
-//
-//	*pResult = 0;
-//}

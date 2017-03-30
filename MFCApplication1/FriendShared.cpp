@@ -215,7 +215,7 @@ void FriendShared::OnDelFriend ()
 		while (pos)
 		{
 			int nItem = m_ListControl->GetNextSelectedItem (pos);
-			m_ListContro2->DeleteItem (nItem);
+			m_ListControl->DeleteItem (nItem);
 			//通知服务端，删除相应的文件列表
 			//TODO:
 		}
@@ -336,6 +336,7 @@ BOOL	FriendShared::UpdateDownLogList ()
 			m_ListControl->SetItemText (i, 1, utility.StringToWstring (myfriend.name ()).c_str ());
 		}
 	}
+	FriendListin.close ();
 
 	if (!FileSharedLogin) {
 		MessageBox (L"sharedlist 配置文件打开失败！");
@@ -362,7 +363,6 @@ BOOL	FriendShared::UpdateDownLogList ()
 		}
 	}
 
-	FriendListin.close ();
 	FileSharedLogin.close ();
 	return TRUE;
 }

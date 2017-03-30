@@ -114,6 +114,9 @@
     <ClInclude Include="ProtoInterface.hpp">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="Notify_Event.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MFCApplication1.cpp">
@@ -174,6 +177,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ProtoInterface.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Notify_Event.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
   </ItemGroup>
