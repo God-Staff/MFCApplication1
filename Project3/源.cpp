@@ -23,9 +23,15 @@ public:
 	typedef boost::shared_ptr<Session> Pointer;
 	typedef File_info::Size_type Size_type;
 
-	static void print_asio_error (const Error& error) { std::cerr << error.message () << "\n"; }
+	static void print_asio_error (const Error& error) 
+	{ 
+		std::cerr << error.message () << "\n"; 
+	}
 
-	static Pointer create (boost::asio::io_service& io) { return Pointer (new Session (io)); }
+	static Pointer create (boost::asio::io_service& io) 
+	{ 
+		return Pointer (new Session (io)); 
+	}
 
 	TCP::socket& socket () { return socket_; }
 
@@ -59,7 +65,9 @@ public:
 	}
 
 private:
-	Session (boost::asio::io_service& io) : socket_ (io), fp_ (NULL), total_bytes_writen_ (0) { }
+	Session (boost::asio::io_service& io) : 
+		socket_ (io), fp_ (NULL), total_bytes_writen_ (0) 
+	{ }
 
 	void handle_header (const Error& error)
 	{
@@ -164,12 +172,7 @@ private:
 		case	1023:   //文件传输//
 			receive_file_content ();
 			break;
-		case	1024:   //指定文件传输（传输那个文件，从第几块起，长度）（若文件块出错可用于指定传输）//
-			break;
-		case	1025:   //传输结束某个文件时，发送确认信息//
-			break;
-		case	1026:   //所有文件传输完成时，发送确认信息//
-			break;
+	
 		default:
 			break;
 		}

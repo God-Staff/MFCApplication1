@@ -43,7 +43,6 @@ message userreg
 	string reg_code=4;
 }
 
-
 //for user login log
 //用于记录用户的登录信息，便于安全验证以及检查用户异常信息(Servers 端)
 message LoginIpLogs 
@@ -184,8 +183,6 @@ message filetemp
 	bytes BitMap=2;				//用于保存文件存储块所对应的位图信息，1 表示数据完整可用，0 代表其他情况
 	string NowStatus=3;			//0表示位图全空，1表示正在使用 2表示数据已下载完整，3表示正确性验证出错，4表示数据完整
 }
-
-
 
 //所有文件列表对应的查询表
 message allfiles 

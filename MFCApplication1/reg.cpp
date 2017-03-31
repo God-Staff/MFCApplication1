@@ -53,6 +53,7 @@ BEGIN_MESSAGE_MAP(reg, CDialogEx)
 	ON_BN_CLICKED (IDOK, &reg::OnBnClickedOk)
 	ON_BN_CLICKED (IDCANCEL2, &reg::OnBnClickedCancel2)
 	ON_EN_KILLFOCUS (IDC_EDIT23, &reg::OnEnKillfocusEdit23)
+	ON_EN_KILLFOCUS (IDC_EDIT21, &reg::OnEnKillfocusEdit21)
 END_MESSAGE_MAP()
 
 
@@ -76,6 +77,7 @@ void reg::OnBnClickedCancel ()
 	edit5->GetWindowText (User);
 	s = CT2A (User);
 	userreg.set_reg_code (s);
+	//等待一定时间
 
 	try {
 		//将对象序列化到文件流
@@ -155,4 +157,44 @@ void reg::OnEnKillfocusEdit23 ()
 		edit3->SetCueBanner (L"请重新输入密码", TRUE);
 	}
 	UpdateWindow ();
+}
+
+//当用户名输入完成时，触发。
+//检查用户名的有效性
+//将用户ID发送到服务器进行验证，检查是否有重复，并返回确认信息
+//从而触发响应事件。
+void reg::OnEnKillfocusEdit21 ()
+{
+	qiuwanli::userreg userreg;
+	CString User;
+	std::string s;
+	edit1->GetWindowText (User);
+	s = CT2A (User);
+	userreg.set_user_name (s);
+
+	//将对象序列化到文件流
+	try {
+		std::fstream output ("userreg", std::ios::out | std::ios::trunc | std::ios::binary);
+		if (!userreg.SerializeToOstream (&output)) {
+			std::cerr << "Failed to write address book." << std::endl;
+		}
+		output.close ();
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << "ERROE:" << e.what () << std::endl;
+	}
+
+	//发送数据，若密码为空，则表示检查用户是否重复。
+	boost::asio::io_service io;
+	try {
+		qiuwanli::utilty s;
+		//s.sender (io, "127.0.0.1", 9999, "userreg", "996\0");
+	}
+	catch (std::exception& err) {
+		std::cerr << err.what () << "\n";
+	}
+
+
+
 }
